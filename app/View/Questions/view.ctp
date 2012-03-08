@@ -87,8 +87,13 @@ form div.submit {
 <?php 
   if($this->Session->read('User.permissions') & 1) {
     echo " | ";
-    echo $this->Html->Link('Endorse',
-        array('controller' => 'answers', 'action' => 'endorse', $ans['id']));
+    if($ans['endorsed']) {
+      echo $this->Html->Link('Unendorse',
+          array('controller' => 'answers', 'action' => 'unendorse', $ans['id']));
+    } else {
+      echo $this->Html->Link('Endorse',
+          array('controller' => 'answers', 'action' => 'endorse', $ans['id']));
+    }
   }
 
   if ($question['Question']['user_id'] == $this->Session->read('User.id')) {

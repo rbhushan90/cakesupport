@@ -10,8 +10,11 @@ class AnswersController extends AppController {
       $this->redirect('/login');
     }
     $this->request->data['Answer']['user_id'] = $this->Session->read('User.id');
+    if($this->Session->read('User.permissions') & 1) {
+    $this->request->data['Answer']['endorsed'] = 1;
+    }
     if($this->Answer->save($this->request->data)) {
-      $this->redirect('/questions'); 
+      $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
     } else {
       $this->Session->setFlash('Could not save answer');
       $this->redirect(array('controller' => 'questions', 'action' => 'view', 
@@ -22,7 +25,13 @@ class AnswersController extends AppController {
   public function remove($id = null) {
     $this->Answer->id = $id;
     $ans = $this->Answer->read();
-    $this->Session->setFlash("This functionality has not been implemented yet.");
+    if($ans['user_id'] == $this->Session->read('user.id') || $this->Session->read('User.permissions') & 2) {
+      if(!$this->Answer->delete($id)) {
+        $this->Session->setFlash('Could not delete answer');
+      }
+    } else {
+      $this->Session->setFlash('You cannot delete somebody else\'s answer.');
+    }
     $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
   }
 
@@ -42,7 +51,28 @@ class AnswersController extends AppController {
   public function endorse($id = null) {
     $this->Answer->id = $id;
     $ans = $this->Answer->read();
-    $this->Session->setFlash("This functionality has not been implemented yet.");
+    if($ans['user_id'] == $this->Session->read('user.id') || $this->Session->read('User.permissions') & 1) {
+      $ans['Answer']['endorsed'] = 1;
+      if(!$this->Answer->save($ans)) {
+        $this->Session->setFlash('Could not delete answer');
+      }
+    } else {
+      $this->Session->setFlash('You cannot delete somebody else\'s answer.');
+    }
+    $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
+  }
+
+  public function unendorse($id = null) {
+    $this->Answer->id = $id;
+    $ans = $this->Answer->read();
+    if($ans['user_id'] == $this->Session->read('user.id') || $this->Session->read('User.permissions') & 1) {
+      $ans['Answer']['endorsed'] = 0;
+      if(!$this->Answer->save($ans)) {
+        $this->Session->setFlash('Could not delete answer');
+      }
+    } else {
+      $this->Session->setFlash('You cannot delete somebody else\'s answer.');
+    }
     $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
   }
 }
