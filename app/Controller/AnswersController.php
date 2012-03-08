@@ -32,6 +32,19 @@ class AnswersController extends AppController {
     $this->Session->setFlash("This functionality has not been implemented yet.");
     $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
   }
+
+  public function accept($id = null) {
+    $this->Answer->id = $id;
+    $ans = $this->Answer->read();
+    $this->Session->setFlash("This functionality has not been implemented yet.");
+    $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
+  }
+  public function endorse($id = null) {
+    $this->Answer->id = $id;
+    $ans = $this->Answer->read();
+    $this->Session->setFlash("This functionality has not been implemented yet.");
+    $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
+  }
 }
 
 ?>

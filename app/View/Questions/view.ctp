@@ -62,8 +62,17 @@ form div.submit {
 <h3>Answers</h3>
 <br />
 
-<?php foreach ($question['QuestionAnswer'] as $ans): ?>
-<div class="qa answer">
+<?php
+  foreach ($question['QuestionAnswer'] as $ans):
+    echo "<div class=\"qa answer";
+    if($ans['accepted']) {
+      echo " accepted";
+    }
+    if($ans['endorsed']) {
+      echo " endorsed";
+    }
+    echo "\">";
+?>
 <div class="user">
 <h4>
 <?php echo $ans['username'] ?>
