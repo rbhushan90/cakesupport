@@ -272,7 +272,8 @@ form div {
 	clear: both;
 	margin-bottom: 1em;
 	padding: .5em;
-	vertical-align: text-top;
+  display: table;
+	vertical-align: middle;
 }
 form .input {
 	color: #444;

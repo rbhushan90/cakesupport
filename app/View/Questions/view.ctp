@@ -1,5 +1,20 @@
-<div id="question">
+<style type="text/css">
+form div.required label {
+  display: none;
+}
+form div.required {
+  display: inline-block;
+  padding: 10px 50px;
+}
+form div.required textarea {
+  width: 600px;
+}
+form div.submit {
+  display: inline-block;
+}
+</style>
 <h2><?php echo $question['Question']['title']; ?></h2>
+<a name="top"></a>
 
 Created: <?php echo $question['Question']['created']; ?> <br />
 by: <?php echo $question['User']['username']; ?> <br />
@@ -18,11 +33,14 @@ by: <?php echo $question['User']['username']; ?> <br />
   }
 ?>
 </div>
+<br />
+<br />
 <?php
   if($this->Session->read('User.id')) {
     echo $this->Form->create('Answer', array('action' => 'post'));
     echo $this->Form->input('question_id', array('type' => 'hidden'));
-    echo $this->Form->input('body', array('class' => 'newanswer'));
+    echo $this->Form->input('body',
+        array('rows' => 4, 'class' => 'newanswer', 'label' => ''));
     echo $this->Form->end('Answer');
   }
 ?>
@@ -43,6 +61,7 @@ by: <?php echo $question['User']['username']; ?> <br />
 
 <?php if ($ans['user_id'] == $this->Session->read('User.id')) { ?>
 <div class="mod">
+<a href="#top">Top</a> | 
 <?php echo $this->Html->Link('Delete', array('controller' => 'answer', 'action' => 'remove')); ?>
 </div>
 <?php } ?>
