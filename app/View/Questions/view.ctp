@@ -32,6 +32,13 @@ form div.submit {
 </div>
 
 <div class="bottom">
+  <div class="props"> 
+  <?php
+    if($question['Question']['created'] != $question['Question']['modified']) {
+      echo "Modified on " . $question['Question']['modified'];
+    }
+  ?>
+  </div>
   <div class="mod">
   <?php 
     if($this->Session->read('User.id') == $question['User']['id'] || $this->Session->read('User.permissions') & 1) {

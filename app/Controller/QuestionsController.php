@@ -47,6 +47,7 @@ class QuestionsController extends AppController {
       $this->request->data = $this->Question->read();
     } else {
       if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & 1) {
+        $this->request->data['Question']['modified'] = date('Y-m-d H:i:s');
         if($this->Question->save($this->request->data)) {
           $this->Session->setFlash('Your post has been updated');
           $this->redirect(array('action' => 'view', $id));
