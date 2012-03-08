@@ -13,27 +13,41 @@ form div.submit {
   display: inline-block;
 }
 </style>
-<h2><?php echo $question['Question']['title']; ?></h2>
 <a name="top"></a>
+<div id="question-info">
+<h2><?php echo $question['Question']['title']; ?></h2>
 
-Created: <?php echo $question['Question']['created']; ?> <br />
-by: <?php echo $question['User']['username']; ?> <br />
-<br />
+<b>Asked by:</b> <?php echo $question['User']['username']; ?> <br />
+<b>on:</b> <?php echo $question['Question']['created']; ?> <br />
+</div>
+
+<div class="qa question">
+<div class="user">
+<h4>
+<?php echo $question['User']['username'] ?>
+</h4>
+</div>
+<div class="body">
 <?php echo $question['Question']['body']; ?>
+</div>
 
-<div style="text-align: right">
+<div class="mod">
 <?php 
+  echo $this->Html->Link('Report', array('action' => 'report', $question['Question']['id']));
   if($this->Session->read('User.id') == $question['User']['id']) {
-    echo "<br />";
-    echo $this->Html->Link('Edit Post',
+    echo " | ";
+    echo $this->Html->Link('Edit ',
         array('action' => 'edit', $question['Question']['id']));
     echo " | ";
-    echo $this->Html->Link('Delete Post',
+    echo $this->Html->Link('Delete',
         array('action' => 'remove', $question['Question']['id']));
   }
 ?>
 </div>
+</div>
+
 <br />
+
 <br />
 <?php
   if($this->Session->read('User.id')) {
@@ -49,7 +63,7 @@ by: <?php echo $question['User']['username']; ?> <br />
 <br />
 
 <?php foreach ($question['QuestionAnswer'] as $ans): ?>
-<div class="answer">
+<div class="qa answer">
 <div class="user">
 <h4>
 <?php echo $ans['username'] ?>
@@ -59,12 +73,16 @@ by: <?php echo $question['User']['username']; ?> <br />
 <?php echo $ans['body'] ?> 
 </div>
 
-<?php if ($ans['user_id'] == $this->Session->read('User.id')) { ?>
 <div class="mod">
 <a href="#top">Top</a> | 
-<?php echo $this->Html->Link('Delete', array('controller' => 'answer', 'action' => 'remove')); ?>
+<?php 
+  echo $this->Html->Link('Report', array('controller' => 'answers', 'action' => 'report', $ans['id']));
+  if ($ans['user_id'] == $this->Session->read('User.id')) {
+    echo " | ";
+    echo $this->Html->Link('Delete', array('controller' => 'answers', 'action' => 'remove', $ans['id']));
+  }
+?>
 </div>
-<?php } ?>
 
 </div>
 <?php endforeach; ?>

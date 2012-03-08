@@ -31,6 +31,11 @@ class QuestionsController extends AppController {
     print_r($this->request->data);
   }
 
+  public function report($id = null) {
+    $this->Session->setFlash("This functionality has not been implemented yet.");
+    $this->redirect(array('action' => 'view', $id));
+  }
+
   public function edit($id = null) {
     $this->Question->id = $id;
     if($this->Question->read() == null) {

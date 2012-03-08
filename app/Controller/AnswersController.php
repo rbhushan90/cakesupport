@@ -17,7 +17,20 @@ class AnswersController extends AppController {
       $this->redirect(array('controller' => 'questions', 'action' => 'view', 
           $this->request->data['Answer']['question_id'])); 
     }
+  }
 
+  public function remove($id = null) {
+    $this->Answer->id = $id;
+    $ans = $this->Answer->read();
+    $this->Session->setFlash("This functionality has not been implemented yet.");
+    $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
+  }
+
+  public function report($id = null) {
+    $this->Answer->id = $id;
+    $ans = $this->Answer->read();
+    $this->Session->setFlash("This functionality has not been implemented yet.");
+    $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
   }
 }
 

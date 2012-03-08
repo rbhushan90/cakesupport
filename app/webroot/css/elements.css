@@ -1,13 +1,13 @@
-div#question {
+div#question-info {
   padding: 20px 50px;
 }
 
-div.answer {
+div.qa {
   margin: 10px 15px;
   border: 1px solid black;
 }
 
-div.answer div.user {
+div.qa div.user {
   float: left;
   display: inline-block;
   width: 140px;
@@ -15,14 +15,14 @@ div.answer div.user {
   border-right: 1px solid black;
   padding: 15px 10px;
 }
-div.answer div.body {
+div.qa div.body {
   text-align: left;
   margin-left: 160px;
   border-left: 1px solid black;
   padding: 15px 10px;
 }
 
-div.answer div.mod {
+div.qa div.mod {
   border-top: 1px solid black;
   clear: both;
   text-align: right;
