@@ -1,9 +1,18 @@
 div#question-info {
   padding: 20px 50px;
 }
+div#question-info * {
+  padding: 0px;
+  margin: 0px;
+}
+
+table#question-list {
+  padding: 10px 20px;
+}
 
 div.qa {
   margin: 10px 15px;
+  border-radius: 3px;
   border: 1px solid black;
 }
 
