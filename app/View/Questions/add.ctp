@@ -1,4 +1,4 @@
-<h2>Add a Question</h2>
+<h2>Ask a Question</h2>
 
 <?php
 

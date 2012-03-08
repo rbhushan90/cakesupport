@@ -27,6 +27,9 @@
  */
 #	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 Router::connect('/', array('controller' => 'questions', 'action' => 'index'));
+Router::connect('/unanswered', array('controller' => 'questions', 'action' => 'index'));
+Router::connect('/recent', array('controller' => 'questions', 'action' => 'index'));
+
 Router::connect('/register', array('controller' => 'users',
   'action' => 'register'));
 Router::connect('/login', array('controller' => 'users',

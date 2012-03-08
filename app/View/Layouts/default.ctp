@@ -57,7 +57,14 @@
     <ul id="nav">
       <li class="spacer"></li>
       <li><a href='/blog'>Blog</a></li>
-      <li><a href='/questions'>Questions</a></li>
+      <li class="subnav">
+        <a href='/questions'>Questions</a>
+        <ul>
+          <li><a href="/recent">Recently Asked</a></li>
+          <li><a href="/unanswered">Unanswered</a></li>
+          <li><a href="/questions/add">Ask a Question</a></li>
+        </ul>
+      </li>
       <li><a href='/testimonials'>Testimonials</a></li>
       <li><a href='/faq'>F.A.Q</a></li>
     </ul>
