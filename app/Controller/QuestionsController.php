@@ -15,7 +15,7 @@ class QuestionsController extends AppController {
     $this->request->data['Answer']['question_id'] = $id;
     if($q == null) {
       $this->Session->setFlash('This question does not exist or has been deleted');
-      $this->redirect('/');
+      $this->redirect('/questions');
     }
 
     for ($i=count($q['QuestionAnswer'])-1; $i >= 0; $i--) {
@@ -40,7 +40,7 @@ class QuestionsController extends AppController {
     $this->Question->id = $id;
     if($this->Question->read() == null) {
       $this->Session->setFlash('This question does not exist or has been deleted');
-      $this->redirect('/');
+      $this->redirect('/questions');
     }
     if($this->request->is('get')) {
       $this->request->data = $this->Question->read();

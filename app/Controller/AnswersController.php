@@ -14,7 +14,7 @@ class AnswersController extends AppController {
     $this->request->data['Answer']['endorsed'] = 1;
     }
     if($this->Answer->save($this->request->data)) {
-      $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
+      $this->redirect(array('controller' => 'questions', 'action' => 'view', $this->data['Answer']['question_id']));
     } else {
       $this->Session->setFlash('Could not save answer');
       $this->redirect(array('controller' => 'questions', 'action' => 'view', 
