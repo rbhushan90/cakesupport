@@ -1,6 +1,5 @@
 /build
 /dist
-/lib
 /app/tmp
 .DS_Store
 tags
