@@ -33,14 +33,14 @@ form div.submit {
 
 <div class="mod">
 <?php 
-  echo $this->Html->Link('Report', array('action' => 'report', $question['Question']['id']));
   if($this->Session->read('User.id') == $question['User']['id']) {
-    echo " | ";
     echo $this->Html->Link('Edit ',
         array('action' => 'edit', $question['Question']['id']));
     echo " | ";
     echo $this->Html->Link('Delete',
         array('action' => 'remove', $question['Question']['id']));
+  } else {
+    echo $this->Html->Link('Report', array('action' => 'report', $question['Question']['id']));
   }
 ?>
 </div>
@@ -76,10 +76,10 @@ form div.submit {
 <div class="mod">
 <a href="#top">Top</a> | 
 <?php 
-  echo $this->Html->Link('Report', array('controller' => 'answers', 'action' => 'report', $ans['id']));
   if ($ans['user_id'] == $this->Session->read('User.id')) {
-    echo " | ";
     echo $this->Html->Link('Delete', array('controller' => 'answers', 'action' => 'remove', $ans['id']));
+  } else {
+    echo $this->Html->Link('Report', array('controller' => 'answers', 'action' => 'report', $ans['id']));
   }
 ?>
 </div>
