@@ -34,7 +34,7 @@ form div.submit {
 <div class="mod">
 <?php 
   if($this->Session->read('User.id') == $question['User']['id']) {
-    echo $this->Html->Link('Edit ',
+    echo $this->Html->Link('Edit',
         array('action' => 'edit', $question['Question']['id']));
     echo " | ";
     echo $this->Html->Link('Delete',
@@ -74,11 +74,24 @@ form div.submit {
 </div>
 
 <div class="mod">
-<a href="#top">Top</a> | 
+<a href="#top">Top</a>
 <?php 
-  if ($ans['user_id'] == $this->Session->read('User.id')) {
+  if($this->Session->read('User.permissions') & 1) {
+    echo " | ";
+    echo $this->Html->Link('Endorse',
+        array('controller' => 'answers', 'action' => 'endorse', $ans['id']));
+  }
+
+  if ($question['Question']['user_id'] == $this->Session->read('User.id')) {
+    echo " | ";
+    echo $this->Html->Link('Approve', array('controller' => 'answers', 'action' => 'approve', $ans['id']));
+  }
+
+  if ($ans['user_id'] == $this->Session->read('User.id') || $this->Session->read('User.permissions') & 2) {
+    echo " | ";
     echo $this->Html->Link('Delete', array('controller' => 'answers', 'action' => 'remove', $ans['id']));
   } else {
+    echo " | ";
     echo $this->Html->Link('Report', array('controller' => 'answers', 'action' => 'report', $ans['id']));
   }
 ?>
