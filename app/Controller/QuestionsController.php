@@ -38,18 +38,25 @@ class QuestionsController extends AppController {
 
   public function edit($id = null) {
     $this->Question->id = $id;
-    if($this->Question->read() == null) {
+    $q = $this->Question->read();
+    if($q == null) {
       $this->Session->setFlash('This question does not exist or has been deleted');
       $this->redirect('/questions');
     }
     if($this->request->is('get')) {
       $this->request->data = $this->Question->read();
     } else {
-      if($this->Question->save($this->request->data)) {
-        $this->Session->setFlash('Your post has been updated');
-        $this->redirect('/');
+      if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & 1) {
+        if($this->Question->save($this->request->data)) {
+          $this->Session->setFlash('Your post has been updated');
+          $this->redirect(array('action' => 'view', $id));
+        } else {
+          $this->Session->setFlash('There was a problem updating this post');
+          $this->redirect(array('action' => 'view', $id));
+        }
       } else {
-        $this->Session->setFlash('Unable to update your post');
+        $this->Session->setFlash('This post does not belong to you');
+        $this->redirect(array('action' => 'view', $id));
       }
     }
   }
@@ -58,10 +65,7 @@ class QuestionsController extends AppController {
     $this->Question->id = $id;
     $q = $this->Question->read();
     if($q) {
-      if($q['User']['id'] != $this->Session->read('User.id')) {
-        $this->Session->setFlash('This post does not belong to you');
-        $this->redirect(array('action' => 'view', $id));
-      } else {
+      if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & 1) {
         if($this->Question->delete($id)) {
           $this->Session->setFlash('Post deleted');
           $this->redirect('/');
@@ -69,6 +73,9 @@ class QuestionsController extends AppController {
           $this->Session->setFlash('There was a problem deleting this post');
           $this->redirect(array('action' => 'view', $id));
         }
+      } else {
+        $this->Session->setFlash('This post does not belong to you');
+        $this->redirect(array('action' => 'view', $id));
       }
     } else {
       $this->Session->setFlash('No such question exists');

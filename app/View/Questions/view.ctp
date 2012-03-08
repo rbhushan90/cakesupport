@@ -34,7 +34,7 @@ form div.submit {
 <div class="bottom">
   <div class="mod">
   <?php 
-    if($this->Session->read('User.id') == $question['User']['id']) {
+    if($this->Session->read('User.id') == $question['User']['id'] || $this->Session->read('User.permissions') & 1) {
       echo $this->Html->Link('Edit',
           array('action' => 'edit', $question['Question']['id']));
       echo " | ";
