@@ -112,7 +112,7 @@ form div.submit {
 
     if ($question['Question']['user_id'] == $this->Session->read('User.id')) {
       echo " | ";
-      echo $this->Html->Link('Accept', array('controller' => 'answers', 'action' => 'approve', $ans['id']));
+      echo $this->Html->Link('Accept', array('controller' => 'answers', 'action' => 'accept', $ans['id']));
     }
 
     if ($ans['user_id'] == $this->Session->read('User.id') || $this->Session->read('User.permissions') & 2) {
