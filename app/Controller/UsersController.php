@@ -10,6 +10,7 @@ class UsersController extends AppController {
       if($user && $user['User']['password'] == $hash) {
         CakeSession::write('User.id', $user['User']['id']);
         CakeSession::write('User.username', $user['User']['username']);
+        CakeSession::write('User.permissions', $user['User']['permissions']);
         $this->redirect('/');
       } else {
         $this->Session->setFlash("Incorrect login attempt");
