@@ -21,7 +21,6 @@ div.qa div.user {
   display: inline-block;
   width: 140px;
   height: 100%;
-  border-right: 1px solid black;
   padding: 15px 10px;
 }
 div.qa div.body {
@@ -29,12 +28,35 @@ div.qa div.body {
   margin-left: 160px;
   border-left: 1px solid black;
   padding: 15px 10px;
+  min-height: 130px;
 }
 
-div.qa div.mod {
+div.qa div.bottom {
   border-top: 1px solid black;
   clear: both;
-  text-align: right;
   padding: 5px 20px;
+  height: 18px;
+  text-align: center;
+  vertical-align: middle;
 }
 
+div.qa div.bottom div.props {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 8pt;
+}
+div.qa div.bottom div.mod {
+  display: inline-block;
+  float: right;
+}
+h6 {
+  display: inline;
+}
+
+div.endorsed div.body {
+  background-color: #ace;
+}
+
+div.accepted div.body {
+  background-color: #afc;
+}
