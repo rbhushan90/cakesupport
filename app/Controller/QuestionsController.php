@@ -12,18 +12,19 @@ class QuestionsController extends AppController {
   public function view($id = null) {
     $this->Question->id = $id;
     $q = $this->Question->read();
-    $this->set('question', $q);
     $this->request->data['Answer']['question_id'] = $id;
     if($q == null) {
       $this->Session->setFlash('This question does not exist or has been deleted');
       $this->redirect('/');
     }
 
-    foreach ($q['QuestionAnswer'] as $ans):
-      $this->User->id = $ans['user_id'];
+    for ($i=count($q['QuestionAnswer'])-1; $i >= 0; $i--) {
+      $this->User->id = $q['QuestionAnswer'][$i]['user_id'];
       $user = $this->User->read();
-      $ans['username'] = $user['username'];
-    endforeach;
+      $q['QuestionAnswer'][$i]['username'] = $user['User']['username'];
+    }
+
+    $this->set('question', $q);
   }
 
   public function answer() {
