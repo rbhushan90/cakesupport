@@ -45,9 +45,26 @@ class AnswersController extends AppController {
   public function accept($id = null) {
     $this->Answer->id = $id;
     $ans = $this->Answer->read();
-    $this->Session->setFlash("This functionality has not been implemented yet.");
-    $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
+    if($ans == null) {
+      $this->Session->setFlash("This answer does not exist.");
+      $this->redirect('/questions');
+    }
+    $ans['Answer']['accepted'] = true;
+    $this->Answer->save($ans);
+    $this->Question->id = $ans['Answer']['question_id'];
+    $q = $this->Question->read();
+
+    $this->Answer->id = $q['Question']['accepted'];
+    $ans = $this->Answer->read();
+    if($ans != null) {
+      $ans['Answer']['accepted'] = 0;
+      $this->Answer->save($ans);
+    }
+    $q['Question']['accepted'] = $id;
+
+    $this->redirect(array('controller' => 'questions', 'action' => 'view', $q['Question']['id']));
   }
+
   public function endorse($id = null) {
     $this->Answer->id = $id;
     $ans = $this->Answer->read();

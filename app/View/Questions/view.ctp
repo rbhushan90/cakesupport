@@ -96,10 +96,10 @@ form div.submit {
   <div class="props"> 
   <?php
     if($ans['endorsed']) {
-      echo "Endorsed";
+      echo " Endorsed ";
     }
     if($ans['accepted']) {
-      echo "Accepted";
+      echo " Accepted ";
     }
   ?>
   </div>
@@ -117,7 +117,7 @@ form div.submit {
       }
     }
 
-    if ($question['Question']['user_id'] == $this->Session->read('User.id')) {
+    if ($question['Question']['user_id'] == $this->Session->read('User.id') && !$ans['accepted']) {
       echo " | ";
       echo $this->Html->Link('Accept', array('controller' => 'answers', 'action' => 'accept', $ans['id']));
     }
