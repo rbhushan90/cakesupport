@@ -5,7 +5,8 @@ class Answer extends AppModel {
   public $belongsTo = array(
     'AnswerQuestion' => array(
       'className' => 'Question',
-      'foreignKey' => 'question_id'
+      'foreignKey' => 'question_id',
+      'counterCache' => 'answer_count'
     ),
     'AnswerUser' => array(
       'className' => 'User',

@@ -9,6 +9,11 @@ class QuestionsController extends AppController {
       array('order' => 'Question.id desc')));
   }
 
+  public function unanswered() {
+    $cond = array('answer_count' => 0);
+    $this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
+  }
+
   public function view($id = null) {
     $this->Question->id = $id;
     $q = $this->Question->read();
