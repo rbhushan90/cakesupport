@@ -10,7 +10,7 @@
 
 <?php foreach ($questions as $q): ?>
 <tr>
-<td><?php count($q['QuestionAnswer']) ?>2</td>
+<td style="width: 80px"><?php echo $q['Question']['answer_count'] ?></td>
 <td>
 <?php echo $this->Html->link($q['Question']['title'],
     array('controller'  => 'questions', 'action' => 'view',

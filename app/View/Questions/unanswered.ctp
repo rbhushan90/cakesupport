@@ -7,4 +7,11 @@
 <br />
 -->
 
-<?php echo $this->fetch('qlist'); ?>
+<?php
+  if(count($questions) < 1) {
+    echo "<h4>There are no unanswered questions</h4>";
+  } else {
+    echo $this->fetch('qlist');
+  }
+?>
+
