@@ -18,7 +18,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
-App::import('Core',  'Xml');
+//App::import('Core',  'Xml');
+App::uses('Xml', 'Utility');
 
 class RssSource extends DataSource {
 
@@ -81,7 +82,8 @@ class RssSource extends DataSource {
 		$cachePath = 'rss_'.md5($feedUrl);
 		$data = cache($cachePath, null, $cacheTime);
 		if ( !$data ) {
-			$data = Set::reverse(new XML($this->config['feedUrl'], array('version' => $this->config['version'], 'encoding' => $this->config['encoding'])));
+			//$data = Set::reverse(new XML($this->config['feedUrl'], array('version' => $this->config['version'], 'encoding' => $this->config['encoding'])));
+			$data = Xml::toArray(Xml::build($this->config['feedUrl'], array('version' => $this->config['version'], 'encoding' => $this->config['encoding'])));
 			cache($cachePath, serialize($data));
 		}
 		else {
