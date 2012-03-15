@@ -15,6 +15,7 @@
 <td><?php echo $q['dc:creator']; ?></td>
 <td style="width: 180px"><?php echo $q['pubDate']; ?></td>
 </tr>
+<?php echo $q['content:encoded']; ?>
 <?php endforeach; ?>
 </table>
 
