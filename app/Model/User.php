@@ -19,14 +19,14 @@ class User extends AppModel {
           'message' => 'Alpha-Numeric characters only'
         ),
         'between' => array(
-          'rule' => array('between', 6, 20),
+          'rule' => array('between', 1, 20),
           'required' => 'true',
-          'message' => 'Between 6 and 20 characters long'
+          'message' => 'Between 1 and 20 characters long'
         ) 
       ),
       'password' => array(
-        'rule' => array('minLength', '8'),
-        'message' => 'Must be at least 8 characters long',
+        'rule' => array('minLength', '1'),
+        'message' => 'Must be at least 1 character long',
       ),
       'email' => array(
         'rule' => 'email',
