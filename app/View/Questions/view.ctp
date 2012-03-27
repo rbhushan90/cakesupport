@@ -15,7 +15,7 @@ form div.submit {
 </style>
 <a name="top"></a>
 <div id="question-info">
-<h2><?php echo $question['Question']['title']; ?></h2>
+<h2><?php echo htmlspecialchars($question['Question']['title']); ?></h2>
 
 <b>Asked by:</b> <?php echo $question['User']['username']; ?> <br />
 <b>on:</b> <?php echo $question['Question']['created']; ?> <br />
@@ -28,7 +28,7 @@ form div.submit {
 </h4>
 </div>
 <div class="body">
-<?php echo $question['Question']['body']; ?>
+<?php echo htmlspecialchars($question['Question']['body']); ?>
 </div>
 
 <div class="bottom">
