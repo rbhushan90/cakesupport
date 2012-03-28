@@ -2,7 +2,7 @@
 class AnswersController extends AppController {
   public $name = 'Answers';
   public $helpers = array('Html', 'Form', 'Session');
-  public $uses = array('Question', 'User', 'Answer');
+  public $uses = array('Question', 'User', 'Answer', 'Faq');
 
   public function post() {
     if(!$this->Session->read('User.id')) {
@@ -51,17 +51,27 @@ class AnswersController extends AppController {
       $this->redirect('/questions');
     }
     $ans['Answer']['accepted'] = true;
+    $aid = $ans['Answer']['id'];
     $this->Answer->save($ans);
-    $this->Question->id = $ans['Answer']['question_id'];
+    $qid = $ans['Answer']['question_id'];
+    $this->Question->id = $qid;
     $q = $this->Question->read();
 
-    $this->Answer->id = $q['Question']['accepted'];
-    $ans = $this->Answer->read();
-    if($ans != null) {
-      $ans['Answer']['accepted'] = 0;
-      $this->Answer->save($ans);
+    $faq = $this->Faq->find('first', array('conditions'=>array('Faq.question_id'=>$qid)));
+    $faq['Faq']['answer_id'] = $aid;
+    $this->Faq->save($faq);
+
+    $qAnswers = $q['QuestionAnswer'];
+    foreach($qAnswers as $arr){
+      if($arr['id']!=$aid){
+        $this->Answer->id = $arr['id'];
+        $ans = $this->Answer->read();
+        if($ans != null) {
+          $ans['Answer']['accepted'] = false;
+          $this->Answer->save($ans);
+        }
+      }
     }
-    $q['Question']['accepted'] = $id;
 
     $this->redirect(array('controller' => 'questions', 'action' => 'view', $q['Question']['id']));
   }

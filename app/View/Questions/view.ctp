@@ -50,6 +50,11 @@ form div.submit {
     } else {
       echo $this->Html->Link('Report', array('action' => 'report', $question['Question']['id']));
     }
+    if($this->Session->read('User.permissions') & 1){
+      echo " | ";
+      echo $this->Form->postLink('Add to FAQ',
+        array('controller'=>'faq', 'action'=>'add', $question['Question']['id']));
+    }
   ?>
   </div>
 </div>
