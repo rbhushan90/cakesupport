@@ -62,8 +62,10 @@ class AnswersController extends AppController {
     $q = $this->Question->read();
 
     $faq = $this->Faq->find('first', array('conditions'=>array('Faq.question_id'=>$qid)));
-    $faq['Faq']['answer_id'] = $aid;
-    $this->Faq->save($faq);
+    if($faq) {
+      $faq['Faq']['answer_id'] = $aid;
+      $this->Faq->save($faq);
+    }
 
     $qAnswers = $q['QuestionAnswer'];
     foreach($qAnswers as $arr){
