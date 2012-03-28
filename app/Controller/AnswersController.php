@@ -11,9 +11,7 @@ class AnswersController extends AppController {
     }
     $this->request->data['Answer']['user_id'] = $this->Session->read('User.id');
     $this->request->data['Answer']['body'] = htmlspecialchars($this->request->data['Answer']['body']); 
-    if($this->Session->read('User.permissions') & 1) {
-    $this->request->data['Answer']['endorsed'] = 1;
-    }
+
     if($this->Answer->save($this->request->data)) {
       $this->redirect(array('controller' => 'questions', 'action' => 'view', $this->data['Answer']['question_id']));
     } else {
@@ -50,6 +48,12 @@ class AnswersController extends AppController {
       $this->Session->setFlash("This answer does not exist.");
       $this->redirect('/questions');
     }
+
+    if(!($this->Session->read('User.permissions') & 1)) {
+      $this->Session->setFlash("You do not have the appropriate permissions");
+      $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
+    }
+
     $ans['Answer']['accepted'] = true;
     $aid = $ans['Answer']['id'];
     $this->Answer->save($ans);
@@ -76,33 +80,6 @@ class AnswersController extends AppController {
     $this->redirect(array('controller' => 'questions', 'action' => 'view', $q['Question']['id']));
   }
 
-  public function endorse($id = null) {
-    $this->Answer->id = $id;
-    $ans = $this->Answer->read();
-    if($ans['user_id'] == $this->Session->read('user.id') || $this->Session->read('User.permissions') & 1) {
-      $ans['Answer']['endorsed'] = 1;
-      if(!$this->Answer->save($ans)) {
-        $this->Session->setFlash('Could not delete answer');
-      }
-    } else {
-      $this->Session->setFlash('You cannot delete somebody else\'s answer.');
-    }
-    $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
-  }
-
-  public function unendorse($id = null) {
-    $this->Answer->id = $id;
-    $ans = $this->Answer->read();
-    if($ans['user_id'] == $this->Session->read('user.id') || $this->Session->read('User.permissions') & 1) {
-      $ans['Answer']['endorsed'] = 0;
-      if(!$this->Answer->save($ans)) {
-        $this->Session->setFlash('Could not delete answer');
-      }
-    } else {
-      $this->Session->setFlash('You cannot delete somebody else\'s answer.');
-    }
-    $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
-  }
 }
 
 ?>

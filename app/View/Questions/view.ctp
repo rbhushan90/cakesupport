@@ -82,9 +82,6 @@ form div.submit {
     if($ans['accepted']) {
       echo " accepted";
     }
-    if($ans['endorsed']) {
-      echo " endorsed";
-    }
     echo "\">";
 ?>
 <div class="user">
@@ -100,9 +97,6 @@ form div.submit {
 <div class="bottom">
   <div class="props"> 
   <?php
-    if($ans['endorsed']) {
-      echo " Endorsed ";
-    }
     if($ans['accepted']) {
       echo " Accepted ";
     }
@@ -111,18 +105,8 @@ form div.submit {
   <div class="mod">
   <a href="#top">Top</a>
   <?php 
-    if($this->Session->read('User.permissions') & 1) {
-      echo " | ";
-      if($ans['endorsed']) {
-        echo $this->Html->Link('Unendorse',
-            array('controller' => 'answers', 'action' => 'unendorse', $ans['id']));
-      } else {
-        echo $this->Html->Link('Endorse',
-            array('controller' => 'answers', 'action' => 'endorse', $ans['id']));
-      }
-    }
 
-    if ($question['Question']['user_id'] == $this->Session->read('User.id') && !$ans['accepted']) {
+    if ($this->Session->read('User.permissions') & 1 && !$ans['accepted']) {
       echo " | ";
       echo $this->Html->Link('Accept', array('controller' => 'answers', 'action' => 'accept', $ans['id']));
     }
