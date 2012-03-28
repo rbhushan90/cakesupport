@@ -9,7 +9,7 @@
 <?php foreach ($questions as $q): ?>
 <tr>
 <td style="width: 80px"><?php echo $q['Question']['title'] ?></td>
-<td style="width: 180px"><?php echo $q['Question']['body']; ?></td>
+<td style="width: 180px"><?php echo htmlspecialchars($q['Question']['body']); ?></td>
 </tr>
 <?php endforeach; ?>
 
