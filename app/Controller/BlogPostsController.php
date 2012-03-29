@@ -12,6 +12,18 @@ class BlogPostsController extends AppController {
   public function add() {
   }
 
+  public function view($id = null) {
+    $this->BlogPost->id = $id;
+    $p = $this->BlogPost->read();
+
+    if($p == null) {
+      $this->Session->setFlash('This post does not exist or has been deleted');
+      $this->redirect('/blog');
+    }
+
+    $this->set('post', $p);
+  }
+
   public function index() {
     $this->set('posts', $this->BlogPost->find('all',
       array('order' => 'BlogPost.id desc')));
