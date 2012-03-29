@@ -49,7 +49,12 @@ class AnswersController extends AppController {
       $this->redirect('/questions');
     }
 
-    if(!($this->Session->read('User.permissions') & 1)) {
+	//$temp = $this->Session->read('User');
+	//debug($temp, true);
+	//debug(User::decodePermissions($temp['permissions']), true);
+	//debug($this->Session->read('User.permissions.canAcceptAnswers'),true);
+
+    if(!($this->Session->read('User.permissions.canAcceptAnswers'))) {
       $this->Session->setFlash("You do not have the appropriate permissions");
       $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
     }
