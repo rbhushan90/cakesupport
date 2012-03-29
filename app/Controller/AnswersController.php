@@ -10,6 +10,7 @@ class AnswersController extends AppController {
       $this->redirect('/login');
     }
     $this->request->data['Answer']['user_id'] = $this->Session->read('User.id');
+    $this->request->data['Answer']['body'] = htmlspecialchars($this->request->data['Answer']['body']); 
     if($this->Session->read('User.permissions') & 1) {
     $this->request->data['Answer']['endorsed'] = 1;
     }

@@ -12,7 +12,7 @@
 <tr>
 <td style="width: 80px"><?php echo $q['Question']['answer_count'] ?></td>
 <td>
-<?php echo $this->Html->link($q['Question']['title'],
+<?php echo $this->Html->link(htmlspecialchars($q['Question']['title']),
     array('controller'  => 'questions', 'action' => 'view',
       $q['Question']['id'])); ?>
 </td>

@@ -23,10 +23,11 @@ class UsersController extends AppController {
 
   public function register() {
     if ($this->request->is('post')) {
-      $this->request->data['User']['password'] = hash("sha256",
-        $this->request->data['User']['password']);
+      $temp = $this->request->data['User']['password'];
+      $this->request->data['User']['password'] = hash("sha256", $this->request->data['User']['password']);
 
       if ($this->User->save($this->request->data)) {
+        $this->request->data['User']['password'] = $temp;
         $this->login();
         $this->redirect('/');
       }
