@@ -7,15 +7,17 @@
 <th>on</th>
 </tr>
 
-<?php foreach ($entries as $q): ?>
+<?php foreach ($posts as $p): ?>
 <tr>
 <td>
-<?php echo $q['title']; ?>
+<?php echo $this->Html->link($p['BlogPost']['title'],
+    array('controller'  => 'blog_posts', 'action' => 'view',
+      $p['BlogPost']['id'])); ?>
 </td>
-<td><?php echo $q['dc:creator']; ?></td>
-<td style="width: 180px"><?php echo $q['pubDate']; ?></td>
+<td><?php echo $p['BlogPostUser']['username']; ?></td>
+<td style="width: 180px"><?php echo $p['BlogPost']['created']; ?></td>
 </tr>
-<?php echo $q['content:encoded']; ?>
 <?php endforeach; ?>
+
 </table>
 
