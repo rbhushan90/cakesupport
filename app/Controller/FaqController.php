@@ -1,88 +1,66 @@
 <?php
 class FaqController extends AppController {
-  public $name = 'Faq';
+  public $name = 'Faqs';
   public $helpers = array('Html', 'Form');
-  public $uses = array('Question', 'User', 'Answer');
+  public $uses = array('Faq', 'Question', 'User', 'Answer');
 
   public function index() {
     //debug($this, true);
-    $this->set('questions', $this->Question->find('all',
-      array('order' => 'Question.id desc')));
-  }
-
-  public function unanswered() {
-    $cond = array('answer_count' => 0);
-    $this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
-  }
-
-  public function view($id = null) {
-    $this->Question->id = $id;
-    $q = $this->Question->read();
-    $this->request->data['Answer']['question_id'] = $id;
-    if($q == null) {
-      $this->Session->setFlash('This question does not exist or has been deleted');
-      $this->redirect('/questions');
+    $faqs = $this->Faq->find('all', array('order' => 'Faq.id desc'));
+    $q = array();
+    for($i=count($faqs)-1; $i>=0; $i--){
+      $this->Question->id = $faqs[$i]['Faq']['question_id'];
+      $q[$i]['question_id'] = $faqs[$i]['Faq']['question_id'];
+      $tmp = $this->Question->read();
+      $q[$i]['title'] = $tmp['Question']['title'];
+      $q[$i]['body'] = $tmp['Question']['body'];
+      $this->Answer->id = $faqs[$i]['Faq']['answer_id'];
+      $tmp = $this->Answer->read();
+      $q[$i]['answer'] = $tmp['Answer']['body'];
     }
-
-    for ($i=count($q['QuestionAnswer'])-1; $i >= 0; $i--) {
-      $this->User->id = $q['QuestionAnswer'][$i]['user_id'];
-      $user = $this->User->read();
-      $q['QuestionAnswer'][$i]['username'] = $user['User']['username'];
-    }
-
-    $this->set('question', $q);
+    $this->set('faqs', $q);
   }
 
-  public function answer() {
-    print_r($this->request->data);
-  }
-
-  public function report($id = null) {
-    $this->Session->setFlash("This functionality has not been implemented yet.");
-    $this->redirect(array('action' => 'view', $id));
-  }
-
-  public function edit($id = null) {
-    $this->Question->id = $id;
-    $q = $this->Question->read();
-    if($q == null) {
-      $this->Session->setFlash('This question does not exist or has been deleted');
-      $this->redirect('/questions');
-    }
-    if($this->request->is('get')) {
-      $this->request->data = $this->Question->read();
+  public function add() {
+    if(!(CakeSession::read('User.username')) || !($this->Session->read('User.permissions') & 1) ) {
+      $this->Session->setFlash("You must be an admin to add to the FAQ");
+      $this->redirect('/login');
     } else {
-      if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & 1) {
-        $this->request->data['Question']['modified'] = date('Y-m-d H:i:s');
-        if($this->Question->save($this->request->data)) {
-          $this->Session->setFlash('Your post has been updated');
-          $this->redirect(array('action' => 'view', $id));
-        } else {
-          $this->Session->setFlash('There was a problem updating this post');
-          $this->redirect(array('action' => 'view', $id));
+      if($this->request->is('post')) {
+        $qid = $this->passedArgs[0];
+        $this->request->data['Faq']['question_id'] = $qid;
+        // Find accepted answer if one exists
+        $answers = $this->Answer->find('all', array('conditions' => array('question_id' => $qid)));
+        foreach($answers as $ans){
+          if($ans['Answer']['accepted']==1){
+            $this->request->data['Faq']['answer_id'] = $ans['Answer']['id'];
+          }
         }
-      } else {
-        $this->Session->setFlash('This post does not belong to you');
-        $this->redirect(array('action' => 'view', $id));
+        if($this->Faq->save($this->request->data)) {
+          $this->Session->setFlash('Question has been added to the FAQ');
+          $this->redirect('/');
+        } else {
+          $this->Session->setFlash('Could not add the question to the FAQ');
+        }
       }
     }
   }
 
   public function remove($id = null) {
-    $this->Question->id = $id;
-    $q = $this->Question->read();
+    $this->Faq->id = $id;
+    $q = $this->Faq->read();
     if($q) {
       if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & 1) {
-        if($this->Question->delete($id)) {
-          $this->Session->setFlash('Post deleted');
+        if($this->Faq->delete($id)) {
+          $this->Session->setFlash('Question deleted from FAQ');
           $this->redirect('/');
         } else {
-          $this->Session->setFlash('There was a problem deleting this post');
+          $this->Session->setFlash('There was a problem deleting this question');
           $this->redirect(array('action' => 'view', $id));
         }
       } else {
         $this->Session->setFlash('This post does not belong to you');
-        $this->redirect(array('action' => 'view', $id));
+        $this->redirect(array('controller' => 'question', 'action' => 'view', $id));
       }
     } else {
       $this->Session->setFlash('No such question exists');
@@ -90,22 +68,6 @@ class FaqController extends AppController {
     }
   }
 
-  public function add() {
-    if(!(CakeSession::read('User.username'))) {
-      $this->Session->setFlash("You must be logged in to post a question");
-      $this->redirect('/login');
-    } else {
-      if($this->request->is('post')) {
-        $this->request->data['Question']['user_id'] = $this->Session->read('User.id');
-        if($this->Question->save($this->request->data)) {
-          $this->Session->setFlash('Your question has been added');
-          $this->redirect('/');
-        } else {
-          $this->Session->setFlash('Could not add your question');
-        }
-      }
-    }
-  }
 
 }
 ?>

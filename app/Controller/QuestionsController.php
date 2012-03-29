@@ -2,7 +2,7 @@
 class QuestionsController extends AppController {
   public $name = 'Questions';
   public $helpers = array('Html', 'Form');
-  public $uses = array('Question', 'User', 'Answer');
+  public $uses = array('Question', 'User', 'Answer', 'Faq');
 
   public function index() {
     $this->set('questions', $this->Question->find('all',
@@ -73,6 +73,8 @@ class QuestionsController extends AppController {
     if($q) {
       if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & 1) {
         if($this->Question->delete($id)) {
+          $faq = $this->Faq->find('first', array('conditions'=>array('Faq.question_id' => $id)));
+          $this->Faq->delete($faq['Faq']['id']);
           $this->Session->setFlash('Post deleted');
           $this->redirect('/');
         } else {
@@ -98,9 +100,10 @@ class QuestionsController extends AppController {
         $this->request->data['Question']['user_id'] = $this->Session->read('User.id');
         if($this->Question->save($this->request->data)) {
           $this->Session->setFlash('Your question has been added');
-          $this->redirect('/');
+          $this->redirect(array('controller'=>'questions', 'action'=>'index'));
         } else {
           $this->Session->setFlash('Could not add your question');
+          $this->redirect(array('controller'=>'questions', 'action'=>'index'));
         }
       }
     }

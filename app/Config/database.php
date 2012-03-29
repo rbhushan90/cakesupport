@@ -64,8 +64,8 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'lcc',
-		'password' => 'LCC3403GTSpr12',
-		'database' => 'lcc',
+		'password' => 'password',
+		'database' => 'lcc_database',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
@@ -76,7 +76,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'user',
 		'password' => 'password',
-		'database' => 'test_database_name',
+    'database' => 'lcc_test_database',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
