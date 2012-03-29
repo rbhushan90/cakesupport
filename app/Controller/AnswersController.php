@@ -61,13 +61,17 @@ class AnswersController extends AppController {
     $faq['Faq']['answer_id'] = $aid;
     $this->Faq->save($faq);
 
-    $this->Answer->id = $q['Question']['accepted'];
-    $ans = $this->Answer->read();
-    if($ans != null) {
-      $ans['Answer']['accepted'] = 0;
-      $this->Answer->save($ans);
+    $qAnswers = $q['QuestionAnswer'];
+    foreach($qAnswers as $arr){
+      if($arr['id']!=$aid){
+        $this->Answer->id = $arr['id'];
+        $ans = $this->Answer->read();
+        if($ans != null) {
+          $ans['Answer']['accepted'] = false;
+          $this->Answer->save($ans);
+        }
+      }
     }
-    $q['Question']['accepted'] = $id;
 
     $this->redirect(array('controller' => 'questions', 'action' => 'view', $q['Question']['id']));
   }
