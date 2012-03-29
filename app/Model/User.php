@@ -42,16 +42,8 @@ class User extends AppModel {
       )
     );
 
-    public static $permissionOffsets = array(
-	'canAcceptAnswers' => 1,
-	'thing2' => 2
-    );
-
-    public static function decodePermissions($permissionBits) {
-	$rval = array_map(
-		function($mask)use($permissionBits){return $permissionBits & $mask;}, 
-		self::$permissionOffsets);
-    	return $rval;
-    }
+  public static $permissionMasks = array(
+    'canAcceptAnswers' => 1
+  );
 }
 ?>
