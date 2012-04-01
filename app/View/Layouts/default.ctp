@@ -34,7 +34,6 @@
     echo $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js');
 		echo $this->Html->script('menu');
 		echo $this->Html->script('jquery.animate-colors-min.js');
-
                                                                                  
     echo $this->fetch('meta');                                                   
     echo $this->fetch('css');                                                    

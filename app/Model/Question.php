@@ -13,7 +13,7 @@ class Question extends AppModel {
     'QuestionAnswer' => array(
       'className' => 'Answer',
       'foreignKey' => 'question_id',
-      'order' => 'QuestionAnswer.accepted DESC, QuestionAnswer.endorsed DESC, QuestionAnswer.created DESC',
+      'order' => 'QuestionAnswer.accepted DESC, QuestionAnswer.created DESC',
       'dependent' => true
     )
   );

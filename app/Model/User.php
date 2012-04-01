@@ -41,5 +41,9 @@ class User extends AppModel {
         'message' => 'Cannot be left blank'
       )
     );
+
+  public static $permissionMasks = array(
+    'canAcceptAnswers' => 1
+  );
 }
 ?>
