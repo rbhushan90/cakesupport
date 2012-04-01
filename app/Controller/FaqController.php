@@ -11,6 +11,7 @@ class FaqController extends AppController {
     for($i=count($faqs)-1; $i>=0; $i--){
       $this->Question->id = $faqs[$i]['Faq']['question_id'];
       $q[$i]['question_id'] = $faqs[$i]['Faq']['question_id'];
+      $q[$i]['id'] = $faqs[$i]['Faq']['id'];
       $tmp = $this->Question->read();
       $q[$i]['title'] = $tmp['Question']['title'];
       $q[$i]['body'] = $tmp['Question']['body'];
@@ -28,6 +29,11 @@ class FaqController extends AppController {
     } else {
       if($this->request->is('post')) {
         $qid = $this->passedArgs[0];
+        $faq = $this->Faq->find('first', array('conditions' => array('question_id' => $qid)));
+        if(!empty($faq)){
+          $this->Session->setFlash('This question is already in the FAQ');
+          $this->redirect(array('controller'=>'questions', 'action'=>'view', $qid));
+        }
         $this->request->data['Faq']['question_id'] = $qid;
         // Find accepted answer if one exists
         $answers = $this->Answer->find('all', array('conditions' => array('question_id' => $qid)));
@@ -38,36 +44,36 @@ class FaqController extends AppController {
         }
         if($this->Faq->save($this->request->data)) {
           $this->Session->setFlash('Question has been added to the FAQ');
-          $this->redirect('/');
+          $this->redirect(array('controller'=>'faq', 'action'=>'index'));
         } else {
           $this->Session->setFlash('Could not add the question to the FAQ');
+          $this->redirect('/');
         }
       }
     }
   }
 
-  public function remove($id = null) {
+  public function remove($id = null){
     $this->Faq->id = $id;
-    $q = $this->Faq->read();
-    if($q) {
-      if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & 1) {
+    $f = $this->Faq->read();
+    debug($f);
+    if($f){
+      if($this->Session->read('User.id') == $f['User']['id'] || $this->Session->read('User.permissions') & 1) {
         if($this->Faq->delete($id)) {
-          $this->Session->setFlash('Question deleted from FAQ');
-          $this->redirect('/');
+          $this->Session->setFlash('Question deleted from the FAQ');
+          $this->redirect(array('controller'=>'faq', 'action'=>'index'));
         } else {
-          $this->Session->setFlash('There was a problem deleting this question');
+          $this->Session->setFlash('There was a problem deleting this question from the FAQ');
           $this->redirect(array('action' => 'view', $id));
         }
       } else {
-        $this->Session->setFlash('This post does not belong to you');
-        $this->redirect(array('controller' => 'question', 'action' => 'view', $id));
+        $this->Session->setFlash('You cannot remove this question from the FAQ');
+        $this->redirect(array('action' => 'view', $id));
       }
-    } else {
-      $this->Session->setFlash('No such question exists');
-        $this->redirect('/');
+    }
+    else{
+      $this->Session->setFlash("No question to remove");
+      $this->redirect(array('controller'=>'faq', 'action'=>'index'));
     }
   }
-
-
 }
-?>
