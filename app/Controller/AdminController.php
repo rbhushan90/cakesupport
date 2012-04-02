@@ -2,16 +2,16 @@
 class AdminController extends AppController {
   public $name = 'Admin';
   public $helpers = array('Html', 'Form');
-  public $uses = array('Report', 'User', 'Question');
+  public $uses = array('User', 'ReportedAnswer', 'ReportedQuestion','ReportedComment');
 
   public function index() {
-    $this->set('questions', $this->Report->find('all'));
-    //debug($this->Report->find('all'), true);
+    $this->set('reports', $this->ReportedQuestion->find('all'));
   }
 
-  public function unanswered() {
-    $cond = array('answer_count' => 0);
-    $this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
+  public function users() {
+    $this->set('users', $this->User->find('all'));
+    //$cond = array('answer_count' => 0);
+    //$this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
   }
 
   public function view($id = null) {
