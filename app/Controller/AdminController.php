@@ -5,7 +5,10 @@ class AdminController extends AppController {
   public $uses = array('User', 'ReportedAnswer', 'ReportedQuestion','ReportedComment');
 
   public function index() {
-    $this->set('reports', $this->ReportedQuestion->find('all'));
+    foreach(array('ReportedAnswer', 'ReportedQuestion') as $reportType){
+      $this->set($reportType . 's', $this->$reportType->find('all'));
+      //debug($this->viewVars, true);
+    }    
   }
 
   public function users() {
