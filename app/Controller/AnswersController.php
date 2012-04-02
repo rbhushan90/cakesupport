@@ -24,7 +24,7 @@ class AnswersController extends AppController {
   public function remove($id = null) {
     $this->Answer->id = $id;
     $ans = $this->Answer->read();
-    if($ans['user_id'] == $this->Session->read('user.id') || $this->Session->read('User.permissions') & 2) {
+    if($ans['user_id'] == $this->Session->read('user.id') || $this->Session->read('User.permissions') & User::$permissionMasks['canDeleteAnswers']) {
       if(!$this->Answer->delete($id)) {
         $this->Session->setFlash('Could not delete answer');
       }
@@ -49,7 +49,7 @@ class AnswersController extends AppController {
       $this->redirect('/questions');
     }
 
-    if(!($this->Session->read('User.permissions') & User::$permissionMasks['canAcceptAnswers'])) {
+    if(!($this->Session->read('User.permissions') & User::$permissionMasks['canAcceptAnswers']) {
       $this->Session->setFlash("You do not have the appropriate permissions");
       $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
     }

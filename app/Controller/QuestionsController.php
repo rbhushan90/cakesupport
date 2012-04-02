@@ -51,7 +51,7 @@ class QuestionsController extends AppController {
     if($this->request->is('get')) {
       $this->request->data = $this->Question->read();
     } else {
-      if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & 1) {
+      if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & User::$permissionMasks['canEditAnyQuestion']) {
         $this->request->data['Question']['modified'] = date('Y-m-d H:i:s');
         if($this->Question->save($this->request->data)) {
           $this->Session->setFlash('Your post has been updated');
@@ -71,7 +71,7 @@ class QuestionsController extends AppController {
     $this->Question->id = $id;
     $q = $this->Question->read();
     if($q) {
-      if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & 1) {
+      if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & User::$permissionMasks['canDeleteAnyQuestion']) {
         if($this->Question->delete($id)) {
           $faq = $this->Faq->find('first', array('conditions'=>array('Faq.question_id' => $id)));
           $this->Faq->delete($faq['Faq']['id']);
