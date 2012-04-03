@@ -22,7 +22,7 @@ class BlogPostsController extends AppController {
   }
 
   public function delete($id = null) {
-    $this->User
+    $this->User;
     if(!($this->Session->read('User.permissions') & User::$permissionMasks['postBlog'])) {
       $this->Session->setFlash('You do not have the permissions to delete blog entries');
       $this->redirect('/blog');
