@@ -23,6 +23,7 @@ class FaqController extends AppController {
   }
 
   public function add() {
+    $this->User;
     if(!(CakeSession::read('User.username')) || !($this->Session->read('User.permissions') & User::$permissionMasks['canAddFAQ']) ) {
       $this->Session->setFlash("You must be an admin to add to the FAQ");
       $this->redirect('/login');
@@ -54,21 +55,21 @@ class FaqController extends AppController {
   }
 
   public function remove($id = null){
+    $this->User;
     $this->Faq->id = $id;
     $f = $this->Faq->read();
-    debug($f);
     if($f){
-      if($this->Session->read('User.id') == $f['User']['id'] || $this->Session->read('User.permissions') & User::$permissionMasks['canDeleteFAQ']) {
+      if(($this->Session->read('User.permissions') & User::$permissionMasks['canDeleteFAQ'])) {
         if($this->Faq->delete($id)) {
           $this->Session->setFlash('Question deleted from the FAQ');
           $this->redirect(array('controller'=>'faq', 'action'=>'index'));
         } else {
           $this->Session->setFlash('There was a problem deleting this question from the FAQ');
-          $this->redirect(array('action' => 'view', $id));
+          $this->redirect(array('action' => 'index'));
         }
       } else {
         $this->Session->setFlash('You cannot remove this question from the FAQ');
-        $this->redirect(array('action' => 'view', $id));
+        $this->redirect(array('action' => 'index'));
       }
     }
     else{
@@ -77,3 +78,4 @@ class FaqController extends AppController {
     }
   }
 }
+?>
