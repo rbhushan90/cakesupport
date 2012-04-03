@@ -317,8 +317,18 @@ body {
   margin-bottom: 10px;
   margin-left: 10px;
   margin-right: 10px;
-  height: 46px;
-  width: 46px;
+  height: 49px;
+  width: 49px;
+}
+
+.question .answers.unanswered {
+  color: #d87;
+  border-color: #d87;
+}
+
+.question .answers.accepted {
+  color: #6b8;
+  border-color: #6b8;
 }
 
 .question .answers .number {

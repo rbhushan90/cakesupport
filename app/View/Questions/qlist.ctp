@@ -8,9 +8,26 @@
         <h3><?php echo $this->Html->link($q['Question']['title'], array('controller' => 'questions', 'action' => 'view', $q['Question']['id'])); ?></h3>
         <p class="info">asked by <strong><?php echo $q['User']['username']; ?></strong> on <strong><?php echo $q['Question']['created']; ?></strong></p>
 
-        <div class="answers">
+        <div class="answers
+          <?php
+            if($q['Question']['answer_count'] == 0) {
+              echo 'unanswered';
+            }
+            if($q['Question']['accepted']) {
+              echo 'accepted';
+            }
+        ?>
+        ">
           <p class="number"><?php echo $q['Question']['answer_count'] ?></p>
-          <p class="answers-subtext">answers</p>
+          <p class="answers-subtext">
+          <?php
+            if($q['Question']['answer_count'] != 1) {
+              echo 'answers';
+            } else {
+              echo 'answer';
+            }
+          ?>
+          </p>
         </div>
 
         <div class="question-text">
