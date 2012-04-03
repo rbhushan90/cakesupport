@@ -1,7 +1,7 @@
 <h2>Login</h2>
 
 <div class="top-content"></div>
-<div class="users main-content">
+<div class="forms main-content">
   <?php
 
     echo $this->Form->create('User', array('action' => 'login'));
