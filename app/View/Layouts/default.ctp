@@ -42,7 +42,7 @@
 <body>
   <div id="header-container">
     <div id="header" class="content-width">
-      <h1><a href="#"><img src="/img/gmm_logo.png"></a></h1>
+      <h1><a href="/"><img src="/img/gmm_logo.png"></a></h1>
       <div class="menu">
         <ul>
           <li><a href="/blog">Blog</a></li>

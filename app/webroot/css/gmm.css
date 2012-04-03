@@ -24,6 +24,16 @@ body {
   margin: 0;
 }
 
+
+/* 
+ *
+ * GENERAL
+ *
+ */
+a:hover {
+  text-decoration: none;
+}
+
 /* 
  *
  * HEADER/MENU
@@ -321,30 +331,30 @@ body {
   width: 49px;
 }
 
-.question .answers {
+.question.short .answers {
   color: #666;
   border-color: #666;
 }
 
-.question .answers:hover {
+.question.short .answers:hover {
   background-color: #ddd;
 }
 
-.question .answers.unanswered {
+.question.short .answers.unanswered {
   color: #d87;
   border-color: #d87;
 }
 
-.question .answers.unanswered:hover {
+.question.short .answers.unanswered:hover {
   background-color: #fed;
 }
 
-.question .answers.accepted {
+.question.short .answers.accepted {
   color: #6b8;
   border-color: #6b8;
 }
 
-.question .answers.accepted:hover {
+.question.short .answers.accepted:hover {
   background-color: #dfe;
 }
 
