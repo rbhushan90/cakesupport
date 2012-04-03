@@ -22,19 +22,23 @@
     ?>
 
     <?php 
-      if($this->Session->read('User.id') == $question['User']['id'] || $this->Session->read('User.permissions') & 1) {
-        echo $this->Html->Link('Edit',
-            array('action' => 'edit', $question['Question']['id']));
-        echo " | ";
-        echo $this->Html->Link('Delete',
-            array('action' => 'remove', $question['Question']['id']));
-      } else {
-        echo $this->Html->Link('Report', array('action' => 'report', $question['Question']['id']));
-      }
-      if($this->Session->read('User.permissions') & 1){
-        echo " | ";
-        echo $this->Form->postLink('Add to FAQ',
-          array('controller'=>'faq', 'action'=>'add', $question['Question']['id']));
+      if($this->Session->read('User.id')) {
+        echo "<div class=\"actions\">";
+        if($this->Session->read('User.id') == $question['User']['id'] || $this->Session->read('User.permissions') & 1) {
+          echo $this->Html->Link('Edit',
+              array('action' => 'edit', $question['Question']['id']));
+          echo " | ";
+          echo $this->Html->Link('Delete',
+              array('action' => 'remove', $question['Question']['id']));
+        } else {
+          echo $this->Html->Link('Report', array('action' => 'report', $question['Question']['id']));
+        }
+        if($this->Session->read('User.permissions') & 1){
+          echo " | ";
+          echo $this->Form->postLink('Add to FAQ',
+            array('controller'=>'faq', 'action'=>'add', $question['Question']['id']));
+        }
+        echo "</div>";
       }
     ?>
 
@@ -64,21 +68,21 @@
         echo "<h4><strong>Accepted Answer</strong></h4>";
       }
     ?>
+    <p class="answerer"><strong><?php echo $ans['username'] ?>:</strong></p>
     <p><?php echo $ans['body'] ?></p>
-    <p class="answerer"><strong><?php echo $ans['username'] ?></strong></p>
     <?php 
-
-      if ($this->Session->read('User.permissions') & 1 && !$ans['accepted']) {
-        echo " | ";
-        echo $this->Html->Link('Accept', array('controller' => 'answers', 'action' => 'accept', $ans['id']));
-      }
-
-      if ($ans['user_id'] == $this->Session->read('User.id') || $this->Session->read('User.permissions') & 2) {
-        echo " | ";
-        echo $this->Html->Link('Delete', array('controller' => 'answers', 'action' => 'remove', $ans['id']));
-      } else {
-        echo " | ";
-        echo $this->Html->Link('Report', array('controller' => 'answers', 'action' => 'report', $ans['id']));
+      if ($this->Session->read('User.id')) {
+        echo "<div class=\"actions\">";
+        if ($this->Session->read('User.permissions') & 1 && !$ans['accepted']) {
+          echo $this->Html->Link('Accept', array('controller' => 'answers', 'action' => 'accept', $ans['id']));
+          echo " | ";
+        }
+        if ($ans['user_id'] == $this->Session->read('User.id') || $this->Session->read('User.permissions') & 2) {
+          echo $this->Html->Link('Delete', array('controller' => 'answers', 'action' => 'remove', $ans['id']));
+        } else {
+          echo $this->Html->Link('Report', array('controller' => 'answers', 'action' => 'report', $ans['id']));
+        }
+        echo "</div>";
       }
     ?>
     </div>

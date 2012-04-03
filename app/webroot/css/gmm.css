@@ -411,6 +411,10 @@ body {
   border: 1px solid #a7c572;
 }
 
+.question-answers .actions {
+  text-align: right;
+}
+
 .question-answer-new {
   border-top: 1px solid #ccc;
   margin-top: 10px;
