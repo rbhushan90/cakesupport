@@ -8,6 +8,7 @@
         <h3><?php echo $this->Html->link($q['Question']['title'], array('controller' => 'questions', 'action' => 'view', $q['Question']['id'])); ?></h3>
         <p class="info">asked by <strong><?php echo $q['User']['username']; ?></strong> on <strong><?php echo $q['Question']['created']; ?></strong></p>
 
+        <?php echo "<a href=\"/questions/view/" . $q['Question']['id'] . "\">" ?>
         <div class="answers
           <?php
             if($q['Question']['answer_count'] == 0) {
@@ -29,6 +30,7 @@
           ?>
           </p>
         </div>
+        </a>
 
         <div class="question-text">
           <p><?php echo htmlspecialchars($q['Question']['body']) ?></p>

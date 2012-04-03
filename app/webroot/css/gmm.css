@@ -321,14 +321,31 @@ body {
   width: 49px;
 }
 
+.question .answers {
+  color: #666;
+  border-color: #666;
+}
+
+.question .answers:hover {
+  background-color: #ddd;
+}
+
 .question .answers.unanswered {
   color: #d87;
   border-color: #d87;
 }
 
+.question .answers.unanswered:hover {
+  background-color: #fed;
+}
+
 .question .answers.accepted {
   color: #6b8;
   border-color: #6b8;
+}
+
+.question .answers.accepted:hover {
+  background-color: #dfe;
 }
 
 .question .answers .number {
