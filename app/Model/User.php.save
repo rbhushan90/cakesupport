@@ -38,17 +38,12 @@ class User extends AppModel {
       ),
       'last_name' => array(
         'rule' => 'notEmpty',
-        'message' => 'Cannot be left blank'
+ array(        'message' => 'Cannot be left blank'
       )
     );
 
-  public static $permissionMasks = array(
-    'canAcceptAnswers' => 1,
-    'canAddFAQ' => 1,
-    'canDeleteFAQ' => 1,
-    'canDeleteAnswers' => 2,
-    'canEditAnyQuestion' => 2,
-    'canDeleteAnyQuestion' => 2,
-  );
+    public $permissionOffsets = 
+
+    public function canAcceptAnswers() {return $this->permissions & 1;}
 }
 ?>
