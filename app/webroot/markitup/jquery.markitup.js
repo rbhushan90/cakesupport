@@ -72,7 +72,6 @@
 
 			options.previewParserPath = localize(options.previewParserPat);
 			options.previewTemplatePath = localize(options.previewTemplatePath);
-      window.alert(options.previewParserPath);
 
 			// apply the computed path to ~/
 			function localize(data, inText) {
