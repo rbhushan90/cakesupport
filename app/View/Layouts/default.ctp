@@ -25,59 +25,59 @@
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
-#echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake.generic');
-    echo $this->Html->css('header');                                             
-    echo $this->Html->css('elements');                                             
+    # The two I'm using
+    echo $this->Html->css('bootstrap.min');                                             
+    echo $this->Html->css('gmm');                                             
 
     echo $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js');
-		echo $this->Html->script('menu');
-		echo $this->Html->script('jquery.animate-colors-min.js');
+    echo $this->Html->script('menu');
+    echo $this->Html->script('jquery.animate-colors-min.js');
                                                                                  
     echo $this->fetch('meta');                                                   
     echo $this->fetch('css');                                                    
     echo $this->fetch('script');                                                 
   ?>                                                                             
-</head>                                                                          
-<body>                                                                           
-  <div id="container">                                                           
-    <div id="header">                                                            
-      <div id="userinfo">                                                        
-      <?php if(CakeSession::read('User.username')) { ?>
-      Welcome <?php echo CakeSession::read('User.username') ?>
-      [<a href="/logout">Logout</a>]
-      <?php } else { ?>
-      <a href="/login">Login</a>
-      |
-      <a href="/register">Sign Up</a>
-      <?php } ?>
-      </div>                                                                     
-    <ul id="nav">
-      <li class="spacer"></li>
-      <li><a href='/blog'>Blog</a></li>
-      <li class="subnav">
-        <a href='/questions'>Questions</a>
+</head>
+<body>
+  <div id="header-container">
+    <div id="header" class="content-width">
+      <h1><a href="#"><img src="img/gmm_logo.png"></a></h1>
+      <div class="menu">
         <ul>
-          <li><a href="/recent">Recently Asked</a></li>
-          <li><a href="/unanswered">Unanswered</a></li>
-          <li><a href="/questions/add">Ask a Question</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li class="nested-menu"><a href="/questions">Questions</a>
+            <ul>
+              <li><a href="/recent">All Question</a></li>
+              <li><a href="/unanswered">Unanswered</a></li>
+              <li><a href="/questions/add">Ask a question</a></li>
+            </ul>
+          </li>
+          <li><a href="/testimonials">Testimonials</a></li>
+          <li><a href="/faq">FAQ</a></li>
+        <?php if(CakeSession::read('User.username')) { ?>
+        Welcome <?php echo CakeSession::read('User.username') ?>
+          <li><a href="/logout">Logout</a></li>
+        <?php } else { ?>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Sign Up</a></li>
+        <?php } ?>
+
+        <?php if(CakeSession::read('User.username')) { ?>
+          <li><a href='/admin'>Admin</a></li>
+        <?php } ?>
         </ul>
-      </li>
-      <li><a href='/testimonials'>Testimonials</a></li>
-      <li><a href='/faq'>F.A.Q</a></li>
-      <?php if(CakeSession::read('User.username')) { ?>
-      <li><a href='/admin'>Admin</a></li>
-	<?php } ?>
-    </ul>
-    </div>                                                                       
-    <div id="content">                                                           
-      <?php echo $this->Session->flash(); ?>                                     
-                                                                                 
-      <?php echo $this->fetch('content'); ?>                                     
-    </div>                                                                       
-    <div id="footer">                                                            
-    </div>                                                                       
-  </div>                                                                         
+      </div>
+    </div>
+  </div>
+
+  <div class="content-container content-width">
+    <?php echo $this->Session->flash(); ?> 
+    <?php echo $this->fetch('content'); ?>                                     
+  </div>
+
+  <div class="footer content-width">
+    Footer Stuff Goes Here &copy; Since The Big Bang
+  </div>
 </body>                                                                          
 </html>  
