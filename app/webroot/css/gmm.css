@@ -147,6 +147,17 @@ body {
 
 /*
  *
+ * Flash Messages
+ *
+ */
+#flashMessage {
+  background: #fffab1;
+  border: 1px solid #d7ca00;
+  padding: 5px;
+}
+
+/*
+ *
  * FORMS
  *
  */
