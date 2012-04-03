@@ -17,7 +17,9 @@
 
     <?php
       if($question['Question']['created'] != $question['Question']['modified']) {
-        echo "Modified on " . $question['Question']['modified'];
+        echo "<div class=\"modified\">";
+        echo "Last modified on <strong>" . $question['Question']['modified'];
+        echo "</strong></div>";
       }
     ?>
 
