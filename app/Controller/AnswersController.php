@@ -2,7 +2,7 @@
 class AnswersController extends AppController {
   public $name = 'Answers';
   public $helpers = array('Html', 'Form', 'Session');
-  public $uses = array('Question', 'User', 'Answer', 'Faq');
+  public $uses = array('Question', 'User', 'Answer', 'Faq', 'ReportedAnswer');
 
   public function post() {
     if(!$this->Session->read('User.id')) {
@@ -37,8 +37,17 @@ class AnswersController extends AppController {
   public function report($id = null) {
     $this->Answer->id = $id;
     $ans = $this->Answer->read();
-    $this->Session->setFlash("This functionality has not been implemented yet.");
-    $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
+    if($this->Session->read('User.id')) {
+      $this->Session->setFlash("This answer has been reported.");
+      $rc = array();
+      $rc['ReportedAnswer']['answer_id'] = $ans['Answer']['id'];
+      $rc['ReportedAnswer']['user_id'] = $this->Session->read('User.id');
+      $this->ReportedAnswer->save($rc);
+      $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
+    } else {
+      $this->Session->setFlash("You need to be logged in to do that.");
+      $this->redirect(array('controller' => 'users', 'action' => 'login'));
+    }
   }
 
   public function accept($id = null) {

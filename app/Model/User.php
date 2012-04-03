@@ -22,7 +22,11 @@ class User extends AppModel {
           'rule' => array('between', 1, 20),
           'required' => 'true',
           'message' => 'Between 1 and 20 characters long'
-        ) 
+        ),
+        'unique' => array(
+          'rule' => 'isUnique',
+          'message' => 'This username is already taken'
+        )
       ),
       'password' => array(
         'rule' => array('minLength', '1'),
