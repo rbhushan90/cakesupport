@@ -17,7 +17,7 @@
           <p><?php echo htmlspecialchars($q['Question']['body']) ?></p>
         </div>
 
-        <p class="view-answers"><a href="#">View Answers</a></p>
+        <p class="view-answers"><?php echo $this->Html->link('View Answers', array('controller' => 'questions', 'action' => 'view', $q['Question']['id'])); ?></p>
       </div>
     <?php endforeach; ?>
   </div>
