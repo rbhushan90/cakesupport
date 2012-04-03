@@ -52,8 +52,11 @@ form div.submit {
     }
     if($this->Session->read('User.permissions') & 1){
       echo " | ";
-      echo $this->Form->postLink('Add to FAQ',
-        array('controller'=>'faq', 'action'=>'add', $question['Question']['id']));
+      if($question['faq']){
+        echo $this->Html->Link('Remove from FAQ',array('controller'=>'faq', 'action'=>'remove', $question['faq_id']));
+      } else {
+        echo $this->Form->postLink('Add to FAQ',array('controller'=>'faq', 'action'=>'add', $question['Question']['id']));
+      }
     }
   ?>
   </div>
