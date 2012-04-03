@@ -29,6 +29,14 @@ class QuestionsController extends AppController {
       $q['QuestionAnswer'][$i]['username'] = $user['User']['username'];
     }
 
+    $faq = $this->Faq->find('first', array('conditions'=>array('question_id' => $id)));
+    if(empty($faq)){
+      $q['faq'] = false;
+    } else {
+      $q['faq'] = true;
+      $q['faq_id'] = $faq['Faq']['id'];
+    }
+
     $this->set('question', $q);
   }
 
