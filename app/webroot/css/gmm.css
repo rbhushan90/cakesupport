@@ -300,7 +300,7 @@ body {
 }
 
 .question.full-page {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 0px solid #ccc;
 }
 
 .question h3 {
@@ -399,6 +399,12 @@ body {
 .question-answers .answer.accepted {
   background: #c7e19a;
   border: 1px solid #a7c572;
+}
+
+.question-answer-new {
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 10px;
 }
 
 /*

@@ -41,15 +41,6 @@
     <p class="clear no-margin"></p>
   </div>
 
-  <?php
-    if($this->Session->read('User.id')) {
-      echo $this->Form->create('Answer', array('action' => 'post', 'class' => 'submit-answer'));
-      echo $this->Form->input('question_id', array('type' => 'hidden'));
-      echo $this->Form->input('body',
-          array('rows' => 4, 'class' => 'newanswer', 'label' => ''));
-      echo $this->Form->end('Answer');
-    }
-  ?>
 
   <?php if ($question['QuestionAnswer']) { ?>
   <div class="question-answers">
@@ -94,6 +85,19 @@
   <?php endforeach; ?>
   </div>
   <?php } ?>
+
+  <?php
+    if($this->Session->read('User.id')) {
+      echo "<div class=\"question-answer-new\">";
+      echo "<h3>Add a new answer</h3>";
+      echo $this->Form->create('Answer', array('action' => 'post', 'class' => 'submit-answer'));
+      echo $this->Form->input('question_id', array('type' => 'hidden'));
+      echo $this->Form->input('body',
+          array('rows' => 4, 'class' => 'newanswer', 'label' => ''));
+      echo $this->Form->end('Answer');
+      echo "</div>";
+    }
+  ?>
 
 </div>
 <div class="bottom-content"></div>
