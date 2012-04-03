@@ -51,7 +51,7 @@ class QuestionsController extends AppController {
       $this->Session->setFlash("This quetsion has been reported.");
       $rc = array();
       $rc['ReportedQuestion']['question_id'] = $q['Question']['id'];
-      $rc['ReportedQuetsion']['user_id'] = $this->Session->read('User.id');
+      $rc['ReportedQuestion']['user_id'] = $this->Session->read('User.id');
       $this->ReportedQuestion->save($rc);
       $this->redirect(array('controller' => 'questions', 'action' => 'view', $q['Question']['id']));
     } else {
