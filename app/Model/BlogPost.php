@@ -9,5 +9,10 @@ class BlogPost extends AppModel {
     )
   );
 
+  public $validate = array(
+    'title' => 'notEmpty',
+    'body' => 'notEmpty'
+  );
+
 }
 ?>

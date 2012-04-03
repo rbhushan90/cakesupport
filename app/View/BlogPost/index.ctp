@@ -1,4 +1,4 @@
-<h2>Recently Blog Entries</h2>
+<h2>Recent Blog Entries</h2>
 
 <table id="question-list">
 <tr>

@@ -11,6 +11,14 @@ class BlogPostsController extends AppController {
       $this->Session->setFlash('You do not have the permissions to post to the blog');
       $this->redirect('/blog');
     }
+    if($this->request->data) {
+      $this->Session->setFlash('The post has been added.');
+      include '../webroot/markitup/markdown.php';
+      $this->request->data['BlogPost']['output'] = Markdown($this->request->data['BlogPost']['body']);
+      $this->request->data['BlogPost']['user_id'] = $this->Session->read('User.id');
+      $this->BlogPost->save($this->request->data);
+      $this->redirect('/blog');
+    }
   }
 
   public function view($id = null) {

@@ -21,7 +21,7 @@ form div.submit {
 <b>on:</b> <?php echo $post['BlogPost']['created']; ?> <br />
 </div>
 
-<?php echo $post['BlogPost']['body']; ?>
+<?php echo $post['BlogPost']['output']; ?>
 
 
 <br />
