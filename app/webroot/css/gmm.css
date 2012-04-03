@@ -1,0 +1,380 @@
+/* Sets the dimensions/color of the page. */
+html {
+  background: #699816;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: none;
+}
+
+/* The main portion of the content. Sets it to 800px wide
+   and centers it. */
+.content-width {
+  margin: 0 auto;
+  width: 800px;
+}
+
+.clear {
+  clear: both;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+/* 
+ *
+ * HEADER/MENU
+ *
+ */
+#header-container {
+  background: url(../images/header_bg.gif) repeat-x;
+}
+
+#header {
+  height: 90px;
+}
+
+/* Position the GMM logo */
+#header h1 {
+  float: left;
+  padding: 5px 0px 5px 0px;
+}
+
+/* Position the menu */
+#header .menu ul {
+  float: right;
+}
+
+#header .menu li {
+  display: inline-block;
+}
+
+/* Style the menu buttons. */
+#header .menu li a {
+  color: #000;
+  display: block;
+  font-weight: bold;
+  padding: 20px;
+  padding-bottom: 31px;
+  padding-top: 30px;
+  position: relative;
+}
+
+/* Display the half-circle on hover. */
+#header .menu li a:hover {
+  background: url(../images/link_hover.gif) no-repeat 50% 79px;
+  height: 26px;
+}
+
+#header .menu li.nested-menu a:hover {
+  height: auto;
+}
+
+#header .menu li ul {
+  display: none;
+}
+
+#header .menu li:hover ul {
+  display: block;
+  position: absolute;
+  margin-left: -27px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+#header .menu li ul li {
+  display: block;
+}
+
+#header .menu li ul li a {
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+  width: 150px;
+}
+
+#header .menu li ul li a:hover {
+  background: #fff;
+  height: auto;
+}
+/*
+ *
+ * STRUCTURAL/LAYOUT
+ *
+ */
+.content-container h2 {
+  color: #fff;
+  font-size: 24pt;
+  font-weight: lighter;
+  padding: 6px 0px;
+}
+
+/* The rounded corners on the top and bottom of the main content. */
+.content-container .top-content,
+.content-container .bottom-content {
+  height: 7px;
+  width: 800px;
+}
+
+.content-container .top-content {
+  background: url(../images/container-top.gif) no-repeat;
+}
+
+.content-container .bottom-content {
+  background: url(../images/container-bottom.gif) no-repeat;
+}
+
+.content-container .main-content {
+  background: #fff;
+}
+
+/* Position the non 100% width content. */
+.content-container .content-partial {
+  float: left;
+  margin-right: 10px;
+  width: 540px;
+}
+
+/* Position the sidebar. Only works with the non-100% width content container. */
+.content-container .sidebar{
+  float: right;
+  width: 250px;;
+}
+
+/*
+ *
+ * BLOG POST
+ *
+ */
+.post {
+  margin-bottom: 20px;
+}
+
+.post:last-child {
+  margin-bottom: 0px;
+}
+
+/* NOTE: links header shares some similarities so it's declared here. */
+.post h3,
+.links h3,
+.question h3 {
+  background: orange;
+  font-size: 18pt;
+  font-weight: normal;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.post .post-content {
+  padding: 10px 10px 0px 10px;
+}
+
+.post .leave-comment {
+  margin-bottom: 0px;
+  padding: 0px 10px 10px 10px;
+}
+
+.post .info {
+  background: #f0f0f0;
+  margin-left: 10px;
+  padding: 10px;
+}
+
+.post .info img {
+  float: left;
+  margin-right: 10px;
+}
+
+.post .info p {
+  margin-bottom: 0px;
+}
+
+
+/*
+ *
+ * POST COMMENTS
+ *
+ */
+.comments {
+  padding: 10px;
+  padding-right: 0px;
+}
+
+.comments form textarea {
+  height: 50px;
+  width: 520px;
+}
+
+.comments .comment {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.comments .comment.even {
+  background: #e0e0e0;
+}
+
+.comments .commenter {
+  margin-bottom: 0px;
+}
+
+/*
+ *
+ * LINKS
+ *
+ */
+.links {
+  margin-bottom: 10px;
+}
+
+/* Make the necessary changes from the post header. */
+.links h3 {
+  color: #fff;
+  margin-bottom: 1px;
+}
+
+.links p {
+  margin-bottom: 1px;
+}
+
+.links a {
+  background: #f5b45e;
+  color: #333;
+  display: block;
+  padding: 5px;
+}
+
+.links a:hover {
+  background: #fec983;
+}
+
+/*
+ *
+ * QUESTION
+ *
+ */
+.ask-a-question {
+  float: right;
+  margin-top: 3px;
+}
+
+.question {
+  margin-bottom: 10px;
+}
+
+.question.full-page {
+  border-bottom: 1px solid #ccc;
+}
+
+.question h3 {
+  margin-bottom: 0px;
+}
+
+.question h3 a {
+  color: #333;
+}
+
+.question .answers {
+  border: 2px solid #666;
+  float: left;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 46px;
+  width: 46px;
+}
+
+.question .answers .number {
+  font-size: 18pt;
+  margin-bottom: 4px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.question .answers .answers-subtext {
+  font-size: 8pt;
+  text-align: center;
+}
+
+.question .question-text {
+  padding-left: 10px;
+}
+
+.question .view-answers {
+  clear: both;
+  padding-left: 10px;
+}
+
+.question .info {
+  color: #666;
+  font-size: 8pt;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+/*
+ *
+ * FORM TO ADD ANSWER
+ *
+ */
+.submit-answer {
+  margin: 0;
+  padding-left: 10px;
+}
+
+.submit-answer textarea {
+  height: 100px;
+  width: 770px;
+}
+
+/*
+ *
+ * ANSWERS TO QUESTION
+ *
+ */
+.question-answers {
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.question-answers .answer {
+  border-bottom: 1px solid #aaa;
+  padding: 5px;
+}
+
+.question-answers .answer p {
+  font-size: 9pt;
+}
+
+.question-answers .even {
+  background: #f0f0f0;
+}
+
+.question-answers .answerer {
+  margin-bottom: 0;
+}
+
+.question-answers .dietitian {
+  color: blue;
+}
+
+.question-answers .answer.accepted {
+  background: #c7e19a;
+  border: 1px solid #a7c572;
+}
+
+/*
+ *
+ * FOOTER
+ *
+ */
+.footer {
+  font-size: 8pt;
+  padding: 20px;
+  text-align: center;
+}
