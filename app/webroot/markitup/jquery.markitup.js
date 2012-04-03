@@ -35,9 +35,9 @@
 					previewInWindow:		'', // 'width=800, height=600, resizable=yes, scrollbars=yes'
 					previewAutoRefresh:		true,
 					previewPosition:		'after',
-					previewTemplatePath:	'~/templates/preview.html',
+					previewTemplatePath:	'~/templates/preview.htm',
 					previewParser:			false,
-					previewParserPath:		'',
+					previewParserPat:		'~/preview.php',
 					previewParserVar:		'data',
 					resizeHandle:			true,
 					beforeInsert:			'',
@@ -70,8 +70,9 @@
 			scrollPosition = caretPosition = 0;
 			caretOffset = -1;
 
-			options.previewParserPath = localize(options.previewParserPath);
+			options.previewParserPath = localize(options.previewParserPat);
 			options.previewTemplatePath = localize(options.previewTemplatePath);
+      window.alert(options.previewParserPath);
 
 			// apply the computed path to ~/
 			function localize(data, inText) {
