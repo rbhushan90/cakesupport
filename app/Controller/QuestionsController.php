@@ -14,6 +14,11 @@ class QuestionsController extends AppController {
     $this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
   }
 
+  public function unaccepted() {
+    $cond = array('accepted' => NULL);
+    $this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
+  }
+
   public function view($id = null) {
     $this->Question->id = $id;
     $q = $this->Question->read();
