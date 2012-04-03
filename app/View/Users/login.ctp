@@ -1,16 +1,19 @@
-<br />
-<?php
-  echo $this->Html->link('Need to register?', array('action' => 'register'));
-  echo "<br /><br />";
+<h2>Login</h2>
 
-  echo $this->Form->create('User', array('action' => 'login'));
+<div class="top-content"></div>
+<div class="forms main-content">
+  <?php
 
-  echo $this->Form->input('username');
-  echo "<br />";
-  echo $this->Form->input('password');
-  echo "<br />";
+    echo $this->Form->create('User', array('action' => 'login'));
+    echo $this->Form->input('username');
+    echo $this->Form->input('password');
+    echo $this->Form->submit('Login', array('class' => 'btn btn-primary'));
+    echo $this->Form->end();
+  ?>
 
-  echo $this->Form->end('Login');
-  echo "<br />";
-
-?>
+  <p class="users-links">
+    <br>
+    <?php echo $this->Html->link('Need to register?', array('action' => 'register')); ?>
+  </p>
+</div>
+<div class="bottom-content"></div>
