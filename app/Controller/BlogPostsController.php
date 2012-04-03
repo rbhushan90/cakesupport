@@ -21,6 +21,17 @@ class BlogPostsController extends AppController {
     }
   }
 
+  public function delete($id = null) {
+    $this->User
+    if(!($this->Session->read('User.permissions') & User::$permissionMasks['postBlog'])) {
+      $this->Session->setFlash('You do not have the permissions to delete blog entries');
+      $this->redirect('/blog');
+    } else {
+      $this->BlogPost->delete($id);
+      $this->redirect('/blog');
+    }
+  }
+
   public function view($id = null) {
     $this->BlogPost->id = $id;
     $p = $this->BlogPost->read();
@@ -36,7 +47,6 @@ class BlogPostsController extends AppController {
   public function index() {
     $this->set('posts', $this->BlogPost->find('all',
       array('order' => 'BlogPost.id desc')));
-
   }
 
 
