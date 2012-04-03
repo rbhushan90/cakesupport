@@ -2,7 +2,7 @@
 class QuestionsController extends AppController {
   public $name = 'Questions';
   public $helpers = array('Html', 'Form');
-  public $uses = array('Question', 'User', 'Answer', 'Faq');
+  public $uses = array('Question', 'User', 'Answer', 'Faq', 'ReportedQuestion');
 
   public function index() {
     $this->set('questions', $this->Question->find('all',
@@ -37,8 +37,19 @@ class QuestionsController extends AppController {
   }
 
   public function report($id = null) {
-    $this->Session->setFlash("This functionality has not been implemented yet.");
-    $this->redirect(array('action' => 'view', $id));
+    $this->Question->id = $id;
+    $q = $this->Question->read();
+    if($this->Session->read('User.id')) {
+      $this->Session->setFlash("This quetsion has been reported.");
+      $rc = array();
+      $rc['ReportedQuestion']['question_id'] = $q['Question']['id'];
+      $rc['ReportedQuetsion']['user_id'] = $this->Session->read('User.id');
+      $this->ReportedQuestion->save($rc);
+      $this->redirect(array('controller' => 'questions', 'action' => 'view', $q['Question']['id']));
+    } else {
+      $this->Session->setFlash("You need to be logged in to do that.");
+      $this->redirect(array('controller' => 'users', 'action' => 'login'));
+    }
   }
 
   public function edit($id = null) {
