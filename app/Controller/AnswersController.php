@@ -64,7 +64,6 @@ class AnswersController extends AppController {
     }
 
     $ans['Answer']['accepted'] = true;
-    $aid = $ans['Answer']['id'];
     $this->Answer->save($ans);
     $qid = $ans['Answer']['question_id'];
     $this->Question->id = $qid;
@@ -72,21 +71,19 @@ class AnswersController extends AppController {
 
     $faq = $this->Faq->find('first', array('conditions'=>array('Faq.question_id'=>$qid)));
     if($faq) {
-      $faq['Faq']['answer_id'] = $aid;
+      $faq['Faq']['answer_id'] = $ans['Answer']['id'];
       $this->Faq->save($faq);
     }
 
-    $qAnswers = $q['QuestionAnswer'];
-    foreach($qAnswers as $arr){
-      if($arr['id']!=$aid){
-        $this->Answer->id = $arr['id'];
-        $ans = $this->Answer->read();
-        if($ans != null) {
-          $ans['Answer']['accepted'] = false;
-          $this->Answer->save($ans);
-        }
-      }
+    if($q['Question']['accepted']) {
+      $this->Answer->id = $q['Question']['accepted'];
+      $oldans = $this->Answer->read();
+      $oldans['Answer']['accepted'] = 0;
+      $this->Answer->save($oldans);
     }
+
+    $q['Question']['accepted'] = $ans['Answer']['id'];
+    $this->Question->save($q);
 
     $this->redirect(array('controller' => 'questions', 'action' => 'view', $q['Question']['id']));
   }
