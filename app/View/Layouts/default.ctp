@@ -66,6 +66,9 @@
       </li>
       <li><a href='/testimonials'>Testimonials</a></li>
       <li><a href='/faq'>F.A.Q</a></li>
+      <?php if(CakeSession::read('User.username')) { ?>
+      <li><a href='/admin'>Admin</a></li>
+	<?php } ?>
     </ul>
     </div>                                                                       
     <div id="content">                                                           
