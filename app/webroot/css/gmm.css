@@ -147,22 +147,22 @@ body {
 
 /*
  *
- * USERS
+ * FORMS
  *
  */
-.users form {
+.forms form {
   margin: 0px;
   padding-left: 10px;
 }
 
-.users label {
+.forms label {
   float: left;
   padding-right: 10px;
   padding-top: 5px;
   width: 75px;
 }
 
-.users .users-links {
+.forms .users-links {
   margin: 0px;
   padding-left: 10px;
 }
