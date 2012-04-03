@@ -147,6 +147,27 @@ body {
 
 /*
  *
+ * USERS
+ *
+ */
+.users form {
+  margin: 0px;
+  padding-left: 10px;
+}
+
+.users label {
+  float: left;
+  padding-right: 10px;
+  padding-top: 5px;
+}
+
+.users .users-links {
+  margin: 0px;
+  padding-left: 10px;
+}
+
+/*
+ *
  * BLOG POST
  *
  */
