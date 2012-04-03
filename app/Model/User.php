@@ -49,6 +49,7 @@ class User extends AppModel {
     'canDeleteAnswers' => 2,
     'canEditAnyQuestion' => 2,
     'canDeleteAnyQuestion' => 2,
+    'postBlog' => 4,
   );
 }
 ?>
