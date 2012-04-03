@@ -30,7 +30,7 @@ body {
  *
  */
 #header-container {
-  background: url(../images/header_bg.gif) repeat-x;
+  background: url(../img/header_bg.gif) repeat-x;
 }
 
 #header {
@@ -65,7 +65,7 @@ body {
 
 /* Display the half-circle on hover. */
 #header .menu li a:hover {
-  background: url(../images/link_hover.gif) no-repeat 50% 79px;
+  background: url(../img/link_hover.gif) no-repeat 50% 79px;
   height: 26px;
 }
 
@@ -121,11 +121,11 @@ body {
 }
 
 .content-container .top-content {
-  background: url(../images/container-top.gif) no-repeat;
+  background: url(../img/container-top.gif) no-repeat;
 }
 
 .content-container .bottom-content {
-  background: url(../images/container-bottom.gif) no-repeat;
+  background: url(../img/container-bottom.gif) no-repeat;
 }
 
 .content-container .main-content {
