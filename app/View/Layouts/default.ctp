@@ -42,7 +42,7 @@
 <body>
   <div id="header-container">
     <div id="header" class="content-width">
-      <h1><a href="#"><img src="img/gmm_logo.png"></a></h1>
+      <h1><a href="#"><img src="/img/gmm_logo.png"></a></h1>
       <div class="menu">
         <ul>
           <li><a href="/blog">Blog</a></li>
@@ -56,7 +56,6 @@
           <li><a href="/testimonials">Testimonials</a></li>
           <li><a href="/faq">FAQ</a></li>
         <?php if(CakeSession::read('User.username')) { ?>
-        Welcome <?php echo CakeSession::read('User.username') ?>
           <li><a href="/logout">Logout</a></li>
         <?php } else { ?>
           <li><a href="/login">Login</a></li>
