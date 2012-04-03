@@ -14,7 +14,7 @@
         </div>
 
         <div class="question-text">
-          <p><?php echo $q['Question']['body'] ?></p>
+          <p><?php echo htmlspecialchars($q['Question']['body']) ?></p>
         </div>
 
         <p class="view-answers"><a href="#">View Answers</a></p>
