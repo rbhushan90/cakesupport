@@ -7,7 +7,7 @@ class PostsController extends AppController {
 
   public function add() {
     $this->User;
-    if(($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
+    if(!($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
       $this->Session->setFlash('You do not have the permissions to post to the blog');
       $this->redirect('/blog');
     }
@@ -43,7 +43,7 @@ class PostsController extends AppController {
   }
 
   public function delete($id = null) {
-    if(($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
+    if(!($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
       $this->Session->setFlash('You do not have permission to delete blog posts');
       $this->redirect('/blog');
     } else {
