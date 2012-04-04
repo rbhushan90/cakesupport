@@ -3,6 +3,13 @@ class User extends AppModel {
   public $name = 'User';
 
   public $hasMany = array(
+    'UserQuestion' => array(
+      'className' => 'Question',
+      'foreignKey' => 'user_id',
+      'order' => 'UserQuestion.created DESC',
+      'dependent' => true
+    ),
+
     'UserAnswer' => array(
       'className' => 'Answer',
       'foreignKey' => 'user_id',

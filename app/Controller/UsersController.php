@@ -39,7 +39,9 @@ class UsersController extends AppController {
     $this->redirect('/');
   }
 
-  public function view($id = null) {
+  public function view($id = null, $contentType = null) {
+    //debug(array($id, $action), 1);
+
     $this->User->id = $id;
     $q = $this->User->read();
     $this->request->data['Answer']['question_id'] = $id;
@@ -48,7 +50,10 @@ class UsersController extends AppController {
       $this->redirect('/');
     }
 
+    //$questions = $this->Question->find('all', array('conditions' => array('Question.id desc')));
+
     $this->set('user', $q);
+    $this->set('contentType', $contentType);
   }
 
 }
