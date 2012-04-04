@@ -33,7 +33,7 @@
 
 <?php foreach ($questions as $q): ?>
 <tr>
-<td><?php echo $q['ReportedQuestionContent']['body'] ?></td>
+<td><?php echo htmlspecialchars($q['ReportedQuestionContent']['body']) ?></td>
 <td><?php echo $q['ReportedQuestionUser']['username']; ?></td>
 <td style="width: 180px"><?php echo $q['ReportedQuestion']['time']; ?></td>
 <td>
