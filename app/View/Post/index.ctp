@@ -1,4 +1,9 @@
-<h2>Recent Blog Entries</h2>
+<h2>
+Blog
+<?php if(CakeSession::read('User.permissions') & Configure::read('permissions.postBlog')) { ?>
+  <a href="/posts/add" class="btn btn-info ask-a-question">Create a new blog post</a>
+<?php } ?>
+</h2>
 
 <table id="question-list">
 <tr>
