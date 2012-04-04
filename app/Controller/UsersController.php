@@ -39,5 +39,17 @@ class UsersController extends AppController {
     $this->redirect('/');
   }
 
+  public function view($id = null) {
+    $this->User->id = $id;
+    $q = $this->User->read();
+    $this->request->data['Answer']['question_id'] = $id;
+    if($q == null) {
+      $this->Session->setFlash('This user does not exist or has been deleted');
+      $this->redirect('/');
+    }
+
+    $this->set('user', $q);
+  }
+
 }
 ?>

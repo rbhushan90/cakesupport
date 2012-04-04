@@ -52,7 +52,7 @@ class AppSchema extends CakeSchema {
 	public $reported_answers = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
 		'answer_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10),
-		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10),
+		'user_id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 24, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'time' => array('type' => 'timestamp', 'null' => false, 'default' => 'CURRENT_TIMESTAMP'),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
@@ -68,7 +68,7 @@ class AppSchema extends CakeSchema {
 	public $reported_questions = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
 		'question_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10),
-		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10),
+		'user_id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 24, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'time' => array('type' => 'timestamp', 'null' => false, 'default' => 'CURRENT_TIMESTAMP'),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
@@ -90,6 +90,9 @@ class AppSchema extends CakeSchema {
 		'last_name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 24, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'email' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 60, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'permissions' => array('type' => 'integer', 'null' => false, 'default' => '0'),
+		'question_count' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'answer_count' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'comment_count' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
