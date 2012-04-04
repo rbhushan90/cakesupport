@@ -10,6 +10,15 @@ class Post extends AppModel {
     )
   );
 
+  public $hasMany = array(
+    'PostComment' => array(
+      'className' => 'Comment',
+      'foreignKey' => 'post_id',
+      'order' => 'PostComment.created DESC',
+      'dependent' => true
+    )
+  );
+
   public $validate = array(
     'title' => 'notEmpty',
     'body' => 'notEmpty'

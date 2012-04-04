@@ -33,4 +33,10 @@
     }
   ?>
 
+<?php foreach ($post['PostComment'] as $com): ?>
+
+<b><?php echo $com['username'] ?>:</b> <br />
+<?php echo $com['body'] ?><br />
+<br />
+<?php endforeach ?>
 </div>

@@ -67,6 +67,13 @@ class PostsController extends AppController {
       $this->redirect('/blog');
     }
 
+    for ($i=count($p['PostComment'])-1; $i >= 0; $i--) {
+      $this->User->id = $p['PostComment'][$i]['user_id'];
+      $user = $this->User->read();
+      $p['PostComment'][$i]['username'] = $user['User']['username'];
+    }
+
+    $this->request->data['Comment']['post_id'] = $id;
     $this->set('post', $p);
   }
 
