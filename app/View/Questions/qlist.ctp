@@ -47,6 +47,10 @@
       <p>
         <?php
           $selTags = CakeSession::read('tags');
+          if($selTags) {
+            $selTags = array();
+            CakeSession::write('tags', $selTags);
+          }
           echo $this->Html->link('All', array('controller' => 'tags', 'action' => 'flip', '0'));
         ?>
       </p>
