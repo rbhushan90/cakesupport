@@ -106,4 +106,20 @@ class AppSchema extends CakeSchema {
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
+
+  public $tags = array(
+    'id' => array('type'=>'integer', 'null'=>false, 'default'=>NULL, 'length'=>10, 'key'=>'primary'),
+    'name' => array('type'=>'string', 'null'=>false, 'default'=>NULL, 'length'=>40, 'collate'=>'utf8_general_ci', 'charset'=>'utf8'),
+    'count' => array('type'=>'integer', 'null'=>false, 'default'=>NULL),
+    'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
+    'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
+  );
+
+  public $post_tags = array(
+    'id' => array('type'=>'integer', 'null'=>false, 'default'=>NULL, 'length'=>10, 'key'=>'primary'),
+    'tag_id' => array('type'=>'integer', 'null'=>false, 'default'=>NULL,  'key'=>'index'),
+    'post_id' => array('type'=>'integer', 'null'=>false, 'default'=>NULL, 'key'=>'index'),
+    'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
+    'indexes' => array('PRIMARY'=>array('column'=>'id', 'unique'=>1), 'tag_id'=>array('column'=>'tag_id', 'unique'=>0), 'post_id'=>array('column'=>'post_id', 'unique'=>0))
+  );
 }
