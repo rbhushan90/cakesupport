@@ -6,7 +6,7 @@ class Question extends AppModel {
     'User' => array(
       'className' => 'User',
       'foreignKey' => 'user_id',
-      'counterCache' => true
+      'counterCache' => 'question_count'
     )
   );
 
