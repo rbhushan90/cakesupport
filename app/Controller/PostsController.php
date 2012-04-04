@@ -22,15 +22,41 @@ class PostsController extends AppController {
   }
 
   public function delete($id = null) {
-    $this->User;
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
-      $this->Session->setFlash('You do not have the permissions to delete blog entries');
+      $this->Session->setFlash('You do not have permission to delete blog posts');
       $this->redirect('/blog');
     } else {
       $this->Post->delete($id);
       $this->redirect('/blog');
     }
   }
+
+  public function edit($id = null) {
+    if(!($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
+      $this->Session->setFlash('You do not have permission to edit blog posts');
+      $this->redirect('/blog');
+    }
+    $this->Post->id = $id;
+    $post = $this->Post->read();
+    if(!$post) {
+      $this->Session->setFlash('This post does not exist');
+      $this->redirect('/blog');
+    }
+
+    if($this->request->is('get')) {
+      $this->request->data = $post;
+    } else {
+      include '../webroot/markitup/markdown.php';
+      $this->request->data['Post']['output'] = Markdown($this->request->data['Post']['body']);
+      $this->request->data['Post']['user_id'] = $this->Session->read('User.id');
+      $this->Post->save($this->request->data);
+      $this->Session->setFlash('The post was successfully edited.');
+      $this->redirect(array('action' => 'view', $id));
+    }
+
+
+  }
+
 
   public function view($id = null) {
     $this->Post->id = $id;

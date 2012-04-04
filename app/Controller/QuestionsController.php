@@ -73,7 +73,7 @@ class QuestionsController extends AppController {
       $this->redirect('/questions');
     }
     if($this->request->is('get')) {
-      $this->request->data = $this->Question->read();
+      $this->request->data = $q;
     } else {
       if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & Configure::read('permissions.QAMod')) {
         $this->request->data['Question']['modified'] = date('Y-m-d H:i:s');
