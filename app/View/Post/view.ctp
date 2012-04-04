@@ -38,5 +38,16 @@
 <b><?php echo $com['username'] ?>:</b> <br />
 <?php echo $com['body'] ?><br />
 <br />
+<?php 
+  if ($this->Session->read('User.id')) {
+    echo "<div class=\"actions\">";
+    if ($com['user_id'] == $this->Session->read('User.id') || $this->Session->read('User.permissions') & Configure::read('permissions.blogMod')) {
+      echo $this->Html->Link('Delete', array('controller' => 'comments', 'action' => 'remove', $com['id']));
+    } else {
+      echo $this->Html->Link('Report', array('controller' => 'comments', 'action' => 'report', $com['id']));
+    }
+    echo "</div>";
+  }
+?>
 <?php endforeach ?>
 </div>
