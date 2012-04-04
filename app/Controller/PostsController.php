@@ -1,9 +1,9 @@
 <?php
 
-class BlogPostsController extends AppController {
-  public $name = 'BlogPost';
+class PostsController extends AppController {
+  public $name = 'Post';
   public $helpers = array('Html', 'Form');
-  public $uses = array('BlogPost', 'User');
+  public $uses = array('Post', 'User');
 
   public function add() {
     $this->User;
@@ -14,9 +14,9 @@ class BlogPostsController extends AppController {
     if($this->request->data) {
       $this->Session->setFlash('The post has been added.');
       include '../webroot/markitup/markdown.php';
-      $this->request->data['BlogPost']['output'] = Markdown($this->request->data['BlogPost']['body']);
-      $this->request->data['BlogPost']['user_id'] = $this->Session->read('User.id');
-      $this->BlogPost->save($this->request->data);
+      $this->request->data['Post']['output'] = Markdown($this->request->data['Post']['body']);
+      $this->request->data['Post']['user_id'] = $this->Session->read('User.id');
+      $this->Post->save($this->request->data);
       $this->redirect('/blog');
     }
   }
@@ -27,14 +27,14 @@ class BlogPostsController extends AppController {
       $this->Session->setFlash('You do not have the permissions to delete blog entries');
       $this->redirect('/blog');
     } else {
-      $this->BlogPost->delete($id);
+      $this->Post->delete($id);
       $this->redirect('/blog');
     }
   }
 
   public function view($id = null) {
-    $this->BlogPost->id = $id;
-    $p = $this->BlogPost->read();
+    $this->Post->id = $id;
+    $p = $this->Post->read();
 
     if($p == null) {
       $this->Session->setFlash('This post does not exist or has been deleted');
@@ -45,8 +45,8 @@ class BlogPostsController extends AppController {
   }
 
   public function index() {
-    $this->set('posts', $this->BlogPost->find('all',
-      array('order' => 'BlogPost.id desc')));
+    $this->set('posts', $this->Post->find('all',
+      array('order' => 'Post.id desc')));
   }
 
 

@@ -1,9 +1,10 @@
 <?php
-class BlogPost extends AppModel {
-  public $name = 'BlogPost';
+class Post extends AppModel {
+  public $name = 'Post';
+  public $useTable = 'blog_posts';
 
   public $belongsTo = array(
-    'BlogPostUser' => array(
+    'PostUser' => array(
       'className' => 'User',
       'foreignKey' => 'user_id'
     )

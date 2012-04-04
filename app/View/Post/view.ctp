@@ -15,13 +15,13 @@ form div.submit {
 </style>
 <a name="top"></a>
 <div id="question-info">
-<h2><?php echo $post['BlogPost']['title']; ?></h2>
+<h2><?php echo $post['Post']['title']; ?></h2>
 
-<b>Asked by:</b> <?php echo $post['BlogPostUser']['username']; ?> <br />
-<b>on:</b> <?php echo $post['BlogPost']['created']; ?> <br />
+<b>Asked by:</b> <?php echo $post['PostUser']['username']; ?> <br />
+<b>on:</b> <?php echo $post['Post']['created']; ?> <br />
 </div>
 
-<?php echo $post['BlogPost']['output']; ?>
+<?php echo $post['Post']['output']; ?>
 
 
 <br />
