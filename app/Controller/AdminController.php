@@ -5,6 +5,10 @@ class AdminController extends AppController {
   public $uses = array('User', 'ReportedAnswer', 'ReportedQuestion','ReportedComment');
 
   public function index() {
+    if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
+      $this->Session->setFlash('You do not have the permissions to view the admin panel.');
+      $this->redirect('/');
+    }
     foreach(array('ReportedAnswer', 'ReportedQuestion') as $reportType){
       $this->set($reportType . 's', $this->$reportType->find('all'));
     }    
