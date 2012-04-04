@@ -1,24 +1,8 @@
-<style type="text/css">
-form div.required label {
-  display: none;
-}
-form div.required {
-  display: inline-block;
-  padding: 10px 50px;
-}
-form div.required textarea {
-  width: 600px;
-}
-form div.submit {
-  display: inline-block;
-}
-</style>
 <a name="top"></a>
 <div id="blog">
 <h2><?php echo $post['Post']['title']; ?></h2>
 
-<b>Asked by:</b> <?php echo $post['PostUser']['username']; ?> <br />
-<b>on:</b> <?php echo $post['Post']['created']; ?> <br />
+<b>Posted on:</b> <?php echo $post['Post']['created']; ?> <br />
 </div>
 <br />
 
@@ -39,5 +23,20 @@ form div.submit {
 <br />
 <h3>Comments</h3>
 <br />
+  <?php
+    if($this->Session->read('User.id')) {
+      echo $this->Form->create('Comment', array('action' => 'post'));
+      echo $this->Form->input('post_id', array('type' => 'hidden'));
+      echo $this->Form->input('body',
+          array('rows' => 4, 'class' => 'newcomment', 'label' => ''));
+      echo $this->Form->end('Comment');
+    }
+  ?>
 
+<?php foreach ($post['PostComment'] as $com): ?>
+
+<b><?php echo $com['username'] ?>:</b> <br />
+<?php echo $com['body'] ?><br />
+<br />
+<?php endforeach ?>
 </div>
