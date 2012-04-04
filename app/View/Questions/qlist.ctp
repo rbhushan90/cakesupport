@@ -43,12 +43,12 @@
   <div class="sidebar">
     <div class="links">
       <h3>Tags</h3>
-      <p><a href="#" target="_blank">Fitness</a></p>
-      <p><a href="#" target="_blank">Diet</a></p>
-      <p><a href="#" target="_blank">Vegan</a></p>
-      <p><a href="#" target="_blank">Meat</a></p>
-      <p><a href="#" target="_blank">Dairy</a></p>
-      <p><a href="#" target="_blank">Veggies</a></p>
+      <p><a href="#">Fitness</a></p>
+      <p><a href="#">Diet</a></p>
+      <p><a href="#">Vegan</a></p>
+      <p><a href="#">Meat</a></p>
+      <p><a href="#">Dairy</a></p>
+      <p><a href="#">Veggies</a></p>
     </div>
   </div>
   <div class="clear"></div>
