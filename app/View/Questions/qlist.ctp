@@ -43,12 +43,10 @@
   <div class="sidebar">
     <div class="links">
       <h3>Tags</h3>
-      <p><a href="#">Fitness</a></p>
-      <p><a href="#">Diet</a></p>
-      <p><a href="#">Vegan</a></p>
-      <p><a href="#">Meat</a></p>
-      <p><a href="#">Dairy</a></p>
-      <p><a href="#">Veggies</a></p>
+      <p><?php echo $this->Html->link('All', array('controller' => 'tags', 'action' => 'flip', '0')); ?></p>
+      <?php foreach($tags as $tag): ?>
+      <p><?php echo $this->Html->link($tag['Tag']['name'], array('controller' => 'tags', 'action' => 'flip', $tag['Tag']['id'])); ?></p>
+      <?php endforeach; ?>
     </div>
   </div>
   <div class="clear"></div>
