@@ -10,7 +10,8 @@ class Answer extends AppModel {
     ),
     'AnswerUser' => array(
       'className' => 'User',
-      'foreignKey' => 'user_id'
+      'foreignKey' => 'user_id',
+      'counterCache' => 'answer_count'
     )
   );
 
