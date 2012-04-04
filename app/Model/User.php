@@ -46,14 +46,5 @@ class User extends AppModel {
       )
     );
 
-  public static $permissionMasks = array(
-    'canAcceptAnswers' => 1,
-    'canAddFAQ' => 1,
-    'canDeleteFAQ' => 1,
-    'canDeleteAnswers' => 2,
-    'canEditAnyQuestion' => 2,
-    'canDeleteAnyQuestion' => 2,
-    'postBlog' => 4,
-  );
 }
 ?>

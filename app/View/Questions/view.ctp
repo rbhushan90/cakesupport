@@ -26,7 +26,7 @@
     <?php 
       if($this->Session->read('User.id')) {
         echo "<div class=\"actions\">";
-        if($this->Session->read('User.id') == $question['User']['id'] || $this->Session->read('User.permissions') & 1) {
+        if($this->Session->read('User.id') == $question['User']['id'] || $this->Session->read('User.permissions') & Configure::read('Permissions.QAMod')) {
           echo $this->Html->Link('Edit',
               array('action' => 'edit', $question['Question']['id']));
           echo " | ";
@@ -35,7 +35,7 @@
         } else {
           echo $this->Html->Link('Report', array('action' => 'report', $question['Question']['id']));
         }
-        if($this->Session->read('User.permissions') & 1){
+        if($this->Session->read('User.permissions') & Configure::read('permissions.FAQ')){
           echo " | ";
           echo $this->Form->postLink('Add to FAQ',
             array('controller'=>'faq', 'action'=>'add', $question['Question']['id']));
@@ -75,11 +75,11 @@
     <?php 
       if ($this->Session->read('User.id')) {
         echo "<div class=\"actions\">";
-        if ($this->Session->read('User.permissions') & 1 && !$ans['accepted']) {
+        if ($this->Session->read('User.permissions') & Configure::read('permissions.acceptAnswers') && !$ans['accepted']) {
           echo $this->Html->Link('Accept', array('controller' => 'answers', 'action' => 'accept', $ans['id']));
           echo " | ";
         }
-        if ($ans['user_id'] == $this->Session->read('User.id') || $this->Session->read('User.permissions') & 2) {
+        if ($ans['user_id'] == $this->Session->read('User.id') || $this->Session->read('User.permissions') & Configure::read('permissions.QAMod')) {
           echo $this->Html->Link('Delete', array('controller' => 'answers', 'action' => 'remove', $ans['id']));
         } else {
           echo $this->Html->Link('Report', array('controller' => 'answers', 'action' => 'report', $ans['id']));

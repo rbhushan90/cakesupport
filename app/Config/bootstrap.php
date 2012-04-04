@@ -122,3 +122,14 @@ Cache::config('default', array('engine' => 'File'));
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */
+
+$permissions = array(
+  'admin' => 1,
+  'QAMod' => 2,
+  'FAQ' => 4,
+  'acceptAnswers' => 8,
+  'postBlog' => 16,
+);
+
+Configure::write('permissions', $permissions);
+  
