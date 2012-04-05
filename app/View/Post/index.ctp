@@ -17,7 +17,7 @@ Blog
             ?>
         </h3>
        <div class="post-content">
-          <?php echo $p['Post']['body'] ?>
+          <?php echo $p['Post']['output'] ?>
         </div>
         <p class="leave-comment">
           <?php 
