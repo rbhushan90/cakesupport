@@ -64,6 +64,7 @@
         echo " odd";
       }
       echo "\">";
+      $i++; 
   ?>
     <?php
       if($ans['accepted']) {
@@ -100,7 +101,8 @@
       echo $this->Form->input('question_id', array('type' => 'hidden'));
       echo $this->Form->input('body',
           array('rows' => 4, 'class' => 'newanswer', 'label' => ''));
-      echo $this->Form->end('Answer');
+      echo $this->Form->submit('Answer', array('class' => 'btn btn-primary'));
+      echo $this->Form->end();
       echo "</div>";
     }
   ?>
