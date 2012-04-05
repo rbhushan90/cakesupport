@@ -39,21 +39,24 @@ class UsersController extends AppController {
     $this->redirect('/');
   }
 
-  public function view($id = null, $contentType = null) {
-    //debug(array($id, $action), 1);
-
+  public function view($id = null) {
     $this->User->id = $id;
-    $q = $this->User->read();
+    $user = $this->User->read();
     $this->request->data['Answer']['question_id'] = $id;
-    if($q == null) {
+    if($user == null) {
       $this->Session->setFlash('This user does not exist or has been deleted');
       $this->redirect('/');
     }
 
-    //$questions = $this->Question->find('all', array('conditions' => array('Question.id desc')));
+    $this->set('user', $user);
+  }
 
-    $this->set('user', $q);
-    $this->set('contentType', $contentType);
+  public function viewanswers($id = null) {
+    $this->view($id);
+  }
+
+  public function viewquestions($id = null) {
+    $this->view($id);
   }
 
 }
