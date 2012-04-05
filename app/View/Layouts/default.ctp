@@ -53,7 +53,9 @@
               <li><a href="/unaccepted">Questions with no accepted answers</a></li>
             </ul>
           </li>
+          <!--
           <li><a href="/testimonials">Testimonials</a></li>
+          -->
           <li><a href="/faq">FAQ</a></li>
         <?php if(CakeSession::read('User.username')) { ?>
           <li><a href="/logout">Logout</a></li>
