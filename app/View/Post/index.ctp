@@ -9,9 +9,14 @@ Blog
 <div class="main-content">
   <div class="content-partial">
     <?php foreach ($posts as $p): ?>
-      <div class="post">
-        <h3><?php echo $p['Post']['title'] ?></h3>
-        <div class="post-content">
+      <div class="post index">
+        <h3><?php echo $this->Html->link($p['Post']['title'],
+                array('controller' => 'posts', 'action' => 'view',
+                $p['Post']['id']
+              ));
+            ?>
+        </h3>
+       <div class="post-content">
           <?php echo $p['Post']['body'] ?>
         </div>
         <p class="leave-comment">

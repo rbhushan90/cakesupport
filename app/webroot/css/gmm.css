@@ -225,6 +225,20 @@ a:hover {
   padding: 10px;
 }
 
+.post.index h3 {
+  padding: 0px;
+}
+
+.post.index h3 a {
+  color: #333;
+  display: block;
+  padding: 10px;
+}
+
+.post.index h3 a:hover {
+  background: #ffb350;
+}
+
 .post .post-content {
   padding: 10px 10px 0px 10px;
 }
