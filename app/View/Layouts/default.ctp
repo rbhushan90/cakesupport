@@ -46,7 +46,7 @@
       <div class="menu">
         <ul>
           <li><a href="/blog">Blog</a></li>
-          <li class="nested-menu"><a href="/questions">Questions</a>
+          <li class="nested-menu"><a href="/questions">Questions <i class="icon-chevron-down"></i></a>
             <ul>
               <li><a href="/recent">All questions</a></li>
               <li><a href="/unanswered">Unanswered quetsions</a></li>

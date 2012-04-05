@@ -87,6 +87,10 @@ a:hover {
   height: auto;
 }
 
+#header .menu li.nested-menu a i {
+  margin-top: 1px;
+}
+
 #header .menu li ul {
   display: none;
 }
