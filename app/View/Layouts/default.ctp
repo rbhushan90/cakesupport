@@ -48,9 +48,9 @@
           <li><a href="/blog">Blog</a></li>
           <li class="nested-menu"><a href="/questions">Questions <i class="icon-chevron-down"></i></a>
             <ul id="questions_submenu">
-              <li><a href="/recent">All questions</a></li>
-              <li><a href="/unanswered">Unanswered quetsions</a></li>
-              <li><a href="/unaccepted">Questions with no accepted answers</a></li>
+              <li><a href="/recent">All</a></li>
+              <li><a href="/unanswered">Unanswered</a></li>
+              <li><a href="/unaccepted">No accepted answers</a></li>
             </ul>
           </li>
           <!--
