@@ -2,6 +2,7 @@
 class UsersController extends AppController {
   public $name = 'Users';
   public $helpers = array('Form', 'Html');
+  public $uses = array('User', 'ReportedUser');
 
   public function login() {
     if ($this->request->is('post')) {
@@ -61,6 +62,22 @@ class UsersController extends AppController {
     } else {
       $this->Session->setFlash('You do not have permission to (de)activate user accounts.');
       $this->redirect('/');
+    }
+  }
+
+  public function report($id = null) {
+    $this->User->id = $id;
+    $user = $this->User->read();
+    if($this->Session->read('User.id')) {
+      $this->Session->setFlash("This user has been reported.");
+      $rc = array();
+      $rc['ReportedUser']['reportee_id'] = $id;
+      $rc['ReportedUser']['user_id'] = $this->Session->read('User.id');
+      $this->ReportedUser->save($rc);
+      $this->redirect(array('controller' => 'users', 'action' => 'view', $id));
+    } else {
+      $this->Session->setFlash("You need to be logged in to do that.");
+      $this->redirect(array('controller' => 'users', 'action' => 'login'));
     }
   }
 
