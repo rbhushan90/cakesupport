@@ -1,5 +1,5 @@
 <h2>Recently Reported Answers</h2>
-<table id="question-list">
+<table class="table" id="question-list">
 <tr>
 <th>Content</th>
 <th>reported by</th>
@@ -23,7 +23,7 @@
 </table>
 
 <h2>Recently Reported Questions</h2>
-<table id="question-list">
+<table class="table" id="question-list">
 <tr>
 <th>Content</th>
 <th>reported by</th>
