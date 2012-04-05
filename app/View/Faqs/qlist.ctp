@@ -1,22 +1,42 @@
 <?php $this->start('qlist') ?>
-<?php for($i = count($faqs)-1; $i>=0; $i--){ ?>
-<div class="question">
-<h3>Question</h3>
-<p>Title: <?php echo $this->Html->link($faqs[$i]['title'], array('controller'=>'questions', 'action'=>'view', $faqs[$i]['question_id'])); ?></p>
-<p>Question: <?php echo $faqs[$i]['body']; ?></p>
-<div class="answer">
-  <h4>Answer</h3>
-  <p>
-  <?php if($faqs[$i]['answer']==null){
-    echo $this->Html->link('View Thread',array('controller'=>'questions', 'action'=>'view', $faqs[$i]['question_id']));
-  } else {
-    echo $faqs[$i]['answer'];
-  }?>
-</p>
+
+<div class="top-content"></div>
+<div class="main-content">
+  <div class="content-partial">
+    <?php for($i = count($faqs)-1; $i>=0; $i--){ ?>
+      <div class="question short">
+        <h3><?php echo $this->Html->link($faqs[$i]['title'], array('controller' => 'questions', 'action' => 'view', $faqs[$i]['id'])); ?></h3>
+        <div class="question-text">
+          <p><?php echo htmlspecialchars($faqs[$i]['body']) ?></p>
+        </div>
+        <div class="question-answers">
+          <h4>Answer</h4>
+          <p class="answer accepted">
+            <?php if($faqs[$i]['answer']==null){
+              echo $this->Html->link('View Thread',array('controller'=>'questions', 'action'=>'view', $faqs[$i]['question_id']));
+            } else {
+              echo $faqs[$i]['answer'];
+            }?>
+          </p>
+        </div>
+
+        <?php if($this->Session->read('User.permissions') & 1){
+          echo "<p class=\"remove-answer\">";
+          echo $this->Html->link('Remove', array('controller'=>'faq', 'action'=>'remove', $faqs[$i]['id']), array('class' => 'btn btn-danger'));
+          echo "</p>";
+        } ?>
+
+      </div>
+    <?php } ?>
+  </div>
+  <div class="sidebar">
+    <div class="links">
+      <h3>Questions</h3>
+      <p><a href="#" target="_blank">How do I lose weight?</a></p>
+    </div>
+  </div>
+  <div class="clear"></div>
 </div>
-<?php if($this->Session->read('User.permissions') & 1){
-  echo $this->Html->link('Remove', array('controller'=>'faq', 'action'=>'remove', $faqs[$i]['id']));
-} ?>
-</div>
-<?php } ?>
+<div class="bottom-content"></div>
+
 <?php $this->end() ?>

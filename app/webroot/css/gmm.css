@@ -497,6 +497,18 @@ a:hover {
   padding: 10px;
 }
 
+.question.short .question-answers {
+  border-top: none;
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+}
+
+.remove-answer {
+  margin-bottom: 0px;
+  padding-left: 10px;
+}
+
 /*
  *
  * FOOTER
