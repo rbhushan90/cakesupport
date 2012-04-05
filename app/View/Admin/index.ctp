@@ -2,6 +2,11 @@
 <div class="top-content"></div>
 <div class="main-content">
   <div class="admin">
+
+<?php
+  
+?>
+
     <h3>Reported Answers</h3>
     <table class="table" id="question-list">
       <tr>
@@ -9,6 +14,7 @@
         <th>reported by</th>
         <th>on</th>
         <th>Actions</th>
+        <th></th>
       </tr>
       
       <?php $reportType = 'ReportedAnswer'; ?>
@@ -23,7 +29,7 @@
                 array('controller'  => 'questions', 'action' => 'view',
                 $ans['ReportedAnswerContent']['question_id'])); 
             ?>
-            <?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $ans[$reportType]['id'])); ?>
+            </td><td><?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $ans[$reportType]['id'])); ?>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -37,6 +43,7 @@
         <th>reported by</th>
         <th>on</th>
         <th>Actions</th>
+        <th></th>
       </tr>
   
       <?php $reportType = 'ReportedQuestion'; ?>
@@ -53,7 +60,7 @@
                 array('controller'  => 'questions', 'action' => 'view',
                 $q['ReportedQuestion']['question_id']));
             ?>
-            <?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $q[$reportType]['id'])); ?>
+            </td><td><?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $q[$reportType]['id'])); ?>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -66,6 +73,7 @@
         <th>reported by</th>
         <th>on</th>
         <th>Actions</th>
+        <th></th>
       </tr>
 
       <?php $reportType = 'ReportedUser'; ?>
@@ -80,7 +88,7 @@
           <td style="width: 180px"><?php echo $user['ReportedUser']['time']; ?></td>
           <td>
             <?php echo $this->Html->link('Deactivate User', array('controller' => 'users', 'action' => 'deactivate', $user['ReportedUserContent']['id'])); ?>
-            <?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $user[$reportType]['id'])); ?>
+            </td><td><?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $user[$reportType]['id'])); ?>
           </td>
         </tr>
       <?php endforeach; ?>

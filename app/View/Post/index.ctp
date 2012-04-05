@@ -28,7 +28,7 @@ Blog
           ?>
         </p>
         <div class="info">
-          <p>by <strong><?p echo $p['PostUser']['username'] ?></strong></p>
+          <p>by <strong><?php echo $p['PostUser']['username'] ?></strong></p>
           <p>Filed under: categories</p>
           <p>Tags: tags</p>
           <p>Date: <?php echo $p['Post']['created'] ?>
