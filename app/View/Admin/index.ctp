@@ -4,95 +4,101 @@
   <div class="admin">
 
 <?php
-  
-?>
-
-    <h3>Reported Answers</h3>
+//A function to format report lists. Should probably be refactored into a CakePHP Helper later.
+  function formatReportList($this_copy, $reportType, $reportList, $fields, $valueGetters) {  ?>
+    <h3>Reported <?php echo substr($reportType,8); ?>s</h3>
     <table class="table" id="question-list">
       <tr>
-        <th>Content</th>
-        <th>reported by</th>
-        <th>on</th>
-        <th>Actions</th>
-        <th></th>
+        <?php foreach($fields as $f){
+          echo '<th>' . $f . '</th>';        
+        } ?>
       </tr>
       
-      <?php $reportType = 'ReportedAnswer'; ?>
-      <?php foreach ($answers as $ans): ?>
+      <?php foreach ($reportList as $ans): ?>
         <tr>
-          <td><?php echo $ans['ReportedAnswerContent']['body'] ?></td>
-          <td>
-          <?php echo $this->Html->link($ans['ReportedAnswerUser']['username'], array('controller'=>'users', 'action'=>'view', $ans['ReportedAnswerUser']['id'])); ?>
-          <td style="width: 180px"><?php echo $ans['ReportedAnswer']['time']; ?></td>
-          <td>
-            <?php echo $this->Html->link('View Question',
+	<?php foreach($valueGetters as $f){
+          echo '<td>' . $f($reportType, $ans) . '</td>';        
+        } ?>
+        </tr>
+      <?php endforeach; ?>
+    </table>
+<?php
+  }
+?>
+
+<?php 
+
+//Make copy of this so we can use it in anonymous functions we create
+$this_copy = $this;
+
+$bodyGetter = function ($reportType, $r){
+	return htmlspecialchars($r[$reportType . 'Content']['body']);
+};
+
+$titleGetter = function ($reportType, $r){
+	return htmlspecialchars($r[$reportType . 'Content']['title']);
+};
+
+$timeGetter = function ($reportType, $r){
+	return $r[$reportType]['time'];
+};
+
+$viewReporterLink = function($reportType,$r)use($this_copy){
+	return $this_copy->Html->link($r[$reportType.'User']['username'],
+                array('controller'  => 'users', 'action' => 'view',
+                $r[$reportType]['user_id']));
+};
+
+$deleteReportLink = function($reportType,$r)use($this_copy){
+	return $this_copy->Html->link('Delete Report',
+                array('controller'  => 'admin', 'action' => 'unreport',
+                $r[$reportType]['id']));
+};
+
+///////////////////////////////////////////////////////////////////////////
+//Create list of Reported Answers 
+$viewAnswerLink = function($reportType,$r)use($this_copy){
+	return $this_copy->Html->link('View Answer',
                 array('controller'  => 'questions', 'action' => 'view',
-                $ans['ReportedAnswerContent']['question_id'])); 
-            ?>
-            </td><td><?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $ans[$reportType]['id'])); ?>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-    </table>
+                $r[$reportType.'Content']['question_id']));
+};
 
-    <h3>Reported Questions</h3>
-    <table class="table" id="question-list">
-      <tr>
-        <th>Title</th>
-        <th>Content</th>
-        <th>reported by</th>
-        <th>on</th>
-        <th>Actions</th>
-        <th></th>
-      </tr>
-  
-      <?php $reportType = 'ReportedQuestion'; ?>
-      <?php foreach ($questions as $q): ?>
-        <tr>
-          <td><?php echo htmlspecialchars($q['ReportedQuestionContent']['title']) ?></td>
-          <td><?php echo htmlspecialchars($q['ReportedQuestionContent']['body']) ?></td>
-          <td>
-          <?php echo $this->Html->link($q['ReportedQuestionUser']['username'], array('controller'=>'users', 'action'=>'view', $q['ReportedQuestionUser']['id'])); ?>
-          </td>
-          <td style="width: 180px"><?php echo $q['ReportedQuestion']['time']; ?></td>
-          <td>
-            <?php echo $this->Html->link('View Question',
+formatReportList($this,'ReportedAnswer',$answers,
+	array('Content','reported by','on','Actions',''),
+	array($bodyGetter, $viewReporterLink, $timeGetter, $viewAnswerLink, $deleteReportLink)
+	);
+
+///////////////////////////////////////////////////////////////////////////
+//Create list of Reported Questions
+$viewQuestionLink = function($reportType,$r)use($this_copy){
+	return $this_copy->Html->link('View Question',
                 array('controller'  => 'questions', 'action' => 'view',
-                $q['ReportedQuestion']['question_id']));
-            ?>
-            </td><td><?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $q[$reportType]['id'])); ?>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-    </table>
+                $r[$reportType.'Content']['id']));
+};
 
-    <h3>Reported Users</h3>
-    <table class="table" id="question-list">
-      <tr>
-        <th>Username</th>
-        <th>reported by</th>
-        <th>on</th>
-        <th>Actions</th>
-        <th></th>
-      </tr>
+formatReportList($this,'ReportedQuestion',$questions,
+	array('Title','Content','reported by','on','Actions',''),
+	array($titleGetter, $bodyGetter, $viewReporterLink, $timeGetter, $viewQuestionLink, $deleteReportLink)
+	);
 
-      <?php $reportType = 'ReportedUser'; ?>
-      <?php foreach ($users as $user): ?>        
-        <tr>
-          <td>
-          <?php echo $this->Html->link($user['ReportedUserContent']['username'], array('controller'=>'users', 'action'=>'view', $user['ReportedUserContent']['id'])); ?>
-          </td>
-          <td>
-          <?php echo $this->Html->link($user['ReportedUserUser']['username'], array('controller'=>'users', 'action'=>'view', $user['ReportedUserUser']['id'])); ?>
-          </td>
-          <td style="width: 180px"><?php echo $user['ReportedUser']['time']; ?></td>
-          <td>
-            <?php echo $this->Html->link('Deactivate User', array('controller' => 'users', 'action' => 'deactivate', $user['ReportedUserContent']['id'])); ?>
-            </td><td><?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $user[$reportType]['id'])); ?>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-    </table>
+///////////////////////////////////////////////////////////////////////////
+//Create list of Reported Users
+$usernameGetter = function ($reportType, $r){
+	return $r[$reportType . 'Content']['username'];
+};
+
+$deactivateUserLink = function($reportType,$r)use($this_copy){
+	return $this_copy->Html->link('Deactivate User',
+                array('controller'  => 'users', 'action' => 'deactivate',
+                $r[$reportType.'Content']['id']));
+};
+
+formatReportList($this,'ReportedUser',$users,
+	array('Username','reported by','on','Actions',''),
+	array($usernameGetter, $viewReporterLink, $timeGetter, $deactivateUserLink, $deleteReportLink)
+	);
+?>
+
   </div>
 </div>
 <div class="bottom-content"></div>
