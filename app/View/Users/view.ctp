@@ -31,7 +31,8 @@
     } else {
       echo $this->Html->link('Activate account', array('controller'=>'users', 'action'=>'activate', $user['User']['id']));
     }
-
+  } else if(CakeSession::read('User.permissions')){
+    echo $this->Html->link('Report this user', array('controller'=>'users', 'action'=>'report', $user['User']['id']));
   }
 ?>
 </div>

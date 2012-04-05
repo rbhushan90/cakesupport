@@ -47,6 +47,14 @@ class AppSchema extends CakeSchema {
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1), 'question_id' => array('column' => 'question_id', 'unique' => 0), 'answer_id' => array('column' => 'answer_id', 'unique' => 0)),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
+	public $post_tags = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
+		'tag_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'index'),
+		'post_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'index'),
+		'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1), 'tag_id' => array('column' => 'tag_id', 'unique' => 0), 'post_id' => array('column' => 'post_id', 'unique' => 0)),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
 	public $questions = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
 		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'index'),
@@ -83,6 +91,14 @@ class AppSchema extends CakeSchema {
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
+	public $reported_users = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
+		'reportee_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10),
+		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10),
+		'time' => array('type' => 'timestamp', 'null' => false, 'default' => 'CURRENT_TIMESTAMP'),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
 	public $reports = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
 		'question_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10),
@@ -92,6 +108,14 @@ class AppSchema extends CakeSchema {
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'MyISAM')
 	);
+	public $tags = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 40, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'count' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
 	public $users = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
 		'username' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 24, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
@@ -99,27 +123,11 @@ class AppSchema extends CakeSchema {
 		'first_name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 24, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'last_name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 24, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'email' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 60, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'permissions' => array('type' => 'integer', 'null' => false, 'default' => '0'),
+		'permissions' => array('type' => 'integer', 'null' => false, 'default' => '1'),
 		'question_count' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'answer_count' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'comment_count' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
-
-  public $tags = array(
-    'id' => array('type'=>'integer', 'null'=>false, 'default'=>NULL, 'length'=>10, 'key'=>'primary'),
-    'name' => array('type'=>'string', 'null'=>false, 'default'=>NULL, 'length'=>40, 'collate'=>'utf8_general_ci', 'charset'=>'utf8'),
-    'count' => array('type'=>'integer', 'null'=>false, 'default'=>NULL),
-    'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
-    'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
-  );
-
-  public $post_tags = array(
-    'id' => array('type'=>'integer', 'null'=>false, 'default'=>NULL, 'length'=>10, 'key'=>'primary'),
-    'tag_id' => array('type'=>'integer', 'null'=>false, 'default'=>NULL,  'key'=>'index'),
-    'post_id' => array('type'=>'integer', 'null'=>false, 'default'=>NULL, 'key'=>'index'),
-    'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
-    'indexes' => array('PRIMARY'=>array('column'=>'id', 'unique'=>1), 'tag_id'=>array('column'=>'tag_id', 'unique'=>0), 'post_id'=>array('column'=>'post_id', 'unique'=>0))
-  );
 }
