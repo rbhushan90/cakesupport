@@ -40,8 +40,14 @@ class User extends AppModel {
         'message' => 'Must be at least 1 character long',
       ),
       'email' => array(
-        'rule' => 'email',
-        'message' => 'Must provide a valid email address'
+        'format' => array(
+          'rule' => 'email',
+          'message' => 'Must provide a valid email address'
+        ),
+        'unique' => array(
+          'rule' => 'isUnique',
+          'message' => 'That email address is already in user'
+        )
       ),
       'first_name' => array(
         'rule' => 'notEmpty',
