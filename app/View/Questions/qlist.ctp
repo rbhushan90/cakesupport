@@ -6,7 +6,9 @@
     <?php foreach ($questions as $q): ?>
       <div class="question short">
         <h3><?php echo $this->Html->link($q['Question']['title'], array('controller' => 'questions', 'action' => 'view', $q['Question']['id'])); ?></h3>
-        <p class="info">asked by <strong><?php echo $q['User']['username']; ?></strong> on <strong><?php echo $q['Question']['created']; ?></strong></p>
+        <p class="info">asked by <strong>
+        <?php echo $this->Html->link($q['User']['username'], array('controller' => 'users', 'action' => 'view', $q['User']['id'])); ?>
+        </strong> on <strong><?php echo $q['Question']['created']; ?></strong></p>
 
         <?php echo "<a href=\"/questions/view/" . $q['Question']['id'] . "\">" ?>
         <div class="answers

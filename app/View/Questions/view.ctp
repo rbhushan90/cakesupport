@@ -4,7 +4,9 @@
 <div class="main-content">
   <div class="question full-page">
     <h3><?php echo htmlspecialchars($question['Question']['title']); ?></h3>
-    <p class="info">asked by <strong><?php echo $question['User']['username']; ?></strong> on <strong><?php echo $question['Question']['created']; ?></strong></p>
+    <p class="info">asked by <strong>
+    <?php echo $this->Html->link($question['User']['username'], array('controller' => 'users', 'action' => 'view', $question['User']['id'])); ?>
+    </strong> on <strong><?php echo $question['Question']['created']; ?></strong></p>
 
     <div class="answers">
       <p class="number"><?php echo $question['Question']['answer_count'] ?></p>
@@ -71,7 +73,9 @@
         echo "<h4><strong>Accepted Answer</strong></h4>";
       }
     ?>
-    <p class="answerer"><strong><?php echo $ans['username'] ?>:</strong></p>
+    <p class="answerer"><strong>
+    <?php echo $this->Html->link($ans['username'], array('controller' => 'users', 'action' => 'view', $ans['user_id'])); ?>:
+    </strong></p>
     <p><?php echo $ans['body'] ?></p>
     <?php 
       if ($this->Session->read('User.id')) {
