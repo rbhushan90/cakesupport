@@ -222,7 +222,8 @@ a:hover {
 /* NOTE: links header shares some similarities so it's declared here. */
 .post h3,
 .links h3,
-.question h3 {
+.question h3,
+.admin h3 {
   background: orange;
   font-size: 18pt;
   font-weight: normal;
@@ -512,6 +513,17 @@ a:hover {
 .remove-answer {
   margin-bottom: 0px;
   padding-left: 10px;
+}
+
+/*
+ *
+ * ADMIN
+ *
+ */
+.admin table {
+  margin: 10px;
+  margin-bottom: 0px;
+  width: 780px;
 }
 
 /*
