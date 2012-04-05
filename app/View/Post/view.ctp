@@ -44,8 +44,11 @@
                 }
                 echo "\">";
           ?>
-            <p><?php $com['body'] ?></p>
-            <p class="commenter"><strong><?php $com['username'] ?></strong></p>
+            <p class="commenter"><strong>
+            <?php
+                echo $this->Html->link($com['username'], array('controller' => 'users', 'action' => 'view', $com['user_id']));
+            ?>:</strong></p>
+            <p><?php echo $com['body'] ?></p>
             <?php 
               if ($this->Session->read('User.id')) {
                 echo "<div class=\"actions\">";
