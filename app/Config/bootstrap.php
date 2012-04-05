@@ -131,6 +131,7 @@ $permissions = array(
   'acceptAnswers' => 16,
   'postBlog' => 32,
   'blogMod' => 64,
+  'userMod' => 128,
 );
 
 Configure::write('permissions', $permissions);

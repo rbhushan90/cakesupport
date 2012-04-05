@@ -38,6 +38,33 @@ class UsersController extends AppController {
     }
   }
 
+  public function deactivate($id = null) {
+    if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+      $this->User->id = $id;
+      $user = $this->User->read();
+      $user['User']['permissions'] &= (-2);
+      $this->User->save($user);
+      $this->redirect('/admin');
+    } else {
+      $this->Session->setFlash('You do not have permission to (de)activate user accounts.');
+      $this->redirect('/');
+    }
+  }
+
+  public function activate($id = null) {
+    if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+      $this->User->id = $id;
+      $user = $this->User->read();
+      $user['User']['permissions'] |= 1;
+      $this->User->save($user);
+      $this->redirect('/admin');
+    } else {
+      $this->Session->setFlash('You do not have permission to (de)activate user accounts.');
+      $this->redirect('/');
+    }
+  }
+
+
   public function logout() {
     CakeSession::delete('User');
     $this->redirect('/');
@@ -56,11 +83,21 @@ class UsersController extends AppController {
   }
 
   public function viewanswers($id = null) {
-    $this->view($id);
+    if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+      $this->view($id);
+    } else {
+      $this->Session->setFlash('You do not have permission to view this page.');
+      $this->redirect('/');
+    }
   }
 
   public function viewquestions($id = null) {
-    $this->view($id);
+    if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+      $this->view($id);
+    } else {
+      $this->Session->setFlash('You do not have permission to view this page.');
+      $this->redirect('/');
+    }
   }
 
 }

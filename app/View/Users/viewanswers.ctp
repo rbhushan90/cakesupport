@@ -7,6 +7,7 @@
 			echo '<p>';
       echo $ans['body'];
 			echo $this->Html->link('[View Question]', array('controller'=>'questions', 'action'=>'view', $ans['id']));
+      echo '</p>';
 		}
 
     echo $this->Html->link('Back', array('controller'=>'users', 'action'=>'view', $user['User']['id']));
