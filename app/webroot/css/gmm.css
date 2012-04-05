@@ -526,6 +526,10 @@ a:hover {
   width: 780px;
 }
 
+.admin table th {
+  background: #eee;
+}
+
 /*
  *
  * FOOTER
