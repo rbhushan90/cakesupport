@@ -58,12 +58,12 @@
       <p>
         <?php
           if(array_key_exists($tag['Tag']['id'], $selTags)) {
-            $text = 'x ';
+            $text = '<i class="icon-minus"></i> ';
           } else {
-            $text = 'v ';
+            $text = '<i class="icon-plus"></i> ';
           }
           $text .= $tag['Tag']['name'];
-          echo $this->Html->link($text, array('controller' => 'tags', 'action' => 'flip', $tag['Tag']['id']));
+          echo $this->Html->link($text, array('controller' => 'tags', 'action' => 'flip', $tag['Tag']['id']), array('escape' => false));
         ?>
       </p>
       <?php endforeach; ?>
