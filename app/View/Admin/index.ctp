@@ -10,7 +10,8 @@
         <th>on</th>
         <th>Actions</th>
       </tr>
-
+      
+      <?php $reportType = 'ReportedAnswer'; ?>
       <?php foreach ($answers as $ans): ?>
         <tr>
           <td><?php echo $ans['ReportedAnswerContent']['body'] ?></td>
@@ -22,6 +23,7 @@
                 array('controller'  => 'questions', 'action' => 'view',
                 $ans['ReportedAnswerContent']['question_id'])); 
             ?>
+            <?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $ans[$reportType]['id'])); ?>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -36,7 +38,8 @@
         <th>on</th>
         <th>Actions</th>
       </tr>
-
+  
+      <?php $reportType = 'ReportedQuestion'; ?>
       <?php foreach ($questions as $q): ?>
         <tr>
           <td><?php echo htmlspecialchars($q['ReportedQuestionContent']['title']) ?></td>
@@ -50,6 +53,7 @@
                 array('controller'  => 'questions', 'action' => 'view',
                 $q['ReportedQuestion']['question_id']));
             ?>
+            <?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $q[$reportType]['id'])); ?>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -64,7 +68,8 @@
         <th>Actions</th>
       </tr>
 
-      <?php foreach ($users as $user): ?>
+      <?php $reportType = 'ReportedUser'; ?>
+      <?php foreach ($users as $user): ?>        
         <tr>
           <td>
           <?php echo $this->Html->link($user['ReportedUserContent']['username'], array('controller'=>'users', 'action'=>'view', $user['ReportedUserContent']['id'])); ?>
@@ -75,6 +80,7 @@
           <td style="width: 180px"><?php echo $user['ReportedUser']['time']; ?></td>
           <td>
             <?php echo $this->Html->link('Deactivate User', array('controller' => 'users', 'action' => 'deactivate', $user['ReportedUserContent']['id'])); ?>
+            <?php echo $this->Html->link('Delete Report', array('controller' => 'admin', 'action' => 'unreport', $reportType, $user[$reportType]['id'])); ?>
           </td>
         </tr>
       <?php endforeach; ?>
