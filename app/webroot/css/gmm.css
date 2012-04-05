@@ -98,9 +98,16 @@ a:hover {
 #header .menu li:hover ul {
   display: block;
   position: absolute;
-  margin-left: -27px;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
+}
+
+.nested-menu #questions_submenu {
+  margin-left: -27px;
+}
+
+.nested-menu #users_submenu {
+  margin-left: -3px;
 }
 
 #header .menu li ul li {
