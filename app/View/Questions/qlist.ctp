@@ -47,7 +47,7 @@
       <p>
         <?php
           $selTags = CakeSession::read('tags');
-          if($selTags) {
+          if(!($selTags)) {
             $selTags = array();
             CakeSession::write('tags', $selTags);
           }
