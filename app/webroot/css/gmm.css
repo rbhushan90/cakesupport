@@ -319,7 +319,6 @@ a:hover {
 }
 
 .question {
-  margin: 0px 10px 10px 10px;
 }
 
 .question.full-page {
@@ -342,6 +341,19 @@ a:hover {
   margin-right: 10px;
   height: 49px;
   width: 49px;
+}
+
+.question.short h3 {
+  padding: 0px;
+}
+
+.question.short h3 a {
+  display: block;
+  padding: 10px;
+}
+
+.question.short h3 a:hover {
+  background: #ffb350;
 }
 
 .question.short .answers {
@@ -417,7 +429,6 @@ a:hover {
  */
 .submit-answer {
   margin: 0;
-  padding-left: 10px;
 }
 
 .submit-answer textarea {
