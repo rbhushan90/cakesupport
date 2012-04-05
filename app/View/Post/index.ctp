@@ -18,10 +18,17 @@ Blog
         </h3>
        <div class="post-content">
           <?php echo $p['Post']['output'] ?>
+          <br />
         </div>
         <p class="leave-comment">
           <?php 
-            echo $this->Html->link('Leave Comment',
+            $ct = $p['Post']['comment_count'];
+            if($ct == 1) {
+              $ct .= ' comment';
+            } else {
+              $ct .= ' comments';
+            }
+            echo $this->Html->link($ct,
               array('controller' => 'posts', 'action' => 'view',
               $p['Post']['id']
             ));

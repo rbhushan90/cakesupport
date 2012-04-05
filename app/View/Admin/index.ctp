@@ -98,7 +98,6 @@ formatReportList($this,'ReportedUser',$users,
 	array($usernameGetter, $viewReporterLink, $timeGetter, $deactivateUserLink, $deleteReportLink)
 	);
 ?>
-
   </div>
 </div>
 <div class="bottom-content"></div>
