@@ -188,6 +188,19 @@ a:hover {
   padding-left: 10px;
 }
 
+.forms #QuestionTitle {
+  width: 500px;
+}
+
+.forms #QuestionBody {
+  height: 200px;
+  width: 600px;
+}
+
+.forms #add_question {
+  margin-left: 85px;
+}
+
 /*
  *
  * BLOG POST
