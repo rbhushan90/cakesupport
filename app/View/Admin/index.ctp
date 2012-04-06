@@ -98,8 +98,10 @@ formatReportList($this,'ReportedComment',$comments,
 
 ///////////////////////////////////////////////////////////////////////////
 //Create list of Reported Users
-$usernameGetter = function ($reportType, $r){
-	return $r[$reportType . 'Content']['username'];
+$usernameGetter = function ($reportType, $r)use($this_copy){
+	return $this_copy->Html->link($r[$reportType . 'Content']['username'],
+                array('controller'  => 'users', 'action' => 'view',
+                $r[$reportType.'Content']['id']));
 };
 
 $deactivateUserLink = function($reportType,$r)use($this_copy){
