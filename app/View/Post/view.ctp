@@ -22,9 +22,9 @@
         <p class="clear"></p>
       </div>
       <div class="comments">
-        <h4>Add a comment</h4>
         <?php
           if($this->Session->read('User.id')) {
+            echo "<h4>Add a comment</h4>";
             echo $this->Form->create('Comment', array('action' => 'post'));
             echo $this->Form->input('post_id', array('type' => 'hidden'));
             echo $this->Form->input('body',
