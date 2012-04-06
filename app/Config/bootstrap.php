@@ -131,8 +131,17 @@ $permissions = array(
   'acceptAnswers' => 16,
   'postBlog' => 32,
   'blogMod' => 64,
-  'userMod' => 128,
+);
+
+$permText = array(
+  1 => 'Log in to website',
+  2 => 'Website Administrator',
+  4 => 'Moderate (Edit/Delete) Questions and Answers',
+  8 => 'Modify FAQ',
+  16 => 'Choose Accepted Answers',
+  32 => 'Post to the blog',
+  64 => 'Moderate blog comments',
 );
 
 Configure::write('permissions', $permissions);
-  
+Configure::write('permText', $permText );

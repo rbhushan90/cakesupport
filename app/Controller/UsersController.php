@@ -40,7 +40,7 @@ class UsersController extends AppController {
   }
 
   public function deactivate($id = null) {
-    if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
       $this->User->id = $id;
       $user = $this->User->read();
       $user['User']['permissions'] &= (-2);
@@ -53,7 +53,7 @@ class UsersController extends AppController {
   }
 
   public function activate($id = null) {
-    if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
       $this->User->id = $id;
       $user = $this->User->read();
       $user['User']['permissions'] |= 1;
@@ -100,7 +100,7 @@ class UsersController extends AppController {
   }
 
   public function viewanswers($id = null) {
-    if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
       $this->view($id);
     } else {
       $this->Session->setFlash('You do not have permission to view this page.');
@@ -109,7 +109,7 @@ class UsersController extends AppController {
   }
 
   public function viewquestions($id = null) {
-    if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
       $this->view($id);
     } else {
       $this->Session->setFlash('You do not have permission to view this page.');

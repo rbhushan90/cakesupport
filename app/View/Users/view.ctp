@@ -6,7 +6,7 @@
   <p>Email: <?php echo $user['User']['email']; ?></p>
   <p>Questions asked:
 <?php
-  if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+  if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
     echo $this->Html->link($user['User']['question_count'], array('controller'=>'users', 'action'=>'viewquestions', $user['User']['id']));
   } else {
     echo $user['User']['question_count'];
@@ -15,7 +15,7 @@
   </p>
   <p>Questions answered:
 <?php
-  if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+  if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
     echo $this->Html->link($user['User']['answer_count'], array('controller'=>'users', 'action'=>'viewanswers', $user['User']['id']));
   } else {
     echo $user['User']['answer_count'];
@@ -25,7 +25,7 @@
 
 <div class="actions">
 <?php
-  if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+  if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
     if($user['User']['permissions'] & 1) {
       echo $this->Html->link('Deactivate account', array('controller'=>'users', 'action'=>'deactivate', $user['User']['id']));
     } else {
@@ -36,6 +36,31 @@
   }
 ?>
 </div>
+
+<?php
+  if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+    echo "<div class=\"permissions\">";
+    $perm = CakeSession::read('User.permissions');
+    $permText = Configure::read('permText');
+    $permissions = Configure::read('permissions');
+    echo $this->Form->create('User', array('action' => 'login'));
+    $opt = array();
+    $sel = array();
+    foreach($permissions as $mask) {
+      $opt[$mask] = $permText[$mask];
+      if($perm & $mask) {
+        $sel[] = $mask;
+      }
+    }
+    echo $this->Form->input('Permissions:', array('multiple' => 'checkbox', 'options' => $opt, 'selected' => $sel));
+    echo "<br />";
+    echo "<br />";
+    echo $this->Form->submit('Change permissions', array('class' => 'btn btn-primary'));
+    echo $this->Form->end();
+    echo "<br />";
+    echo "</div>";
+  }
+?>
 
 </div>
 <div class="bottom-content"></div>
