@@ -7,6 +7,10 @@ class UsersController extends AppController {
   public function login() {
     if ($this->request->is('post')) {
       $user = $this->User->findByUsername($this->request->data['User']['username']);
+      if(!$user) {
+        $this->Session->setFlash('There is no account with that username.');
+        $this->redirect('/');
+      }
       if(!($user['User']['permissions'] & Configure::read('permissions.login'))) {
         $this->Session->setFlash('This account has been banned. Please contact support.');
         $this->redirect('/');
@@ -23,7 +27,25 @@ class UsersController extends AppController {
     }
   }
 
-  private function verify($user) {
+  public function permissions() {
+    $this->User->id = $this->request->data['User']['id'];
+    $user = $this->User->read();
+
+    if(!$user) {
+      $this->Session->setFlash('There is no account with that username.');
+    }
+    if(!(CakeSession::read('User.permissions') & Configure::read('permissions.admin'))) {
+      $this->Session->setFlash('You do not have administrator privileges.');
+      $this->redirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']));
+    }
+    $permission = 0;
+    foreach($this->request->data['User']['Permissions:'] as $perm) {
+      $permission |= $perm;
+    }
+    $user['User']['permissions'] = $permission;
+    $this->User->save($user);
+    $this->Session->setFlash('Permissions modified');
+    $this->redirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']));
   }
 
   public function register() {
@@ -40,6 +62,10 @@ class UsersController extends AppController {
   }
 
   public function deactivate($id = null) {
+    if(!$user) {
+      $this->Session->setFlash('There is no account with that username.');
+      $this->redirect('/');
+    }
     if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
       $this->User->id = $id;
       $user = $this->User->read();

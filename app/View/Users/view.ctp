@@ -30,7 +30,7 @@
     $perm = $user['User']['permissions'];
     $permText = Configure::read('permText');
     $permissions = Configure::read('permissions');
-    echo $this->Form->create('User', array('action' => 'login'));
+    echo $this->Form->create('User', array('action' => 'permissions'));
     $opt = array();
     $sel = array();
     foreach($permissions as $mask) {
@@ -40,6 +40,7 @@
       }
     }
     echo $this->Form->input('Permissions:', array('multiple' => 'checkbox', 'options' => $opt, 'selected' => $sel));
+    echo $this->Form->input('id', array('type' => 'hidden', 'value' => $user['User']['id']));
     echo "<br />";
     echo "<br />";
     echo $this->Form->submit('Change permissions', array('class' => 'btn btn-primary'));
