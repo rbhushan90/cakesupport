@@ -23,24 +23,11 @@
 ?>
   </p>
 
-<div class="actions">
-<?php
-  if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
-    if($user['User']['permissions'] & 1) {
-      echo $this->Html->link('Deactivate account', array('controller'=>'users', 'action'=>'deactivate', $user['User']['id']));
-    } else {
-      echo $this->Html->link('Activate account', array('controller'=>'users', 'action'=>'activate', $user['User']['id']));
-    }
-  } else if(CakeSession::read('User.permissions')){
-    echo $this->Html->link('Report this user', array('controller'=>'users', 'action'=>'report', $user['User']['id']));
-  }
-?>
-</div>
 
 <?php
   if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
     echo "<div class=\"permissions\">";
-    $perm = CakeSession::read('User.permissions');
+    $perm = $user['User']['permissions'];
     $permText = Configure::read('permText');
     $permissions = Configure::read('permissions');
     echo $this->Form->create('User', array('action' => 'login'));
@@ -61,6 +48,19 @@
     echo "</div>";
   }
 ?>
+<div class="actions">
+<?php
+  if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+    if($user['User']['permissions'] & 1) {
+      echo $this->Html->link('Deactivate account', array('controller'=>'users', 'action'=>'deactivate', $user['User']['id']));
+    } else {
+      echo $this->Html->link('Activate account', array('controller'=>'users', 'action'=>'activate', $user['User']['id']));
+    }
+  } else if(CakeSession::read('User.permissions')){
+    echo $this->Html->link('Report this user', array('controller'=>'users', 'action'=>'report', $user['User']['id']));
+  }
+?>
+</div>
 
 </div>
 <div class="bottom-content"></div>
