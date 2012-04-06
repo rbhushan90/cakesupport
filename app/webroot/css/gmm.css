@@ -528,6 +528,23 @@ a:hover {
 
 /*
  *
+ * USER PROFILE
+ *
+ */
+.user-profile {
+  padding: 10px;
+}
+
+.user-profile .permissions label {
+  font-weight: bold;
+}
+
+.user-profile .permissions .checkbox label {
+  font-weight: normal;
+}
+
+/*
+ *
  * ADMIN
  *
  */
