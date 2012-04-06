@@ -20,7 +20,7 @@
           </p>
         </div>
 
-        <?php if($this->Session->read('User.permissions') & 1){
+        <?php if($this->Session->read('User.permissions') & Configure::read('permissions.FAQ')){
           echo "<p class=\"remove-answer\">";
           echo $this->Html->link('Remove', array('controller'=>'faq', 'action'=>'remove', $faqs[$i]['id']), array('class' => 'btn btn-danger'));
           echo "</p>";
