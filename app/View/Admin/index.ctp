@@ -16,7 +16,7 @@
       
       <?php foreach ($reportList as $ans): ?>
         <tr>
-	<?php foreach($valueGetters as $f){
+        <?php foreach($valueGetters as $f){
           echo '<td>' . $f($reportType, $ans) . '</td>';        
         } ?>
         </tr>
@@ -79,6 +79,21 @@ $viewQuestionLink = function($reportType,$r)use($this_copy){
 formatReportList($this,'ReportedQuestion',$questions,
 	array('Title','Content','reported by','on','Actions',''),
 	array($titleGetter, $bodyGetter, $viewReporterLink, $timeGetter, $viewQuestionLink, $deleteReportLink)
+	);
+
+
+///////////////////////////////////////////////////////////////////////////
+//Create list of Reported Comments
+$viewPostLink = function($reportType,$r)use($this_copy){
+	return $this_copy->Html->link('View Post',
+                array('controller'  => 'posts', 'action' => 'view',
+                $r[$reportType . 'Content']['post_id']));
+                //$r[$reportType . 'Content']['post_id'], '#' => 'comment' . $r[$reportType]['comment_id']));
+};
+
+formatReportList($this,'ReportedComment',$comments,
+	array('Content','reported by','on','Actions',''),
+	array($bodyGetter, $viewReporterLink, $timeGetter, $viewPostLink, $deleteReportLink)
 	);
 
 ///////////////////////////////////////////////////////////////////////////

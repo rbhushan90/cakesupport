@@ -11,7 +11,7 @@ class AdminController extends AppController {
     }
     $this->set('answers', $this->ReportedAnswer->find('all'));
     $this->set('questions', $this->ReportedQuestion->find('all'));
-    //$this->set('comments', $this->ReportedComment->find('all'));
+    $this->set('comments', $this->ReportedComment->find('all'));
     $this->set('users', $this->ReportedUser->find('all'));
   }
 

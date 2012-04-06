@@ -19,7 +19,7 @@ class TagsController extends AppController {
     }
     CakeSession::write('tags', $tags);
 
-    $this->redirect('/');
+    $this->redirect(array('controller' => 'questions'));
   }
 
 }
