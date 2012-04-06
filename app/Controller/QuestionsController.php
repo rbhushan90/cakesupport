@@ -12,7 +12,7 @@ class QuestionsController extends AppController {
   }
 
   public function unanswered() {
-    $cond = array('answer_count' => 0);
+    $cond = array('Question.answer_count' => 0);
     $this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
     $this->set('tags', $this->Tag->find('all'));
   }
