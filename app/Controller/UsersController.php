@@ -44,6 +44,9 @@ class UsersController extends AppController {
     }
     $user['User']['permissions'] = $permission;
     $this->User->save($user);
+    if(CakeSession::read('User.id') == $this->User->id) {
+      CakeSession::write('User.permissions', $permissions);
+    }
     $this->Session->setFlash('Permissions modified');
     $this->redirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']));
   }
