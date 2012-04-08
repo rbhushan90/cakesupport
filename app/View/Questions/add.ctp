@@ -6,6 +6,12 @@
 
   echo $this->Form->create('Question');
   echo $this->Form->input('title');
+  echo "<p>Tags</p>";
+  foreach($tags as $tag){
+    echo $this->Form->checkbox($tag);
+    echo $tag;
+    echo "<br />";
+  }
   echo $this->Form->input('body', array('rows' => 3));
   echo $this->Form->submit('Ask Question', array('class' => 'btn btn-primary'));
   echo $this->Form->end();
