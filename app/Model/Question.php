@@ -19,6 +19,14 @@ class Question extends AppModel {
     )
   );
 
+  public $hasAndBelongsToMany = array(
+    'Tag' => array(
+      'className' => 'Tag',
+      'joinTable' => 'question_tags',
+      'foreignKey' => 'question_id'
+    )
+  );
+
   public $validate = array(
     'title' => 'notEmpty',
     'body' => 'notEmpty'
