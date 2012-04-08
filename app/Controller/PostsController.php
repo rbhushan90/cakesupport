@@ -7,7 +7,7 @@ class PostsController extends AppController {
 
   public function add() {
     $this->User;
-    if(!($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
+    if(($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
       $this->Session->setFlash('You do not have the permissions to post to the blog');
       $this->redirect('/blog');
     }
@@ -57,7 +57,7 @@ class PostsController extends AppController {
   }
 
   public function edit($id = null) {
-    if(!($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
+    if(($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
       $this->Session->setFlash('You do not have permission to edit blog posts');
       $this->redirect('/blog');
     }
@@ -68,14 +68,48 @@ class PostsController extends AppController {
       $this->redirect('/blog');
     }
 
+    $tags = $this->Tag->find('all');
+    $post_tags = $this->PostTag->find('all', array('conditions'=>array('post_id'=>$id)));
     if($this->request->is('get')) {
       $this->request->data = $post;
+      $t = array();
+      foreach($tags as $tag){
+        $t[$tag['Tag']['id']] = $tag['Tag']['name'];
+      }
+      $this->set('tags', $t);
+      $pt = array();
+      foreach($post_tags as $ptag){
+        $pt[$ptag['PostTag']['tag_id']] = true;
+      }
+      $this->set('post_tags', $pt);
     } else {
       include '../webroot/markitup/markdown.php';
       $this->request->data['Post']['output'] = Markdown($this->request->data['Post']['body']);
       $this->request->data['Post']['user_id'] = $this->Session->read('User.id');
       $this->Post->save($this->request->data);
       $this->Session->setFlash('The post was successfully edited.');
+      $post_id = $this->Post->id;
+      foreach($tags as $tag){
+        $name = $tag['Tag']['name'];
+        $tag_id = $tag['Tag']['id'];
+        $post_tag = $this->PostTag->find('first', array('conditions'=>array('post_id'=>$post_id, 'tag_id'=>$tag_id)));
+        if($this->request->data['Post'][$name]==1){
+          // if record is not in post tags table, add it
+          if(empty($post_tag)){
+            $this->PostTag->create();
+            $this->PostTag->set(array(
+              'post_id' => $post_id,
+              'tag_id' => $tag['Tag']['id']
+            ));
+            $this->PostTag->save();
+          }
+        } else {
+          // if record is in post tags table, remove it
+          if(!empty($post_tag)){
+            $this->PostTag->delete($post_tag['PostTag']['id']);
+          }
+        }
+      }
       $this->redirect(array('action' => 'view', $id));
     }
 
