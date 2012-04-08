@@ -7,16 +7,19 @@ class QuestionsController extends AppController {
   public function index() {
     $this->set('questions', $this->Question->find('all',
       array('order' => 'Question.id desc')));
+    $this->set('tags', $this->Tag->find('all'));
   }
 
   public function unanswered() {
-    $cond = array('answer_count' => 0);
+    $cond = array('Question.answer_count' => 0);
     $this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
+    $this->set('tags', $this->Tag->find('all'));
   }
 
   public function unaccepted() {
     $cond = array('accepted' => NULL);
     $this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
+    $this->set('tags', $this->Tag->find('all'));
   }
 
   public function view($id = null) {

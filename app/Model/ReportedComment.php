@@ -10,7 +10,7 @@ class ReportedComment extends AppModel {
 
     'ReportedCommentContent' => array(
       'className' => 'Comment',
-      'foreignKey' => 'answer_id',
+      'foreignKey' => 'comment_id',
       'dependent' => true
     )
   );

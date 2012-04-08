@@ -26,6 +26,8 @@ class CommentsController extends AppController {
     if($com['user_id'] == $this->Session->read('user.id') || $this->Session->read('User.permissions') & Configre::read('permissions.blogMod')) {
       if(!$this->Comment->delete($id)) {
         $this->Session->setFlash('Could not delete comment. Please try again later.');
+      } else {
+        $this->Session->setFlash('Comment deleted.');
       }
     } else {
       $this->Session->setFlash('You cannot delete somebody else\'s comment.');
@@ -37,7 +39,7 @@ class CommentsController extends AppController {
     $this->Comment->id = $id;
     $com = $this->Comment->read();
     if($this->Session->read('User.id')) {
-      $this->Session->setFlash("This comment has been reported.");
+      $this->Session->setFlash("The comment was reported.");
       $rc = array();
       $rc['ReportedComment']['comment_id'] = $com['Comment']['id'];
       $rc['ReportedComment']['user_id'] = $this->Session->read('User.id');

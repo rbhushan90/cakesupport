@@ -24,6 +24,10 @@ body {
   margin: 0;
 }
 
+.table {
+  background: #fff;
+}
+
 
 /* 
  *
@@ -83,6 +87,10 @@ a:hover {
   height: auto;
 }
 
+#header .menu li.nested-menu a i {
+  margin-top: 1px;
+}
+
 #header .menu li ul {
   display: none;
 }
@@ -90,9 +98,16 @@ a:hover {
 #header .menu li:hover ul {
   display: block;
   position: absolute;
-  margin-left: -27px;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
+}
+
+.nested-menu #questions_submenu {
+  margin-left: -27px;
+}
+
+.nested-menu #users_submenu {
+  margin-left: -3px;
 }
 
 #header .menu li ul li {
@@ -108,7 +123,7 @@ a:hover {
 }
 
 #header .menu li ul li a:hover {
-  background: #fff;
+  background: #eee;
   height: auto;
 }
 /*
@@ -178,6 +193,7 @@ a:hover {
 
 .forms label {
   float: left;
+  font-weight: bold;
   padding-right: 10px;
   padding-top: 5px;
   width: 75px;
@@ -186,6 +202,19 @@ a:hover {
 .forms .users-links {
   margin: 0px;
   padding-left: 10px;
+}
+
+.forms #QuestionTitle {
+  width: 500px;
+}
+
+.forms #QuestionBody {
+  height: 200px;
+  width: 600px;
+}
+
+.forms #add_question {
+  margin-left: 85px;
 }
 
 /*
@@ -204,12 +233,27 @@ a:hover {
 /* NOTE: links header shares some similarities so it's declared here. */
 .post h3,
 .links h3,
-.question h3 {
+.question h3,
+.admin h3 {
   background: orange;
   font-size: 18pt;
   font-weight: normal;
   margin-bottom: 10px;
   padding: 10px;
+}
+
+.post.index h3 {
+  padding: 0px;
+}
+
+.post.index h3 a {
+  color: #333;
+  display: block;
+  padding: 10px;
+}
+
+.post.index h3 a:hover {
+  background: #ffb350;
 }
 
 .post .post-content {
@@ -306,7 +350,6 @@ a:hover {
 }
 
 .question {
-  margin: 0px 10px 10px 10px;
 }
 
 .question.full-page {
@@ -329,6 +372,19 @@ a:hover {
   margin-right: 10px;
   height: 49px;
   width: 49px;
+}
+
+.question.short h3 {
+  padding: 0px;
+}
+
+.question.short h3 a {
+  display: block;
+  padding: 10px;
+}
+
+.question.short h3 a:hover {
+  background: #ffb350;
 }
 
 .question.short .answers {
@@ -404,7 +460,6 @@ a:hover {
  */
 .submit-answer {
   margin: 0;
-  padding-left: 10px;
 }
 
 .submit-answer textarea {
@@ -457,6 +512,50 @@ a:hover {
   border-top: 1px solid #ccc;
   margin-top: 10px;
   padding: 10px;
+}
+
+.question.short .question-answers {
+  border-top: none;
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+}
+
+.remove-answer {
+  margin-bottom: 0px;
+  padding-left: 10px;
+}
+
+/*
+ *
+ * USER PROFILE
+ *
+ */
+.user-profile {
+  padding: 10px;
+}
+
+.user-profile .permissions label {
+  font-weight: bold;
+}
+
+.user-profile .permissions .checkbox label {
+  font-weight: normal;
+}
+
+/*
+ *
+ * ADMIN
+ *
+ */
+.admin table {
+  margin: 10px;
+  margin-bottom: 0px;
+  width: 780px;
+}
+
+.admin table th {
+  background: #eee;
 }
 
 /*

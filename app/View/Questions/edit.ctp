@@ -1,5 +1,8 @@
 <h2>Edit your Question</h2>
 
+<div class="top-content"></div>
+<div class="forms main-content">
+
 <?php
 
 echo $this->Form->create('Question');
@@ -20,3 +23,5 @@ echo $this->Form->input('user_id', array('type' => 'hidden'));
 echo $this->Form->end('Save Changes');
 
 ?>
+</div>
+<div class="bottom-content"></div>

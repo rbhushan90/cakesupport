@@ -99,6 +99,14 @@ class AppSchema extends CakeSchema {
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
+	public $reported_users = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
+		'reportee_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10),
+		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10),
+		'time' => array('type' => 'timestamp', 'null' => false, 'default' => 'CURRENT_TIMESTAMP'),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
 	public $reports = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
 		'question_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10),
@@ -117,10 +125,11 @@ class AppSchema extends CakeSchema {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
 	public $users = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
 		'username' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 24, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'password' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 64, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'email' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 60, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'permissions' => array('type' => 'integer', 'null' => false, 'default' => '0'),
+		'permissions' => array('type' => 'integer', 'null' => false, 'default' => '1'),
 		'question_count' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'answer_count' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'comment_count' => array('type' => 'integer', 'null' => false, 'default' => NULL),

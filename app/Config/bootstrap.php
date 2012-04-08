@@ -124,13 +124,24 @@ Cache::config('default', array('engine' => 'File'));
  */
 
 $permissions = array(
-  'admin' => 1,
-  'QAMod' => 2,
-  'FAQ' => 4,
-  'acceptAnswers' => 8,
-  'postBlog' => 16,
-  'blogMod' => 32,
+  'login' => 1,
+  'admin' => 2,
+  'QAMod' => 4,
+  'FAQ' => 8,
+  'acceptAnswers' => 16,
+  'postBlog' => 32,
+  'blogMod' => 64,
+);
+
+$permText = array(
+  1 => 'Log in to website',
+  2 => 'Website Administrator',
+  4 => 'Moderate (Edit/Delete) Questions and Answers',
+  8 => 'Modify FAQ',
+  16 => 'Choose Accepted Answers',
+  32 => 'Post to the blog',
+  64 => 'Moderate blog comments',
 );
 
 Configure::write('permissions', $permissions);
-  
+Configure::write('permText', $permText );

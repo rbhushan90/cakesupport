@@ -13,7 +13,7 @@
     echo "<br />";
   }
   echo $this->Form->input('body', array('rows' => 3));
-  echo $this->Form->submit('Ask Question', array('class' => 'btn btn-primary'));
+  echo $this->Form->submit('Ask Question', array('class' => 'btn btn-primary', 'id' => 'add_question'));
   echo $this->Form->end();
 
   ?>
