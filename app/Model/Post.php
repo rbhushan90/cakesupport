@@ -25,6 +25,12 @@ class Post extends AppModel {
       'joinTable' => 'post_tags',
       'foreignKey' => 'post_id',
       'unique' => 'true'
+    ),
+    'Category' => array(
+      'className' => 'Category',
+      'joinTable' => 'post_cats',
+      'foreignKey' => 'post_id',
+      'unique' => 'true'
     )
   );
 

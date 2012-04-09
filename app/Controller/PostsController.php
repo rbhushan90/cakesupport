@@ -3,7 +3,7 @@
 class PostsController extends AppController {
   public $name = 'Post';
   public $helpers = array('Html', 'Form');
-  public $uses = array('Post', 'User', 'Tag', );
+  public $uses = array('Post', 'User', 'Tag', 'Category');
 
   public function add() {
     $this->User;
@@ -12,6 +12,7 @@ class PostsController extends AppController {
       $this->redirect('/blog');
     }
     $this->set('tags', $this->Post->Tag->find('list'));
+    $this->set('categories', $this->Post->Category->find('list'));
     if($this->request->is('post') && $this->request->data) {
       include '../webroot/markitup/markdown.php';
       $this->request->data['Post']['output'] = Markdown($this->request->data['Post']['body']);
@@ -52,6 +53,7 @@ class PostsController extends AppController {
     }
 
     $this->set('tags', $this->Post->Tag->find('list'));
+    $this->set('categories', $this->Post->Category->find('list'));
     if($this->request->is('get')) {
       $this->request->data = $post;
     } else {
@@ -92,6 +94,8 @@ class PostsController extends AppController {
   public function index() {
     $this->set('posts', $this->Post->find('all',
       array('order' => 'Post.id desc')));
+    $this->set('tags', $this->Tag->find('all'));
+    $this->set('cats', $this->Category->find('all'));
   }
 
 

@@ -15,6 +15,7 @@ $(document).ready(function()  {
 echo $this->Form->create('Post');
 echo $this->Form->input('title');
 echo $this->Form->input('Tag');
+echo $this->Form->input('Category');
 echo $this->Form->input('body', array('id' => 'markdown', 'rows' => 3));
 echo $this->Form->end('Post Entry');
 
