@@ -23,7 +23,8 @@ class Question extends AppModel {
     'Tag' => array(
       'className' => 'Tag',
       'joinTable' => 'question_tags',
-      'foreignKey' => 'question_id'
+      'foreignKey' => 'question_id',
+      'unique' => 'true'
     )
   );
 
