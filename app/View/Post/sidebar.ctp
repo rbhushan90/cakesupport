@@ -14,22 +14,26 @@
         <?php
           $selCats = CakeSession::read('cats');
           if(!($selCats)) {
-            $selCats = array();
+            $selCats = array('0' => '1');
             CakeSession::write('cats', $selCats);
           }
-          echo $this->Html->link('All', array('controller' => 'categories', 'action' => 'flip', '0'));
+          $text = '';
+          if(array_key_exists('0', $selCats)) {
+            $text = '<i class="icon-plus"></i> ';
+          }
+          $text .= 'All';
+          echo $this->Html->link($text, array('controller' => 'categories', 'action' => 'select', '0'), array('escape' => false));
         ?>
       </p>
       <?php foreach($cats as $cat): ?>
       <p>
         <?php
+          $text = '';
           if(array_key_exists($cat['Category']['id'], $selCats)) {
-            $text = '<i class="icon-minus"></i> ';
-          } else {
             $text = '<i class="icon-plus"></i> ';
           }
           $text .= $cat['Category']['name'];
-          echo $this->Html->link($text, array('controller' => 'categories', 'action' => 'flip', $cat['Category']['id']), array('escape' => false));
+          echo $this->Html->link($text, array('controller' => 'categories', 'action' => 'select', $cat['Category']['id']), array('escape' => false));
         ?>
       </p>
       <?php endforeach; ?>

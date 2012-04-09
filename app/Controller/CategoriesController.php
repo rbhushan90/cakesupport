@@ -5,20 +5,14 @@ class CategoriesController extends AppController {
   public $uses = array('Category');
 
 
-  public function flip($id = null) {
+  public function select($id = null) {
     $this->Category->id = $id;
     $cat = $this->Category->read();
-    $cats = CakeSession::read('cats');
-    if($id == 0) {
-      $cats = array();
+    if($cat || $id == 0 ) {
+      CakeSession::write('cats', array($id => '1'));
     } else {
-      if(array_key_exists($id, $cats)) {
-        unset($cats[$id]);
-      } else {
-        $cats[$id] = 1;
-      }
+      $this->Session->setFlash('This category does not exist');
     }
-    CakeSession::write('cats', $cats);
 
     $this->redirect(array('controller' => 'posts'));
   }
