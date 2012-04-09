@@ -36,7 +36,24 @@ Blog
         </p>
         <div class="info">
           <p>by <strong><?php echo $p['PostUser']['username'] ?></strong></p>
-          <p>Filed under: categories</p>
+          <p>Filed under:
+            <?php
+              $c = false;
+              foreach($p['Category'] as $cat) {
+                if($c) {
+                  echo ", ";
+                } else {
+                  $c = true;
+                }
+                echo "<b>";
+                echo $cat['name'];
+                echo "</b>";
+              }
+              if(!$c) {
+                echo "Uncategorized";
+              }
+            ?>
+          </p>
           <p>Tags:
             <?php
               $c = false;

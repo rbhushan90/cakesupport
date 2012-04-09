@@ -16,8 +16,25 @@
         <?php } ?>
       </div>
       <div class="info">
-        <p>by <strong>username</strong></p>
-        <p>Filed under:</p>
+        <p>by <strong><?php echo $post['PostUser']['username'] ?></strong></p>
+        <p>Filed under:
+          <?php
+            $c = false;
+            foreach($post['Category'] as $cat) {
+              if($c) {
+                echo ", ";
+              } else {
+                $c = true;
+              }
+              echo "<b>";
+              echo $cat['name'];
+              echo "</b>";
+            }
+            if(!$c) {
+              echo "Uncategorized";
+            }
+          ?>
+        </p>
         <p>Tags:
             <?php
               $c = false;
