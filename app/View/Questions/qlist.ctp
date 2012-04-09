@@ -45,6 +45,13 @@
 
   <div class="sidebar">
     <div class="links">
+      <h3>Links</h3>
+      <p><a href="#" target="_blank">@GoodMeasureMeals on Twitter</a></p>
+      <p><a href="#" target="_blank">GMM Facebook Page</a></p>
+      <p><a href="#" target="_blank">GMM Website</a></p>
+      <p><a href="#" target="_blank">Open Hand Atlanta</a></p>
+    </div>
+    <div class="links">
       <h3>Tags</h3>
       <p>
         <?php
