@@ -7,22 +7,30 @@
     <p><strong>Name:</strong> <?php echo $user['User']['first_name'] . ' ' . $user['User']['last_name']; ?></p>
     <p><strong>Email:</strong> <?php echo $user['User']['email']; ?></p>
     <p><strong>Questions asked:</strong>
-  <?php
-    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
-      echo $this->Html->link($user['User']['question_count'], array('controller'=>'users', 'action'=>'viewquestions', $user['User']['id']));
-    } else {
-      echo $user['User']['question_count'];
-    }
-  ?>
+    <?php
+      if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+        echo $this->Html->link($user['User']['question_count'], array('controller'=>'users', 'action'=>'viewquestions', $user['User']['id']));
+      } else {
+        echo $user['User']['question_count'];
+      }
+    ?>
     </p>
     <p><strong>Questions answered:</strong>
-  <?php
-    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
-      echo $this->Html->link($user['User']['answer_count'], array('controller'=>'users', 'action'=>'viewanswers', $user['User']['id']));
-    } else {
-      echo $user['User']['answer_count'];
-    }
-  ?>
+    <?php
+      if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+        echo $this->Html->link($user['User']['answer_count'], array('controller'=>'users', 'action'=>'viewanswers', $user['User']['id']));
+      } else {
+        echo $user['User']['answer_count'];
+      }
+    ?>
+    <p><strong>Comments posted:</strong>
+    <?php
+      if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+        echo $this->Html->link($user['User']['comment_count'], array('controller'=>'users', 'action'=>'viewcomments', $user['User']['id']));
+      } else {
+        echo $user['User']['comment_count'];
+      }
+    ?>
     </p>
   </div>
 

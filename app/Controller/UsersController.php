@@ -137,6 +137,15 @@ class UsersController extends AppController {
     }
   }
 
+  public function viewcomments($id = null) {
+    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+      $this->view($id);
+    } else {
+      $this->Session->setFlash('You do not have permission to view this page.');
+      $this->redirect('/');
+    }
+  }
+
   public function viewquestions($id = null) {
     if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
       $this->view($id);

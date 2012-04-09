@@ -15,6 +15,13 @@ class User extends AppModel {
       'foreignKey' => 'user_id',
       'order' => 'UserAnswer.created DESC',
       'dependent' => true
+    ),
+
+    'UserComment' => array(
+      'className' => 'Comment',
+      'foreignKey' => 'user_id',
+      'order' => 'UserComment.created DESC',
+      'dependent' => true
     )
   );
 
