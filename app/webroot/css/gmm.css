@@ -234,7 +234,8 @@ a:hover {
 .post h3,
 .links h3,
 .question h3,
-.admin h3 {
+.admin h3,
+.user h3 {
   background: orange;
   font-size: 18pt;
   font-weight: normal;
@@ -531,8 +532,26 @@ a:hover {
  * USER PROFILE
  *
  */
-.user-profile {
-  padding: 10px;
+.user.user-info,
+.user.user-permissions {
+  width: 395px;
+}
+
+.user.user-info {
+  float: left;
+}
+
+.user.user-info p {
+  padding-left: 10px;
+}
+
+.user.user-permissions {
+  float: right;
+}
+
+.user.user-permissions form {
+  padding-left: 10px;
+  margin-bottom: 0px;
 }
 
 .user-profile .permissions label {
@@ -541,6 +560,14 @@ a:hover {
 
 .user-profile .permissions .checkbox label {
   font-weight: normal;
+}
+
+.user.actions {
+  margin-top: 20px;
+}
+
+.user.actions a {
+  margin-left: 10px;
 }
 
 /*
