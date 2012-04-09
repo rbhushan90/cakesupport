@@ -4,8 +4,10 @@
 <div class="main-content">
   <div class="user user-info">
     <h3>Info</h3>
-    <p><strong>Name:</strong> <?php echo $user['User']['first_name'] . ' ' . $user['User']['last_name']; ?></p>
-    <p><strong>Email:</strong> <?php echo $user['User']['email']; ?></p>
+    <?php if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) { ?>
+        <p><strong>Name:</strong> <?php echo $user['User']['first_name'] . ' ' . $user['User']['last_name']; ?></p>
+        <p><strong>Email:</strong> <?php echo $user['User']['email']; ?></p>
+    <?php } ?>
     <p><strong>Questions asked:</strong>
     <?php
       if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
