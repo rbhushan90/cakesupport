@@ -35,7 +35,7 @@
 					previewInWindow:		'', // 'width=800, height=600, resizable=yes, scrollbars=yes'
 					previewAutoRefresh:		true,
 					previewPosition:		'after',
-					previewTemplatePath:	'~/templates/preview.htm',
+					previewTemplatePath:	'~/templates/preview.html',
 					previewParser:			false,
 					previewParserPat:		'~/preview.php',
 					previewParserVar:		'data',
