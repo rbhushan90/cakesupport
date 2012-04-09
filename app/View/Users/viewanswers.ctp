@@ -1,4 +1,4 @@
-<h2><?php echo $user['User']['username']; ?>'s Questions</h2>
+<h2><?php echo $user['User']['username']; ?>'s Answers</h2>
 
 <div class="top-content"></div>
 <div class="main-content">
@@ -6,7 +6,7 @@
 		foreach($user['UserAnswer'] as $ans) {
 			echo '<p>';
       echo $ans['body'];
-			echo $this->Html->link('[View Question]', array('controller'=>'questions', 'action'=>'view', $ans['id']));
+			echo $this->Html->link('[View Question]', array('controller'=>'questions', 'action'=>'view', $ans['question_id']));
       echo '</p>';
 		}
 
