@@ -1,4 +1,15 @@
-<h2><?php echo $post['Post']['title']; ?></h2>
+<?php include("sidebar.ctp") ?>
+
+<h2>
+<?php
+  echo $post['Post']['title'];
+  if(CakeSession::read('User.permissions') & Configure::read('permissions.postBlog')) {
+?>
+    <a href="/posts/add" class="btn btn-info ask-a-question">Create a new blog post</a>
+<?php
+  }
+?>
+</h2>
 
 <div class="top-content"></div>
 <div class="main-content">
@@ -99,24 +110,7 @@
       </div>
     </div>
   </div>
-  <div class="sidebar">
-    <div class="links">
-      <h3>Links</h3>
-      <p><a href="#" target="_blank">@GoodMeasureMeals on Twitter</a></p>
-      <p><a href="#" target="_blank">GMM Facebook Page</a></p>
-      <p><a href="#" target="_blank">GMM Website</a></p>
-      <p><a href="#" target="_blank">Open Hand Atlanta</a></p>
-    </div>
-    <div class="links">
-      <h3>Categories</h3>
-      <p><a href="#" target="_blank">Corporate Wellness</a></p>
-      <p><a href="#" target="_blank">Wellness</a></p>
-      <p><a href="#" target="_blank">In The Community</a></p>
-      <p><a href="#" target="_blank">In The Kitchen</a></p>
-      <p><a href="#" target="_blank">Nutrition</a></p>
-      <p><a href="#" target="_blank">Uncategorized</a></p>
-    </div>
-  </div>
+  <?php echo $this->fetch('sidebar'); ?>
   <div class="clear"></div>
 </div>
 <div class="bottom-content"></div>

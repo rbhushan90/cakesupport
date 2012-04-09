@@ -89,6 +89,8 @@ class PostsController extends AppController {
 
     $this->request->data['Comment']['post_id'] = $id;
     $this->set('post', $p);
+    $this->set('tags', $this->Tag->find('all'));
+    $this->set('cats', $this->Category->find('all'));
   }
 
   public function index() {
