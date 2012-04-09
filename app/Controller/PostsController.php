@@ -57,7 +57,7 @@ class PostsController extends AppController {
   }
 
   public function edit($id = null) {
-    if(($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
+    if(!($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
       $this->Session->setFlash('You do not have permission to edit blog posts');
       $this->redirect('/blog');
     }
