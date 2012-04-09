@@ -37,7 +37,22 @@ Blog
         <div class="info">
           <p>by <strong><?php echo $p['PostUser']['username'] ?></strong></p>
           <p>Filed under: categories</p>
-          <p>Tags: tags</p>
+          <p>Tags:
+            <?php
+              $c = false;
+              foreach($p['Tag'] as $tag) {
+                if($c) {
+                  echo ", ";
+                } else {
+                  $c = true;
+                }
+                echo $tag['name'];
+              }
+              if(!$c) {
+                echo "none";
+              }
+            ?>
+          </p>
           <p>Date: <?php echo $p['Post']['created'] ?>
           <p class="clear"></p>
         </div>

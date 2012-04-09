@@ -18,7 +18,22 @@
       <div class="info">
         <p>by <strong>username</strong></p>
         <p>Filed under:</p>
-        <p>Tags:</p>
+        <p>Tags:
+            <?php
+              $c = false;
+              foreach($post['Tag'] as $tag) {
+                if($c) {
+                  echo ", ";
+                } else {
+                  $c = true;
+                }
+                echo $tag['name'];
+              }
+              if(!$c) {
+                echo "none";
+              }
+            ?>
+        </p>
         <p class="clear"></p>
       </div>
       <div class="comments">
