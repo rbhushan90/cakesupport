@@ -14,12 +14,7 @@ $(document).ready(function()  {
 
 echo $this->Form->create('Post');
 echo $this->Form->input('title');
-echo "<p>Tags</p>";
-foreach($tags as $tag){
-  echo $this->Form->checkbox($tag);
-  echo $tag;
-  echo "<br />";
-}
+echo $this->Form->input('Tag');
 echo $this->Form->input('body', array('id' => 'markdown', 'rows' => 3));
 echo $this->Form->end('Post Entry');
 

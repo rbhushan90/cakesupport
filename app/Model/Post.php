@@ -19,6 +19,15 @@ class Post extends AppModel {
     )
   );
 
+  public $hasAndBelongsToMany = array(
+    'Tag' => array(
+      'className' => 'Tag',
+      'joinTable' => 'post_tags',
+      'foreignKey' => 'post_id',
+      'unique' => 'true'
+    )
+  );
+
   public $validate = array(
     'title' => 'notEmpty',
     'body' => 'notEmpty'
