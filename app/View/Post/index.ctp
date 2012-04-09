@@ -30,6 +30,7 @@ Blog
             } else {
               $ct .= ' comments';
             }
+            $ct .= " [Add a comment]";
             echo $this->Html->link($ct,
               array('controller' => 'posts', 'action' => 'view',
               $p['Post']['id']
