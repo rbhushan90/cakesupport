@@ -9,7 +9,7 @@ class CategoriesController extends AppController {
     $this->Category->id = $id;
     $cat = $this->Category->read();
     if($cat || $id == 0 ) {
-      CakeSession::write('cats', array($id => '1'));
+      CakeSession::write('cat', $id);
     } else {
       $this->Session->setFlash('This category does not exist');
     }

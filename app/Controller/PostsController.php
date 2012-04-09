@@ -75,6 +75,11 @@ class PostsController extends AppController {
   public function view($id = null) {
     $this->Post->id = $id;
     $p = $this->Post->read();
+    $selCat = CakeSession::read('cat');
+    if(!$selCat) {
+      $selCat = 0;
+      CakeSession::write('cat', $selCat);
+    }
 
     if($p == null) {
       $this->Session->setFlash('This post does not exist or has been deleted');
@@ -92,8 +97,12 @@ class PostsController extends AppController {
     $this->set('tags', $this->Tag->find('all'));
     $this->set('cats', $this->Category->find('all'));
   }
-
   public function index() {
+    $selCat = CakeSession::read('cat');
+    if(!$selCat) {
+      $selCat = 0;
+      CakeSession::write('cat', $selCat);
+    }
     $this->set('posts', $this->Post->find('all',
       array('order' => 'Post.id desc')));
     $this->set('tags', $this->Tag->find('all'));

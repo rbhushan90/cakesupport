@@ -12,13 +12,9 @@
       <h3>Categories</h3>
       <p>
         <?php
-          $selCats = CakeSession::read('cats');
-          if(!($selCats)) {
-            $selCats = array('0' => '1');
-            CakeSession::write('cats', $selCats);
-          }
+          $selCat = CakeSession::read('cat');
           $text = '';
-          if(array_key_exists('0', $selCats)) {
+          if($selCat == 0) {
             $text = '<i class="icon-plus"></i> ';
           }
           $text .= 'All';
@@ -29,7 +25,7 @@
       <p>
         <?php
           $text = '';
-          if(array_key_exists($cat['Category']['id'], $selCats)) {
+          if($selCat == $cat['Category']['id']) {
             $text = '<i class="icon-plus"></i> ';
           }
           $text .= $cat['Category']['name'];
