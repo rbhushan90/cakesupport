@@ -1,5 +1,5 @@
 <h2>
-Blog
+B/log
 <?php if(CakeSession::read('User.permissions') & Configure::read('permissions.postBlog')) { ?>
   <a href="/posts/add" class="btn btn-info ask-a-question">Create a new blog post</a>
 <?php } ?>
@@ -46,7 +46,9 @@ Blog
                 } else {
                   $c = true;
                 }
+                echo "<b>";
                 echo $tag['name'];
+                echo "</b>";
               }
               if(!$c) {
                 echo "none";

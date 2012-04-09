@@ -27,7 +27,9 @@
                 } else {
                   $c = true;
                 }
+                echo "<b>";
                 echo $tag['name'];
+                echo "</b>";
               }
               if(!$c) {
                 echo "none";
