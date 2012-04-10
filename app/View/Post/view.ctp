@@ -1,5 +1,3 @@
-<?php include("sidebar.ctp") ?>
-
 <h2>
 <?php
   echo $post['Post']['title'];
@@ -110,7 +108,17 @@
       </div>
     </div>
   </div>
-  <?php echo $this->fetch('sidebar'); ?>
+  <div class="sidebar">
+    <div id="external" class="links">
+    <?php echo $this->element('external'); ?>
+    </div>
+    <div id="categories" class="links">
+    <?php echo $this->element('categories'); ?>
+    </div>
+    <div id="tags" class="links">
+    <?php echo $this->element('tags'); ?>
+    </div>
+  </div>
   <div class="clear"></div>
 </div>
 <div class="bottom-content"></div>

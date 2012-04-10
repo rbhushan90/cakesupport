@@ -19,7 +19,7 @@
             if($q['Question']['accepted']) {
               echo 'accepted';
             }
-        ?>
+          ?>
         ">
           <p class="number"><?php echo $q['Question']['answer_count'] ?></p>
           <p class="answers-subtext">
@@ -44,39 +44,11 @@
   </div>
 
   <div class="sidebar">
-    <div class="links">
-      <h3>Links</h3>
-      <p><a href="http://twitter.com/goodmeasuremeal" target="_blank">@GoodMeasureMeals on Twitter</a></p>
-      <p><a href="http://www.facebook.com/GoodMeasureMeals" target="_blank">GMM Facebook Page</a></p>
-      <p><a href="http://www.youtube.com/user/GoodMeasureMeals" target="_blank">GMM YouTube Channel</a></p>
-      <p><a href="http://www.goodmeasuremeals.com" target="_blank">GMM Website</a></p>
-      <p><a href="http://www.projectopenhand.com" GMM target="_blank">Open Hand Atlanta</a></p>
+    <div id="external" class="links">
+      <?php echo $this->element('external'); ?>
     </div>
-    <div class="links">
-      <h3>Tags</h3>
-      <p>
-        <?php
-          $selTags = CakeSession::read('tags');
-          if(!($selTags)) {
-            $selTags = array();
-            CakeSession::write('tags', $selTags);
-          }
-          echo $this->Html->link('All', array('controller' => 'tags', 'action' => 'flip', '0'));
-        ?>
-      </p>
-      <?php foreach($tags as $tag): ?>
-      <p>
-        <?php
-          if(array_key_exists($tag['Tag']['id'], $selTags)) {
-            $text = '<i class="icon-minus"></i> ';
-          } else {
-            $text = '<i class="icon-plus"></i> ';
-          }
-          $text .= $tag['Tag']['name'];
-          echo $this->Html->link($text, array('controller' => 'tags', 'action' => 'flip', $tag['Tag']['id']), array('escape' => false));
-        ?>
-      </p>
-      <?php endforeach; ?>
+    <div id="tags" class="links">
+      <?php echo $this->element('tags'); ?>
     </div>
   </div>
 

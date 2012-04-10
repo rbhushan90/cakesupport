@@ -1,5 +1,3 @@
-<?php include("sidebar.ctp") ?>
-
 <h2>
 Blog
 <?php if(CakeSession::read('User.permissions') & Configure::read('permissions.postBlog')) { ?>
@@ -81,7 +79,17 @@ Blog
       </div>
     <?php endforeach; ?>
   </div>
-  <?php echo $this->fetch('sidebar'); ?>
+  <div class="sidebar">
+    <div id="external" class="links">
+    <?php echo $this->element('external'); ?>
+    </div>
+    <div id="categories" class="links">
+    <?php echo $this->element('categories'); ?>
+    </div>
+    <div id="tags" class="links">
+    <?php echo $this->element('tags'); ?>
+    </div>
+  </div>
   <div class="clear"></div>
 </div>
 <div class="bottom-content">
