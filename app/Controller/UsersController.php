@@ -9,7 +9,6 @@ class UsersController extends AppController {
       $user = $this->User->findByUsername($this->request->data['User']['username']);
       if(!$user) {
         $this->Session->setFlash('There is no account with that username.');
-        $this->redirect('/');
       }
       if(!($user['User']['permissions'] & Configure::read('permissions.login'))) {
         $this->Session->setFlash('This account has been banned. Please contact support.');
