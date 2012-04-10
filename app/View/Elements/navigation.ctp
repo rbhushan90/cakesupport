@@ -23,6 +23,6 @@
   </li>
 <?php } else { ?>
   <li><a href="/login">Login</a></li>
-  <li><a class="action" href="/register">Sign Up</a></li>
+  <li><a class="" href="/register">Sign Up</a></li>
 <?php } ?>
 </ul>

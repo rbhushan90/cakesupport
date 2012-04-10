@@ -26,7 +26,7 @@ $(document).ready(function() {
           $(this).attr('target', '_blank');
         } else {
           e.preventDefault();
-          history.pushState($(this).attr('href'), '', $(this).attr('href'));
+          history.pushState({loc: encodeURIComponent($(this).attr('href'))}, '', $(this).attr('href'));
           loadPage($(this).attr('href'));
         }
       } 
@@ -39,18 +39,19 @@ $(document).ready(function() {
       $("#theForm").find(":input").each(function() {
         fields[this.name] = $(this).val();
       });
-      $.post($(this).attr('action'), data, function(data) {
+      $.post({url: $(this).attr('action')}, data, function(data) {
           $('#content-main').html(data);
       });
       return false;
     }
   )
 
-  window.onpopstate = function (e) {
-    if(event.state != null) {
-      loadPage(JSON.stringify(event.state));
+  $(window).bind("popstate", function (e) {
+    if(e.originalEvent.state != null) {
+      state = e.originalEvent.state;
+      loadPage(decodeURIComponent(state.loc));
     }
-  }
+  });
 });
 
 function performAction(url) {
