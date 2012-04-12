@@ -52,7 +52,7 @@ $viewReporterLink = function($reportType,$r)use($this_copy){
 $deleteReportLink = function($reportType,$r)use($this_copy){
 	return $this_copy->Html->link('Delete Report',
                 array('controller'  => 'admin', 'action' => 'unreport',
-                $r[$reportType]['id']));
+                $reportType, $r[$reportType]['id']));
 };
 
 ///////////////////////////////////////////////////////////////////////////
