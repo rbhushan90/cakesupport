@@ -1,5 +1,3 @@
-<?php include("sidebar.ctp") ?>
-
 <h2>
 <?php
   echo $post['Post']['title'];
@@ -27,7 +25,7 @@
         <?php } ?>
       </div>
       <div class="info">
-        <p>by <strong><?php echo $post['PostUser']['username'] ?></strong></p>
+        <p>by <strong><?php echo $this->Html->link($post['PostUser']['username'], array('controller' =>'users', 'action' =>'view', $post['PostUser']['id'])); ?></strong></p>
         <p>Filed under:
           <?php
             $c = false;
@@ -110,7 +108,17 @@
       </div>
     </div>
   </div>
-  <?php echo $this->fetch('sidebar'); ?>
+  <div class="sidebar">
+    <div id="external" class="links">
+    <?php echo $this->element('external'); ?>
+    </div>
+    <div id="categories" class="links">
+    <?php echo $this->element('categories'); ?>
+    </div>
+    <div id="tags" class="links">
+    <?php echo $this->element('tags'); ?>
+    </div>
+  </div>
   <div class="clear"></div>
 </div>
 <div class="bottom-content"></div>
