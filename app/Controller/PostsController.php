@@ -109,32 +109,6 @@ class PostsController extends AppController {
     $this->set('cats', $this->Category->find('all'));
   }
 
-  public function test($category_id = null, $tag_id = null) {
-    //debug(array($category_id, $tag_id, $this->Post->find('first')), 1);    
-    
-    $findParams = array('order' => 'Post.id desc');
-
-    if ($tag_id > 0){
-      //$this->Post->bindModel(array('hasOne'=>array('PostTag')));
-      //$findParams['fields'] = array('Post.*');
-      $tempParams = array('conditions'=>array('Tag.id'=>$tag_id));
-      debug($this->Post->Tag->find('all', $tempParams), 1);
-
-      $data = $this->Tag->find('all',array(
-        'conditions'=>array('Tag.id'=>$tag_id),
-        'contain'=> array('Post')));
-      debug($data,1);
-
-      //$findParams['conditions'] = array('PostTag.tag_id'=>$tag_id);
-    }
-
-    debug($findParams,1);
-
-    $this->set('posts', $this->Post->find('all', $findParams));
-    $this->set('tags', $this->Tag->find('all'));
-    $this->set('cats', $this->Category->find('all'));
-  }
-
 
 }
 ?>
