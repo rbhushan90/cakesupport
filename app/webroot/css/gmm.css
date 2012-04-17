@@ -297,6 +297,10 @@ a:hover {
   margin-bottom: 0px;
 }
 
+#markItUpMarkdown {
+  clear: both;
+}
+
 
 /*
  *
