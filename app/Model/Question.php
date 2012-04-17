@@ -5,7 +5,6 @@ class Question extends AppModel {
   public $belongsTo = array(
     'User' => array(
       'className' => 'User',
-      'foreignKey' => 'user_id',
       'counterCache' => 'question_count'
     )
   );
@@ -13,7 +12,6 @@ class Question extends AppModel {
   public $hasMany = array(
     'QuestionAnswer' => array(
       'className' => 'Answer',
-      'foreignKey' => 'question_id',
       'order' => 'QuestionAnswer.accepted DESC, QuestionAnswer.created DESC',
       'dependent' => true
     )
@@ -22,8 +20,6 @@ class Question extends AppModel {
   public $hasAndBelongsToMany = array(
     'Tag' => array(
       'className' => 'Tag',
-      'joinTable' => 'question_tags',
-      'foreignKey' => 'question_id',
       'unique' => 'true'
     )
   );

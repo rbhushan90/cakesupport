@@ -25,7 +25,7 @@
         <?php } ?>
       </div>
       <div class="info">
-        <p>by <strong><?php echo $this->Html->link($post['PostUser']['username'], array('controller' =>'users', 'action' =>'view', $post['PostUser']['id'])); ?></strong></p>
+        <p>by <strong><?php echo $this->Html->link($post['User']['username'], array('controller' =>'users', 'action' =>'view', $post['User']['id'])); ?></strong></p>
         <p>Filed under:
           <?php
             $c = false;

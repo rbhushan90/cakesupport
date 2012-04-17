@@ -36,7 +36,7 @@ Blog
           ?>
         </p>
         <div class="info">
-          <p>by <strong><?php echo $this->Html->link($p['PostUser']['username'], array('controller' =>'users', 'action' =>'view', $p['PostUser']['id'])); ?></strong></p>
+          <p>by <strong><?php echo $this->Html->link($p['User']['username'], array('controller' =>'users', 'action' =>'view', $p['User']['id'])); ?></strong></p>
           <p>Filed under:
             <?php
               $c = false;
