@@ -28,7 +28,7 @@
     <?php 
       if($this->Session->read('User.id')) {
         echo "<div class=\"actions\">";
-        if($this->Session->read('User.id') == $question['User']['id'] || $this->Session->read('User.permissions') & Configure::read('Permissions.QAMod')) {
+        if ($this->Session->read('User.id') == $question['User']['id'] || $this->Session->read('User.permissions') & Configure::read('permissions.QAMod')) {
           echo $this->Html->Link('Edit',
               array('action' => 'edit', $question['Question']['id']));
           echo " | ";
