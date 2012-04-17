@@ -5,7 +5,7 @@
   <div class="content-partial">
     <?php for($i = count($faqs)-1; $i>=0; $i--){ ?>
       <div class="question short">
-        <h3><?php echo $this->Html->link($faqs[$i]['title'], array('controller' => 'questions', 'action' => 'view', $faqs[$i]['id'])); ?></h3>
+        <h3><?php echo $this->Html->link($faqs[$i]['title'], array('controller' => 'questions', 'action' => 'view', $faqs[$i]['question_id'])); ?></h3>
         <div class="question-text">
           <p><?php echo htmlspecialchars($faqs[$i]['body']) ?></p>
         </div>
