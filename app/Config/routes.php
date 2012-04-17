@@ -31,6 +31,7 @@ Router::connect('/blog', array('controller' => 'posts', 'action' => 'index'));
 Router::connect('/unanswered', array('controller' => 'questions', 'action' => 'unanswered'));
 Router::connect('/unaccepted', array('controller' => 'questions', 'action' => 'unaccepted'));
 Router::connect('/recent', array('controller' => 'questions', 'action' => 'index'));
+Router::connect('/admin', array('controller' => 'admin', 'action' => 'answers'));
 
 Router::connect('/register', array('controller' => 'users',
   'action' => 'register'));

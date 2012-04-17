@@ -1,74 +1,39 @@
-<h2>Admin > Reports</h2>
+<h2>
+  Admin > Reports
+  <a href="/admin/allusers" class="btn btn-info ask-a-question">View Users</a>
+</h2>
 <div class="top-content"></div>
 <div class="main-content">
   <div class="admin">
-
-<?php
-//A function to format report lists. Should probably be refactored into a CakePHP Helper later.
-  function formatReportList($this_copy, $reportType, $reportList, $fields, $valueGetters) {  ?>
-    <h3>Reported <?php echo substr($reportType,8); ?>s</h3>
-    <table class="table" id="question-list">
+    <table class="table">
       <tr>
-        <?php foreach($fields as $f){
-          echo '<th>' . $f . '</th>';        
-        } ?>
+        <th>Answer Text</th>
+        <th>Reported On</th>
+        <th>By</th>
+        <th>Actions</th>
       </tr>
-      
-      <?php foreach ($reportList as $ans): ?>
-        <tr>
-        <?php foreach($valueGetters as $f){
-          echo '<td>' . $f($reportType, $ans) . '</td>';        
-        } ?>
-        </tr>
-      <?php endforeach; ?>
-    </table>
-<?php
-  }
-?>
-
-<?php 
-
-//Make copy of this so we can use it in anonymous functions we create
-$this_copy = $this;
-
-$bodyGetter = function ($reportType, $r){
-	return htmlspecialchars($r[$reportType . 'Content']['body']);
-};
-
-$titleGetter = function ($reportType, $r){
-	return htmlspecialchars($r[$reportType . 'Content']['title']);
-};
-
-$timeGetter = function ($reportType, $r){
-	return $r[$reportType]['time'];
-};
-
-$viewReporterLink = function($reportType,$r)use($this_copy){
-	return $this_copy->Html->link($r[$reportType.'User']['username'],
+      <?php
+        foreach($answers as $answer) {
+          print "<tr>\n<td>";
+          print $answer['Answer']['body'];
+          print "</td>\n<td>";
+          print $answer['ReportedAnswer']['time'];
+          print "</td>\n<td>";
+	        print $this->Html->link($answer['User']['username'],
                 array('controller'  => 'users', 'action' => 'view',
-                $r[$reportType]['user_id']));
-};
-
-$deleteReportLink = function($reportType,$r)use($this_copy){
-	return $this_copy->Html->link('Delete Report',
-                array('controller'  => 'admin', 'action' => 'unreport',
-                $reportType, $r[$reportType]['id']));
-};
-
-///////////////////////////////////////////////////////////////////////////
-//Create list of Reported Answers 
-$viewAnswerLink = function($reportType,$r)use($this_copy){
-	return $this_copy->Html->link('View Answer',
+                $answer['User']['id']));
+          print "</td>\n<td>";
+	        print $this->Html->link('View Question',
                 array('controller'  => 'questions', 'action' => 'view',
-                $r[$reportType.'Content']['question_id']));
-};
-
-formatReportList($this,'ReportedAnswer',$answers,
-	array('Content','reported by','on','Actions',''),
-	array($bodyGetter, $viewReporterLink, $timeGetter, $viewAnswerLink, $deleteReportLink)
-	);
-
-?>
+                $answer['Answer']['question_id']));
+          print "<br/>";
+	        print $this->Html->link('Delete Report',
+                array('controller'  => 'admin', 'action' => 'unreport',
+                'ReportedAnswer', $answer['ReportedAnswer']['id']));
+          print "</td>\n</th>";
+        }
+      ?>
+    </table>
   </div>
 </div>
 <div class="bottom-content"></div>

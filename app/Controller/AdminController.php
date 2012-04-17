@@ -4,14 +4,35 @@ class AdminController extends AppController {
   public $helpers = array('Html', 'Form');
   public $uses = array('User', 'ReportedAnswer', 'ReportedQuestion','ReportedComment','ReportedUser');
 
-  public function index() {
+  public function answers() {
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
       $this->Session->setFlash('You do not have the permissions to view the admin panel.');
       $this->redirect('/');
     }
     $this->set('answers', $this->ReportedAnswer->find('all'));
+  }
+
+  public function questions() {
+    if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
+      $this->Session->setFlash('You do not have the permissions to view the admin panel.');
+      $this->redirect('/');
+    }
     $this->set('questions', $this->ReportedQuestion->find('all'));
+  }
+
+  public function comments() {
+    if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
+      $this->Session->setFlash('You do not have the permissions to view the admin panel.');
+      $this->redirect('/');
+    }
     $this->set('comments', $this->ReportedComment->find('all'));
+  }
+
+  public function users() {
+    if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
+      $this->Session->setFlash('You do not have the permissions to view the admin panel.');
+      $this->redirect('/');
+    }
     $this->set('users', $this->ReportedUser->find('all'));
   }
 
@@ -32,7 +53,7 @@ class AdminController extends AppController {
     $this->redirect('/admin');
   }
 
-  public function users() {
+  public function allusers() {
     $this->set('users', $this->User->find('all'));
     //$cond = array('answer_count' => 0);
     //$this->set('questions', $this->Question->find('all', array('conditions' => $cond)));

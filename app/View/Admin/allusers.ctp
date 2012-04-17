@@ -1,35 +1,29 @@
 <h2>
-  Admin > Reports
-  <a href="/admin/allusers" class="btn btn-info ask-a-question">View Users</a>
+  Admin > Users
+  <a href="/admin/" class="btn btn-info ask-a-question">View Reports</a>
 </h2>
 <div class="top-content"></div>
 <div class="main-content">
   <div class="admin">
+
     <table class="table">
       <tr>
         <th>Username</th>
-        <th>Reported On</th>
-        <th>By</th>
+        <th>Email</th>
         <th>Actions</th>
       </tr>
       <?php
         foreach($users as $user) {
           print "<tr>\n<td>";
-          print $user['User']['username'];
-          print "</td>\n<td>";
-          print $user['ReportedUser']['time'];
-          print "</td>\n<td>";
 	        print $this->Html->link($user['User']['username'],
                 array('controller'  => 'users', 'action' => 'view',
                 $user['User']['id']));
           print "</td>\n<td>";
-	        print $this->Html->link('Deactivate User',
+          print $user['User']['email'];
+          print "</td>\n<td>";
+	        print $this->Html->link('Deactivate',
                 array('controller'  => 'users', 'action' => 'deactivate',
-                $user['Reportee']['id']));
-          print "<br/>";
-	        print $this->Html->link('Delete Report',
-                array('controller'  => 'admin', 'action' => 'unreport',
-                'ReportedUser', $user['ReportedUser']['id']));
+                $user['User']['id']));
           print "</td>\n</th>";
         }
       ?>

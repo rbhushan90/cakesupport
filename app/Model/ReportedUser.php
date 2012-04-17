@@ -3,12 +3,12 @@ class ReportedUser extends AppModel {
   public $name = 'ReportedUser';
 
   public $belongsTo = array(
-    'ReportedUserUser' => array(
+    'User' => array(
       'className' => 'User',
       'foreignKey' => 'user_id'
     ),
 
-    'ReportedUserContent' => array(
+    'Reportee' => array(
       'className' => 'User',
       'foreignKey' => 'reportee_id',
       'dependent' => true

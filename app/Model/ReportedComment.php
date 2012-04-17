@@ -3,12 +3,12 @@ class ReportedComment extends AppModel {
   public $name = 'ReportedComment';
 
   public $belongsTo = array(
-    'ReportedCommentUser' => array(
+    'User' => array(
       'className' => 'User',
       'foreignKey' => 'user_id'
     ),
 
-    'ReportedCommentContent' => array(
+    'Comment' => array(
       'className' => 'Comment',
       'foreignKey' => 'comment_id',
       'dependent' => true
