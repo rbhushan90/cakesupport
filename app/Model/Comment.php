@@ -3,14 +3,12 @@ class Comment extends AppModel {
   public $name = 'Comment';
 
   public $belongsTo = array(
-    'CommentPost' => array(
+    'Post' => array(
       'className' => 'Post',
-      'foreignKey' => 'post_id',
       'counterCache' => 'comment_count'
     ),
-    'CommentUser' => array(
+    'User' => array(
       'className' => 'User',
-      'foreignKey' => 'user_id',
       'counterCache' => 'comment_count'
     )
   );

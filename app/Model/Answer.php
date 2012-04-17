@@ -3,14 +3,12 @@ class Answer extends AppModel {
   public $name = 'Answer';
 
   public $belongsTo = array(
-    'AnswerQuestion' => array(
+    'Question' => array(
       'className' => 'Question',
-      'foreignKey' => 'question_id',
       'counterCache' => 'answer_count'
     ),
-    'AnswerUser' => array(
+    'User' => array(
       'className' => 'User',
-      'foreignKey' => 'user_id',
       'counterCache' => 'answer_count'
     )
   );

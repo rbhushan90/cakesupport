@@ -5,21 +5,18 @@ class User extends AppModel {
   public $hasMany = array(
     'UserQuestion' => array(
       'className' => 'Question',
-      'foreignKey' => 'user_id',
       'order' => 'UserQuestion.created DESC',
       'dependent' => true
     ),
 
     'UserAnswer' => array(
       'className' => 'Answer',
-      'foreignKey' => 'user_id',
       'order' => 'UserAnswer.created DESC',
       'dependent' => true
     ),
 
     'UserComment' => array(
       'className' => 'Comment',
-      'foreignKey' => 'user_id',
       'order' => 'UserComment.created DESC',
       'dependent' => true
     )
