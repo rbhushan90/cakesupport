@@ -2,6 +2,10 @@
 <p>
   <?php
     $selCat = CakeSession::read('cat');
+    if(!$selCat) {
+      $selCat = 0;
+      CakeSession::write('cat', $selCat);
+    }
     $text = '';
     if($selCat == 0) {
       $text = '<i class="icon-plus"></i> ';

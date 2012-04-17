@@ -1,20 +1,24 @@
 <h3>Tags</h3>
 <p>
   <?php
-    $selTags = CakeSession::read('tags');
-    if(!($selTags)) {
-      $selTags = array();
-      CakeSession::write('tags', $selTags);
+    $selTag = CakeSession::read('tag');
+    if(!$selTag) {
+      $selTag = 0;
+      CakeSession::write('tag', $selTag);
     }
-    echo $this->Html->link('All', array('controller' => 'tags', 'action' => 'flip', '0'));
+    $text = '';
+    if($selTag == 0) {
+      $text = '<i class="icon-plus"></i> ';
+    }
+    $text .= 'All';
+    echo $this->Html->link($text, array('controller' => 'tags', 'action' => 'flip', 0), array('escape' => false));
   ?>
 </p>
 <?php foreach($tags as $tag): ?>
 <p>
   <?php
-    if(array_key_exists($tag['Tag']['id'], $selTags)) {
-      $text = '<i class="icon-minus"></i> ';
-    } else {
+    $text = '';
+    if($selTag == $tag['Tag']['id']) {
       $text = '<i class="icon-plus"></i> ';
     }
     $text .= $tag['Tag']['name'];
