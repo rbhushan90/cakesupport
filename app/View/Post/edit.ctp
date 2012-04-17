@@ -1,4 +1,7 @@
 <h2>Edit blog post</h2>
+
+<div class="top-content"></div>
+<div class="forms main-content">
 <link rel="stylesheet" type="text/css" href="/markitup/skins/markitup/style.css" />
 <link rel="stylesheet" type="text/css" href="/markitup/sets/markdown/style.css" /> 
 <script type="text/javascript" src="/markitup/jquery.markitup.js"></script>
@@ -21,3 +24,5 @@ echo $this->Form->input('id', array('type' => 'hidden'));
 echo $this->Form->end('Make changes');
 
 ?>
+</div>
+<div class="bottom-content"></div>
