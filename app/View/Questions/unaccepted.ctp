@@ -16,12 +16,8 @@ Questions with no accepted answers
   </div>
 
   <div class="sidebar">
-    <div id="external" class="links">
-      <?php echo $this->element('external'); ?>
-    </div>
-    <div id="tags" class="links">
-      <?php echo $this->element('tags'); ?>
-    </div>
+    <?php echo $this->element('external'); ?>
+    <?php echo $this->element('tags'); ?>
   </div>
 
   <div class="clear"></div>

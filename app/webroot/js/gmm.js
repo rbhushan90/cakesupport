@@ -13,12 +13,19 @@ $(document).ready(function() {
   });
 
 
-  $("a").click(
+  $(document).on('click', 'a', 
     function(e) {
       if($(this).is('.action')) {
           e.preventDefault();
-          performAction($(this).attr('href'));
+          $.ajax($(this).attr('href'));
           if($(this).is('.logout')) {
+            loadPage(window.location);
+            $('#menu').load('/elements/navigation');
+          }
+          if($(this).is('.tags')) {
+            loadPage(window.location);
+          }
+          if($(this).is('.categories')) {
             loadPage(window.location);
           }
       } else {
@@ -53,11 +60,6 @@ $(document).ready(function() {
     }
   });
 });
-
-function performAction(url) {
-  $.ajax(url)
-  $('#menu').load('/elements/navigation');
-}
 
 function loadPage(url) {
   $.get(url, function(data) {

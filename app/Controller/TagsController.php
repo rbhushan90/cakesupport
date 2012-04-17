@@ -13,7 +13,7 @@ class TagsController extends AppController {
       $this->Session->setFlash('This category does not exist');
     }
 
-    if(!$this->request->is('ajax')) {
+    if(!$this->is('ajax')) {
       $this->redirect(array('controller' => 'questions'));
     }
   }

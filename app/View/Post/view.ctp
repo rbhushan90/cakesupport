@@ -109,15 +109,9 @@
     </div>
   </div>
   <div class="sidebar">
-    <div id="external" class="links">
     <?php echo $this->element('external'); ?>
-    </div>
-    <div id="categories" class="links">
     <?php echo $this->element('categories'); ?>
-    </div>
-    <div id="tags" class="links">
     <?php echo $this->element('tags'); ?>
-    </div>
   </div>
   <div class="clear"></div>
 </div>
