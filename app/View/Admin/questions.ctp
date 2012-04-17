@@ -56,23 +56,18 @@ $deleteReportLink = function($reportType,$r)use($this_copy){
 };
 
 ///////////////////////////////////////////////////////////////////////////
-//Create list of Reported Users
-$usernameGetter = function ($reportType, $r)use($this_copy){
-	return $this_copy->Html->link($r[$reportType . 'Content']['username'],
-                array('controller'  => 'users', 'action' => 'view',
+//Create list of Reported Questions
+$viewQuestionLink = function($reportType,$r)use($this_copy){
+	return $this_copy->Html->link('View Question',
+                array('controller'  => 'questions', 'action' => 'view',
                 $r[$reportType.'Content']['id']));
 };
 
-$deactivateUserLink = function($reportType,$r)use($this_copy){
-	return $this_copy->Html->link('Deactivate User',
-                array('controller'  => 'users', 'action' => 'deactivate',
-                $r[$reportType.'Content']['id']));
-};
-
-formatReportList($this,'ReportedUser',$users,
-	array('Username','reported by','on','Actions',''),
-	array($usernameGetter, $viewReporterLink, $timeGetter, $deactivateUserLink, $deleteReportLink)
+formatReportList($this,'ReportedQuestion',$questions,
+	array('Title','Content','reported by','on','Actions',''),
+	array($titleGetter, $bodyGetter, $viewReporterLink, $timeGetter, $viewQuestionLink, $deleteReportLink)
 	);
+
 ?>
   </div>
 </div>
