@@ -605,6 +605,11 @@ a:hover {
   background: #eee;
 }
 
+.nav.nav-tabs {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 /*
  *
  * FOOTER

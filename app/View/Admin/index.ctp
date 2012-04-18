@@ -3,6 +3,15 @@
 <div class="main-content">
   <div class="admin">
 
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#">Report 1</a>
+      </li>
+      <li><a href="#">Report 2</a></li>
+      <li><a href="#">Report 3</a></li>
+      <li><a href="#">Report 4</a></li>
+    </ul>
+
 <?php
 //A function to format report lists. Should probably be refactored into a CakePHP Helper later.
   function formatReportList($this_copy, $reportType, $reportList, $fields, $valueGetters) {  ?>
