@@ -6,6 +6,12 @@
 <div class="main-content">
   <div class="admin">
 
+<?php
+  echo $this->Form->create();
+  echo $this->Form->input('search', array('label' => 'Search For:', 'div' => false));
+  echo $this->Form->end('Search', array('div' => false));
+?>
+
     <table class="table">
       <tr>
         <th>Username</th>

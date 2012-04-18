@@ -54,9 +54,19 @@ class AdminController extends AppController {
   }
 
   public function allusers() {
-    $this->set('users', $this->User->find('all'));
-    //$cond = array('answer_count' => 0);
-    //$this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
+    $conditions = array();
+    if($this->request->data) {
+      $searchstr = $this->request->data['User']['search'];
+      $conditions = array(
+        'conditions' => array(
+          'or' => array(
+              "User.email LIKE" => "%$searchstr%",
+              "User.username LIKE" => "%$searchstr%"
+          )
+        )
+      );
+    }
+    $this->set('users', $this->User->find('all', $conditions));
   }
 
 }

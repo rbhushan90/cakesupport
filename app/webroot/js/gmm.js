@@ -40,7 +40,7 @@ $(document).ready(function() {
     }
   )
 
-  $('form').submit(
+  $(document).on('submit', 'form',
     function() {
       var fields = {};
       $("#theForm").find(":input").each(function() {
