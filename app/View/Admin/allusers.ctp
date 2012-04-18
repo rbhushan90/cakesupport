@@ -7,9 +7,10 @@
   <div class="admin">
 
 <?php
-  echo $this->Form->create();
-  echo $this->Form->input('search', array('label' => 'Search For:', 'div' => false));
-  echo $this->Form->end('Search', array('div' => false));
+  echo $this->Form->create(array('class' => 'find-user'));
+  echo $this->Form->input('search', array('label' => 'Find user:', 'div' => false));
+  echo $this->Form->submit('Find User', array('class' => 'btn btn-primary'));
+  echo $this->Form->end();
 ?>
 
     <table class="table">
@@ -29,7 +30,7 @@
           print "</td>\n<td>";
 	        print $this->Html->link('Deactivate',
                 array('controller'  => 'users', 'action' => 'deactivate',
-                $user['User']['id']));
+                $user['User']['id']), array('class' => 'btn btn-danger btn-mini'));
           print "</td>\n</th>";
         }
       ?>

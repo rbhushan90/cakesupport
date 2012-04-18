@@ -610,6 +610,25 @@ a:hover {
   margin-right: 10px;
 }
 
+.admin .find-user {
+  float: right;
+  margin: 0;
+  margin-left: 20px;
+  width: 380px;
+}
+
+.admin .find-user label {
+  float: left;
+  font-weight: bold;
+  margin-top: 4px;
+  margin-right: 5px;
+}
+
+.admin .find-user input {
+  float: left;
+  margin-right: 5px;
+}
+
 /*
  *
  * FOOTER
