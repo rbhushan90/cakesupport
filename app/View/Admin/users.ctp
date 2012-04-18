@@ -1,6 +1,6 @@
 <h2>
   Admin > Reports
-  <a href="/admin/allusers" class="btn btn-info ask-a-question">View Users</a>
+  <a href="/admin/allusers" class="btn btn-info ask-a-question">View All Users</a>
 </h2>
 <div class="top-content"></div>
 <div class="main-content">
