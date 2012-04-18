@@ -34,5 +34,21 @@
     </div>
 
     <p class="view-answers"><?php echo $this->Html->link('View Answers', array('controller' => 'questions', 'action' => 'view', $q['Question']['id'])); ?></p>
+    <p class="view-answers">
+<?php
+      $ct = 0;
+      foreach($q['Tag'] as $tag) {
+        if($ct == 0) {
+          $ct = 1;
+        } else {
+          echo ", ";
+        }
+        echo "<b>" . $tag['name'] . "</b>";
+      }
+      if($ct == 0) {
+        echo "<b>No Tags</b>";
+      }
+?>
+    </p>
   </div>
 <?php endforeach; ?>
