@@ -2,7 +2,7 @@
 class AnswersController extends AppController {
   public $name = 'Answers';
   public $helpers = array('Html', 'Form', 'Session');
-  public $uses = array('Question', 'User', 'Answer', 'Faq', 'ReportedAnswer');
+  public $uses = array('Question', 'User', 'Answer', 'ReportedAnswer');
 
   public function post() {
     if(!$this->Session->read('User.id')) {
@@ -68,12 +68,6 @@ class AnswersController extends AppController {
     $qid = $ans['Answer']['question_id'];
     $this->Question->id = $qid;
     $q = $this->Question->read();
-
-    $faq = $this->Faq->find('first', array('conditions'=>array('Faq.question_id'=>$qid)));
-    if($faq) {
-      $faq['Faq']['answer_id'] = $ans['Answer']['id'];
-      $this->Faq->save($faq);
-    }
 
     if($q['Question']['accepted']) {
       $this->Answer->id = $q['Question']['accepted'];

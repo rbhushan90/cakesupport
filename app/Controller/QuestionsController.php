@@ -2,7 +2,7 @@
 class QuestionsController extends AppController {
   public $name = 'Questions';
   public $helpers = array('Html', 'Form');
-  public $uses = array('Question', 'User', 'Answer', 'Faq', 'ReportedQuestion', 'Tag');
+  public $uses = array('Question', 'User', 'Answer', 'ReportedQuestion', 'Tag');
 
   public function filterTags() {
     $selTag = CakeSession::read('tag');
@@ -60,14 +60,6 @@ class QuestionsController extends AppController {
       $this->User->id = $q['QuestionAnswer'][$i]['user_id'];
       $user = $this->User->read();
       $q['QuestionAnswer'][$i]['username'] = $user['User']['username'];
-    }
-
-    $faq = $this->Faq->find('first', array('conditions'=>array('question_id' => $id)));
-    if(empty($faq)){
-      $q['faq'] = false;
-    } else {
-      $q['faq'] = true;
-      $q['faq_id'] = $faq['Faq']['id'];
     }
 
     $this->set('question', $q);
@@ -162,6 +154,39 @@ class QuestionsController extends AppController {
           $this->redirect(array('controller'=>'questions', 'action'=>'index'));
         }
       }
+    }
+  }
+
+  public function faq() {
+    $options = $this->filterTags();
+    $options['conditions']['Question.faq'] = '1';
+    $this->set('faqs', $this->Question->find('all', $options));
+    $this->set('tags', $this->Tag->find('all'));
+  }
+
+  public function addFaq($id) {
+    if(!($this->Session->read('User.permissions') & Configure::read('permissions.FAQ')) ) {
+      $this->Session->setFlash("You must be an admin to add to the FAQ");
+      $this->redirect('/login');
+    } else {
+      $this->Question->id = $id;
+      $question = $this->Question->read();
+      $question['Question']['faq'] = '1';
+      $this->Question->save($question);
+      $this->redirect('/questions/faq');
+    }
+  }
+
+  public function removeFaq($id) {
+    if(!($this->Session->read('User.permissions') & Configure::read('permissions.FAQ')) ) {
+      $this->Session->setFlash("You must be an admin to add to the FAQ");
+      $this->redirect('/login');
+    } else {
+      $this->Question->id = $id;
+      $question = $this->Question->read();
+      $question['Question']['faq'] = '0';
+      $this->Question->save($question);
+      $this->redirect('/questions/faq');
     }
   }
 

@@ -45,8 +45,7 @@
       if($this->Session->read('User.id')) {
         echo "<div class=\"actions\">";
         if ($this->Session->read('User.id') == $question['User']['id'] || $this->Session->read('User.permissions') & Configure::read('permissions.QAMod')) {
-          echo $this->Html->Link('Edit',
-              array('action' => 'edit', $question['Question']['id']));
+          echo $this->Html->Link('Edit', array('action' => 'edit', $question['Question']['id']));
           echo " | ";
           echo $this->Html->Link('Delete',
               array('action' => 'remove', $question['Question']['id']));
@@ -55,8 +54,12 @@
         }
         if($this->Session->read('User.permissions') & Configure::read('permissions.FAQ')){
           echo " | ";
-          echo $this->Form->postLink('Add to FAQ',
-            array('controller'=>'faq', 'action'=>'add', $question['Question']['id']));
+          if($question['Question']['faq'] == '0') {
+            echo $this->Html->Link('Add to FAQ', array('controller'=>'questions', 'action'=>'addFaq', $question['Question']['id']));
+          } else {
+            echo $this->Html->Link('Remove from FAQ', array('controller'=>'questions', 'action'=>'removeFaq', $question['Question']['id']));
+          }
+
         }
         echo "</div>";
       }

@@ -17,6 +17,14 @@ class Question extends AppModel {
     )
   );
 
+  public $hasOne = array(
+    'AcceptedAnswer' => array(
+      'className' => 'Answer',
+      'conditions' => 'Question.accepted = AcceptedAnswer.id',
+      'dependent' => true
+    )
+  );
+
   public $hasAndBelongsToMany = array(
     'Tag' => array(
       'className' => 'Tag',
