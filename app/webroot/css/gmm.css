@@ -170,6 +170,14 @@ a:hover {
   width: 250px;;
 }
 
+.nothing {
+  text-align: center;
+  margin: 0px;
+  padding:  20px;
+  font-size: 12pt;
+  font-weight: bold;
+}
+
 /*
  *
  * Flash Messages

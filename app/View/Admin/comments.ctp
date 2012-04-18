@@ -14,6 +14,7 @@
       </li>
     </ul>
 
+    <?php if(count($comments) > 0) { ?>
     <table class="table">
       <tr>
         <th>Comment Text</th>
@@ -43,6 +44,9 @@
         }
       ?>
     </table>
+    <?php } else { ?>
+        <div class="nothing">There are no reported comments.</div>
+    <?php } ?>
   </div>
 </div>
 <div class="bottom-content"></div>

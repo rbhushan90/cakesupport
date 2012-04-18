@@ -8,6 +8,9 @@ Blog
 <div class="top-content"></div>
 <div class="main-content">
   <div class="content-partial">
+    <?php if(count($posts) == 0) { ?>
+        <div class="nothing">There are no blog posts with this criteria.</div>
+    <?php } ?>
     <?php foreach ($posts as $p): ?>
       <div class="post index">
         <h3><?php echo $this->Html->link($p['Post']['title'],

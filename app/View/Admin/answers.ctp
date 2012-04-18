@@ -14,6 +14,7 @@
       <li><a href="/admin/comments">Comments</a></li>
     </ul>
 
+    <?php if(count($answers) > 0) { ?>
     <table class="table">
       <tr>
         <th>Answer Text</th>
@@ -43,6 +44,9 @@
         }
       ?>
     </table>
+    <?php } else { ?>
+        <div class="nothing">There are no reported answer.</div>
+    <?php } ?>
   </div>
 </div>
 <div class="bottom-content"></div>

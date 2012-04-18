@@ -14,6 +14,7 @@
       <li><a href="/admin/comments">Comments</a></li>
     </ul>
 
+    <?php if(count($users) > 0) { ?>
     <table class="table">
       <tr>
         <th>Username</th>
@@ -43,6 +44,9 @@
         }
       ?>
     </table>
+    <?php } else { ?> 
+        <div class="nothing">There are no reported users.</div>
+    <?php } ?>
   </div>
 </div>
 <div class="bottom-content"></div>

@@ -13,6 +13,7 @@
       <li><a href="/admin/answers">Answers</a></li>
       <li><a href="/admin/comments">Comments</a></li>
     </ul>
+    <?php if(count($questions) > 0) { ?>
     <table class="table">
       <tr>
         <th>Question Title</th>
@@ -42,6 +43,9 @@
         }
       ?>
     </table>
+    <?php } else { ?>
+        <div class="nothing">There are no reported questions.</div>
+    <?php } ?>
   </div>
 </div>
 <div class="bottom-content"></div>
