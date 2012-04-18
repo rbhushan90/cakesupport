@@ -17,6 +17,22 @@
       <p><?php echo htmlspecialchars($question['Question']['body']); ?></p>
     </div>
 
+    <p class="view-answers">
+<?php
+      $ct = 0;
+      foreach($question['Tag'] as $tag) {
+        if($ct == 0) {
+          $ct = 1;
+        } else {
+          echo ", ";
+        }
+        echo "<b>" . $tag['name'] . "</b>";
+      }
+      if($ct == 0) {
+        echo "<b>No Tags</b>";
+      }
+?>
+    </p>
     <?php
       if($question['Question']['created'] != $question['Question']['modified']) {
         echo "<div class=\"modified\">";

@@ -118,7 +118,6 @@ class UsersController extends AppController {
   public function view($id = null) {
     $this->User->id = $id;
     $user = $this->User->read();
-    $this->request->data['Answer']['question_id'] = $id;
     if($user == null) {
       $this->Session->setFlash('This user does not exist or has been deleted');
       $this->redirect('/');
@@ -128,7 +127,7 @@ class UsersController extends AppController {
   }
 
   public function viewanswers($id = null) {
-    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $user['User']['id'])) {
       $this->view($id);
     } else {
       $this->Session->setFlash('You do not have permission to view this page.');
@@ -137,7 +136,7 @@ class UsersController extends AppController {
   }
 
   public function viewcomments($id = null) {
-    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $user['User']['id'])) {
       $this->view($id);
     } else {
       $this->Session->setFlash('You do not have permission to view this page.');
@@ -146,7 +145,7 @@ class UsersController extends AppController {
   }
 
   public function viewquestions($id = null) {
-    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $user['User']['id'])) {
       $this->view($id);
     } else {
       $this->Session->setFlash('You do not have permission to view this page.');
