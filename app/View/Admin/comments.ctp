@@ -6,10 +6,12 @@
 <div class="main-content">
   <div class="admin">
     <ul class="nav nav-tabs">
-      <li><a href="#">Report 1</a></li>
-      <li class="active"><a href="#">Report 2</a></li>
-      <li><a href="#">Report 3</a></li>
-      <li><a href="#">Report 4</a></li>
+      <li><a href="/admin/users">Users</a></li>
+      <li><a href="/admin/questions">Questions</a></li>
+      <li><a href="/admin/answers">Answers</a></li>
+      <li class="active">
+        <a href="/admin/comments">Comments</a>
+      </li>
     </ul>
 
     <table class="table">
