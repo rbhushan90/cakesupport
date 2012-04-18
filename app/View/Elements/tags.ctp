@@ -5,7 +5,6 @@
       $selTag = CakeSession::read('tag');
       if(!$selTag) {
         $selTag = 0;
-        CakeSession::write('tag', $selTag);
       }
       $text = '';
       if($selTag == 0) {

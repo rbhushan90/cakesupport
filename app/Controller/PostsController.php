@@ -98,8 +98,44 @@ class PostsController extends AppController {
     $this->set('cats', $this->Category->find('all'));
   }
   public function index() {
-    $this->set('posts', $this->Post->find('all',
-      array('order' => 'Post.id desc')));
+    $selCat = CakeSession::read('cat');
+    $selTag = CakeSession::read('tag');
+    if($selCat && $selCat != 0) {
+      $options['joins'][] = array(
+          'table' => 'categories_posts',
+          'alias' => 'PostCategory',
+          'type' => 'inner',
+          'conditions' => array('Post.id = PostCategory.post_id')
+        );
+      $options['joins'][] = array(
+          'table' => 'categories',
+          'alias' => 'Category',
+          'type' => 'inner',
+          'conditions' => array('PostCategory.category_id = Category.id')
+        );
+
+      $options['conditions']['Category.id'] = $selCat;
+    }
+    if($selTag && $selTag != 0) {
+      $options['joins'][] = array(
+          'table' => 'posts_tags',
+          'alias' => 'PostTag',
+          'type' => 'inner',
+          'conditions' => array('Post.id = PostTag.post_id')
+        );
+      $options['joins'][] = array(
+          'table' => 'tags',
+          'alias' => 'Tag',
+          'type' => 'inner',
+          'conditions' => array('PostTag.tag_id = Tag.id')
+        );
+
+      $options['conditions']['Tag.id'] = $selTag;
+    }
+    $options['order'] = array('Post.id desc');
+
+    $posts = $this->Post->find('all', $options);
+    $this->set('posts', $posts);
     $this->set('tags', $this->Tag->find('all'));
     $this->set('cats', $this->Category->find('all'));
   }

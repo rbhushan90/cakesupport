@@ -4,21 +4,46 @@ class QuestionsController extends AppController {
   public $helpers = array('Html', 'Form');
   public $uses = array('Question', 'User', 'Answer', 'Faq', 'ReportedQuestion', 'Tag');
 
+  public function filterTags() {
+    $selTag = CakeSession::read('tag');
+    if($selTag && $selTag != 0) {
+      $options['joins'][] = array(
+          'table' => 'questions_tags',
+          'alias' => 'QuestionTag',
+          'type' => 'inner',
+          'conditions' => array('Question.id = QuestionTag.question_id')
+        );
+      $options['joins'][] = array(
+          'table' => 'tags',
+          'alias' => 'Tag',
+          'type' => 'inner',
+          'conditions' => array('QuestionTag.tag_id = Tag.id')
+        );
+
+      $options['conditions'] = array('Tag.id' => $selTag);
+      return $options;
+    }
+    $options['order'] = array('Question.id desc');
+    return $options;
+  }
+
   public function index() {
-    $this->set('questions', $this->Question->find('all',
-      array('order' => 'Question.id desc')));
+    $options = $this->filterTags();
+    $this->set('questions', $this->Question->find('all',$options));
     $this->set('tags', $this->Tag->find('all'));
   }
 
   public function unanswered() {
-    $cond = array('Question.answer_count' => 0);
-    $this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
+    $options = $this->filterTags();
+    $options['conditions']['Question.answer_count'] = 0;
+    $this->set('questions', $this->Question->find('all', $options));
     $this->set('tags', $this->Tag->find('all'));
   }
 
   public function unaccepted() {
-    $cond = array('accepted' => NULL);
-    $this->set('questions', $this->Question->find('all', array('conditions' => $cond)));
+    $options = $this->filterTags();
+    $options['conditions']['Question.accepted'] = NULL;
+    $this->set('questions', $this->Question->find('all', $options));
     $this->set('tags', $this->Tag->find('all'));
   }
 
