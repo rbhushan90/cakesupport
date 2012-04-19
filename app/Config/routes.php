@@ -32,6 +32,7 @@ Router::connect('/unanswered', array('controller' => 'questions', 'action' => 'u
 Router::connect('/unaccepted', array('controller' => 'questions', 'action' => 'unaccepted'));
 Router::connect('/recent', array('controller' => 'questions', 'action' => 'index'));
 Router::connect('/admin', array('controller' => 'admin', 'action' => 'answers'));
+Router::connect('/faq', array('controller' => 'questions', 'action' => 'faq'));
 
 Router::connect('/register', array('controller' => 'users',
   'action' => 'register'));
