@@ -33,7 +33,7 @@
       <p><?php echo htmlspecialchars($q['Question']['body']) ?></p>
     </div>
 
-    <p class="view-answers"><?php echo $this->Html->link('View Answers', array('controller' => 'questions', 'action' => 'view', $q['Question']['id'])); ?></p>
+    <p class="view-answers"><?php echo $this->Html->link('View/Post Answers', array('controller' => 'questions', 'action' => 'view', $q['Question']['id'])); ?></p>
     <p class="view-answers">
 <?php
       $ct = 0;

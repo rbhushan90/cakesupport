@@ -23,7 +23,7 @@
   </li>
 <?php } else { ?>
   <li id="user-dropdown" class="nested-menu">
-    <a href="/login" class="action">Login</a>
+    <a href="/login" class="action login">Login</a>
     <div id="nav-login">
     <?php
       echo $this->Form->create('User', array('action' => 'login'));
