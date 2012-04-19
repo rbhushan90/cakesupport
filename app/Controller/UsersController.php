@@ -127,7 +127,7 @@ class UsersController extends AppController {
   }
 
   public function viewanswers($id = null) {
-    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $user['User']['id'])) {
+    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $id)) {
       $this->view($id);
     } else {
       $this->Session->setFlash('You do not have permission to view this page.');
@@ -136,7 +136,7 @@ class UsersController extends AppController {
   }
 
   public function viewcomments($id = null) {
-    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $user['User']['id'])) {
+    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $id)) {
       $this->view($id);
     } else {
       $this->Session->setFlash('You do not have permission to view this page.');
@@ -145,7 +145,7 @@ class UsersController extends AppController {
   }
 
   public function viewquestions($id = null) {
-    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $user['User']['id'])) {
+    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $id)) {
       $this->view($id);
     } else {
       $this->Session->setFlash('You do not have permission to view this page.');
