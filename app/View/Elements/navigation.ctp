@@ -23,13 +23,15 @@
   </li>
 <?php } else { ?>
   <li id="user-dropdown" class="nested-menu">
-    <a href="/login">Login</a>
+    <a href="/login" class="action">Login</a>
     <div id="nav-login">
-      <form>
-        <label>Username</label><input type="input" name="username">
-        <label>Password</label><input type="password" name="password">
-        <input type="submit" class="btn btn-primary">
-      </form>
+    <?php
+      echo $this->Form->create('User', array('action' => 'login'));
+      echo $this->Form->input('username');
+      echo $this->Form->input('password');
+      echo $this->Form->submit('Login', array('class' => 'btn btn-primary'));
+      echo $this->Form->end();
+    ?>
     </div>
   </li>
   <li><a class="" href="/register">Sign Up</a></li>
