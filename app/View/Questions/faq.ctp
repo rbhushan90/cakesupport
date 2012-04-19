@@ -3,6 +3,9 @@
 <div class="top-content"></div>
 <div class="main-content">
   <div class="content-partial">
+    <?php if(count($faqs) == 0) { ?>
+        <div class="nothing">There are no FAQs under this tag.</div>
+    <?php } ?>
     <?php foreach($faqs as $faq): ?>
       <div class="question short">
         <h3><?php echo $this->Html->link($faq['Question']['title'], array('controller' => 'questions', 'action' => 'view', $faq['Question']['id'])); ?></h3>

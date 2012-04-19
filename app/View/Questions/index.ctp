@@ -8,7 +8,7 @@
   <div class="content-partial">
   <?php
     if(count($questions) < 1) {
-      echo "<h4 class='nothing'>There are no questions</h4>";
+      echo "<div class='nothing'>There are no questions with this tag.</div>";
     } else {
       echo $this->element('questions-list');
     }

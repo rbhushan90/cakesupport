@@ -8,7 +8,12 @@ Questions with no accepted answers
   <div class="content-partial">
   <?php
     if(count($questions) < 1) {
-      echo "<h4 class='nothing'>There are no questions with unaccepted answers</h4>";
+      $selTag = CakeSession::read('tag');
+      if(!$selTag || $selTag == 0) {
+        echo "<div class='nothing'>There are no questions with no accepted answer.</div>";
+      } else {
+        echo "<div class='nothing'>There are no questions no accepted answer and this tag.</div>";
+      }
     } else {
       echo $this->element('questions-list');
     }
