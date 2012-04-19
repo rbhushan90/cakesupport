@@ -68,14 +68,14 @@ class UsersController extends AppController {
   }
 
   public function deactivate($id = null) {
+    $this->User->id = $id;
+    $user = $this->User->read();
     if(!$user) {
       $this->Session->setFlash('There is no account with that username.');
       $this->redirect('/');
     }
     if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
-      $this->User->id = $id;
-      $user = $this->User->read();
-      $user['User']['permissions'] &= (-2);
+      $user['User']['permissions'] = 0;
       $this->User->save($user);
       $this->redirect('/admin');
     } else {
@@ -85,9 +85,13 @@ class UsersController extends AppController {
   }
 
   public function activate($id = null) {
+    $this->User->id = $id;
+    $user = $this->User->read();
+    if(!$user) {
+      $this->Session->setFlash('There is no account with that username.');
+      $this->redirect('/');
+    }
     if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
-      $this->User->id = $id;
-      $user = $this->User->read();
       $user['User']['permissions'] |= 1;
       $this->User->save($user);
       $this->redirect('/admin');
