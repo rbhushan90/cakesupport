@@ -598,6 +598,34 @@ a:hover {
   margin-left: 10px;
 }
 
+.user.user-content ul {
+  list-style-type: none;
+  margin: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.user.user-content ul li {
+  border-bottom: 1px solid #ccc;
+  padding: 5px;
+}
+
+.user.user-content ul li.even {
+  background: #f5f5f5;
+}
+
+.user.user-content ul li.odd {
+  background: #e5e5e5;
+}
+
+.user.user-content ul li a {
+  display: block;
+}
+
+.user-back {
+  margin-left: 15px;
+}
+
 /*
  *
  * ADMIN
