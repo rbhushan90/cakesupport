@@ -15,6 +15,9 @@ $(document).ready(function() {
 
   $(document).on('click', 'a', 
     function(e) {
+      if ($("#user-dropdown").hasClass('dropdown')) {
+        $("#user-dropdown").removeClass('dropdown');
+      }
       if($(this).is('.action')) {
           e.preventDefault();
           $.ajax($(this).attr('href'));
@@ -62,7 +65,8 @@ $(document).ready(function() {
     }
   });
 
-  $("#user-dropdown a").click(function(e) {
+  $(document).on('click', "#user-dropdown a",
+      function(e) {
     e.preventDefault();
 
     if ($("#user-dropdown").hasClass('dropdown')) {
