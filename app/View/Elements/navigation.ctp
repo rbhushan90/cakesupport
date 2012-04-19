@@ -22,7 +22,16 @@
     </ul>
   </li>
 <?php } else { ?>
-  <li><a href="/login">Login</a></li>
+  <li class="nested-menu">
+    <a href="/login">Login <i class="icon-chevron-down"></i></a>
+    <div id="nav-login">
+      <form>
+        <label>Username</label><input type="input" name="username">
+        <label>Password</label><input type="password" name="password">
+        <input type="submit" class="btn btn-primary">
+      </form>
+    </div>
+  </li>
   <li><a class="" href="/register">Sign Up</a></li>
 <?php } ?>
 </ul>
