@@ -126,6 +126,32 @@ a:hover {
   background: #eee;
   height: auto;
 }
+
+#menu li #nav-login {
+  display: none;
+}
+
+#menu li:hover #nav-login {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  display: block;
+  margin-left: -75px;
+  padding: 10px;
+  position: absolute;
+  width: 220px;
+}
+
+#menu li:hover #nav-login form {
+  margin: 0;
+}
+
+#menu li:hover #nav-login label {
+  font-weight: bold;
+  margin-top: 4px;
+  width: 5em;
+}
+
 /*
  *
  * STRUCTURAL/LAYOUT
