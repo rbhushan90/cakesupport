@@ -120,7 +120,7 @@ class QuestionsController extends AppController {
       if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & Configure::read('permissions.QAMod')) {
         if($this->Question->delete($id)) {
           $this->Session->setFlash('Post deleted');
-          $this->redirect('/');
+          $this->redirect('/questions');
         } else {
           $this->Session->setFlash('There was a problem deleting this post');
           $this->redirect(array('action' => 'view', $id));
@@ -131,7 +131,7 @@ class QuestionsController extends AppController {
       }
     } else {
       $this->Session->setFlash('No such question exists');
-        $this->redirect('/');
+      $this->redirect('/questions');
     }
   }
 
