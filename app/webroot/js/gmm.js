@@ -57,6 +57,8 @@ $(document).ready(function() {
     if(e.originalEvent.state != null) {
       state = e.originalEvent.state;
       loadPage(decodeURIComponent(state.loc));
+    } else {
+      loadPage(window.location);
     }
   });
 
