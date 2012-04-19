@@ -131,7 +131,7 @@ a:hover {
   display: none;
 }
 
-#menu li:hover #nav-login {
+#menu li.dropdown #nav-login {
   background: #fff;
   border: 1px solid #ccc;
   border-top: none;
@@ -142,11 +142,11 @@ a:hover {
   width: 220px;
 }
 
-#menu li:hover #nav-login form {
+#menu li.dropdown #nav-login form {
   margin: 0;
 }
 
-#menu li:hover #nav-login label {
+#menu li.dropdown #nav-login label {
   font-weight: bold;
   margin-top: 4px;
   width: 5em;

@@ -22,8 +22,8 @@
     </ul>
   </li>
 <?php } else { ?>
-  <li class="nested-menu">
-    <a href="/login">Login <i class="icon-chevron-down"></i></a>
+  <li id="user-dropdown" class="nested-menu">
+    <a href="/login">Login</a>
     <div id="nav-login">
       <form>
         <label>Username</label><input type="input" name="username">

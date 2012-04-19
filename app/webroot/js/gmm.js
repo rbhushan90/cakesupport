@@ -59,6 +59,16 @@ $(document).ready(function() {
       loadPage(decodeURIComponent(state.loc));
     }
   });
+
+  $("#user-dropdown a").click(function(e) {
+    e.preventDefault();
+
+    if ($("#user-dropdown").hasClass('dropdown')) {
+      $("#user-dropdown").removeClass('dropdown');
+    } else {
+      $("#user-dropdown").addClass('dropdown');
+    }
+  });
 });
 
 function loadPage(url) {
