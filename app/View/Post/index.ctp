@@ -65,14 +65,13 @@ Blog
                 if($c) {
                   echo ", ";
                 } else {
+                  echo "<b>Tags:</b> ";
                   $c = true;
                 }
-                echo "<b>";
                 echo $tag['name'];
-                echo "</b>";
               }
               if(!$c) {
-                echo "none";
+                echo "<b>Tags:</b> none";
               }
             ?>
           </p>

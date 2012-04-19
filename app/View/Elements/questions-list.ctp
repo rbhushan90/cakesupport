@@ -39,14 +39,15 @@
       $ct = 0;
       foreach($q['Tag'] as $tag) {
         if($ct == 0) {
+          echo "<b>Tags:</b> ";
           $ct = 1;
         } else {
           echo ", ";
         }
-        echo "<b>" . $tag['name'] . "</b>";
+        echo $tag['name'];
       }
       if($ct == 0) {
-        echo "<b>No Tags</b>";
+        echo "<b>Tags:</b> none";
       }
 ?>
     </p>
