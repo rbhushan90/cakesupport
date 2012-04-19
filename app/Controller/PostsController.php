@@ -32,10 +32,6 @@ class PostsController extends AppController {
       $this->redirect('/blog');
     } else {
       $this->Post->delete($id);
-      $post_tags = $this->PostTag->find('all', array('conditions'=>array('post_id'=>$id)));
-      foreach($post_tags as $pt){
-        $this->PostTag->delete($pt['PostTag']['id']);
-      }
       $this->redirect('/blog');
     }
   }
