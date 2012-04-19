@@ -8,7 +8,7 @@ Questions with no accepted answers
   <div class="content-partial">
   <?php
     if(count($questions) < 1) {
-      echo "<h4>There are no questions with unaccepted answers</h4>";
+      echo "<h4 class='nothing'>There are no questions with unaccepted answers</h4>";
     } else {
       echo $this->element('questions-list');
     }
