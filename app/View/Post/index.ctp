@@ -89,3 +89,4 @@ Blog
   <div class="clear"></div>
 </div>
 <div class="bottom-content">
+</div>

@@ -59,7 +59,10 @@ class UsersController extends AppController {
         $this->request->data['User']['password'] = $temp;
         $this->login();
         $this->redirect('/');
+      } else {
+        $this->request->data['User']['password'] = $temp;
       }
+
     }
   }
 
