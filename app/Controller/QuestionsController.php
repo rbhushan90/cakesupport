@@ -119,9 +119,6 @@ class QuestionsController extends AppController {
     if($q) {
       if($this->Session->read('User.id') == $q['User']['id'] || $this->Session->read('User.permissions') & Configure::read('permissions.QAMod')) {
         if($this->Question->delete($id)) {
-          //remove from faq if necessary
-          $faq = $this->Faq->find('first', array('conditions'=>array('Faq.question_id' => $id)));
-          $this->Faq->delete($faq['Faq']['id']);
           $this->Session->setFlash('Post deleted');
           $this->redirect('/');
         } else {

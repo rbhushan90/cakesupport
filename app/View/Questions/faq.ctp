@@ -12,10 +12,10 @@
         <div class="question-answers">
           <h4>Answer</h4>
           <p class="answer accepted">
-            <?php if(!$faq['AcceptedAnswer']['id']){
+            <?php if(!$faq['Question']['accepted']){
               echo $this->Html->link('View Thread',array('controller'=>'questions', 'action'=>'view', $faq['Question']['id']));
             } else {
-              echo $faq['AcceptedAnswer']['body'];
+              echo $faq['QuestionAnswer'][0]['body'];
             }?>
           </p>
         </div>
