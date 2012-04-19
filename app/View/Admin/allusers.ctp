@@ -28,9 +28,15 @@
           print "</td>\n<td>";
           print $user['User']['email'];
           print "</td>\n<td>";
-	        print $this->Html->link('Deactivate',
-                array('controller'  => 'users', 'action' => 'deactivate',
-                $user['User']['id']), array('class' => 'btn btn-danger btn-mini'));
+          if($user['User']['permissions'] & 1) {
+            print $this->Html->link('Deactivate',
+                  array('controller'  => 'users', 'action' => 'deactivate',
+                  $user['User']['id']), array('class' => 'btn btn-danger btn-mini action ref'));
+          } else {
+            print $this->Html->link('Activate',
+                  array('controller'  => 'users', 'action' => 'activate',
+                  $user['User']['id']), array('class' => 'btn btn-primary btn-mini action ref'));
+          }
           print "</td>\n</th>";
         }
       ?>

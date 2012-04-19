@@ -14,6 +14,10 @@ $(document).ready(function() {
             $.ajax($(this).attr('href'));
             $("#user-dropdown").removeClass('dropdown');
           }
+          
+          if($(this).is('.ref')) {
+            loadPage(window.location);
+          }
 
           if($(this).is('.logout')) {
             loadPage(window.location);
