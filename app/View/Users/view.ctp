@@ -10,6 +10,7 @@
     <?php } ?>
     <p><strong>Questions asked:</strong>
     <?php
+      $show = false;
       if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $user['User']['id'])) {
         $show = true;
       }
