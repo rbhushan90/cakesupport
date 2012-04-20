@@ -19,15 +19,8 @@ $(document).ready(function() {
             loadPage(window.location);
           }
 
-          if($(this).is('.logout')) {
-            loadPage(window.location);
+          if($(this).is('.ref-head')) {
             $('#menu').load('/elements/navigation');
-          }
-          if($(this).is('.tags')) {
-            loadPage(window.location);
-          }
-          if($(this).is('.categories')) {
-            loadPage(window.location);
           }
       } else {
         if(this.href.indexOf(location.hostname) == -1) {
@@ -43,14 +36,29 @@ $(document).ready(function() {
   )
 
   $(document).on('submit', 'form',
-    function() {
+    function(e) {
       var fields = {};
-      $("#theForm").find(":input").each(function() {
+      $(this).find(":input").each(function() {
         fields[this.name] = $(this).val();
       });
-      $.post({url: $(this).attr('action')}, data, function(data) {
+
+      $("#user-dropdown").removeClass('dropdown');
+      if($(this).is('.noredirect')) {
+        fields['noredirect'] = '1';
+        $.post($(this).attr('action'), fields);
+      } else {
+        $.post($(this).attr('action'), fields, function(data) {
           $('#content-main').html(data);
-      });
+        });
+      }
+
+
+      if($(this).is('.ref-head')) {
+        $('#menu').load('/elements/navigation');
+      }
+      if($(this).is('.ref')) {
+        loadPage(window.location)
+      }
       return false;
     }
   )

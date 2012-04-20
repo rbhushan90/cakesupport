@@ -11,7 +11,7 @@
         $text = '<i class="icon-plus"></i> ';
       }
       $text .= 'All';
-      echo $this->Html->link($text, array('controller' => 'categories', 'action' => 'select', '0'), array('escape' => false, 'class' =>'action categories'));
+      echo $this->Html->link($text, array('controller' => 'categories', 'action' => 'select', '0'), array('escape' => false, 'class' =>'action ref'));
     ?>
   </p>
   <?php foreach($cats as $cat): ?>
@@ -22,7 +22,7 @@
         $text = '<i class="icon-plus"></i> ';
       }
       $text .= $cat['Category']['name'];
-      echo $this->Html->link($text, array('controller' => 'categories', 'action' => 'select', $cat['Category']['id']), array('escape' => false, 'class' =>'action categories'));
+      echo $this->Html->link($text, array('controller' => 'categories', 'action' => 'select', $cat['Category']['id']), array('escape' => false, 'class' =>'action ref'));
     ?>
   </p>
   <?php endforeach; ?>

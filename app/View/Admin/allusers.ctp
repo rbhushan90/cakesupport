@@ -9,7 +9,9 @@
 <?php
   echo $this->Form->create(array('class' => 'find-user'));
   echo $this->Form->input('search', array('label' => 'Find user:', 'div' => false));
-  echo $this->Form->submit('Find User', array('class' => 'btn btn-primary'));
+  echo $this->Form->submit('Find User', array('class' => 'btn btn-primary', 'div' => false));
+  echo $this->Form->checkbox('inactive', array());
+  echo "Show inactive";
   echo $this->Form->end();
 ?>
 

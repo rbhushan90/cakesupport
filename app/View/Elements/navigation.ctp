@@ -15,7 +15,7 @@
   <li class="nested-menu"><a href="/users/view/<?php echo CakeSession::read('User.id') ?>">Welcome, <?php echo CakeSession::read('User.username') ?> <i class="icon-chevron-down"></i></a>
     <ul id="users_submenu">
       <li><a href="/users/view/<?php echo CakeSession::read('User.id') ?>">Your profile</a></li>
-      <li><a class="action logout" href="/logout">Logout</a></li>
+      <li><a class="action noredirect ref ref-head" href="/logout">Logout</a></li>
       <?php if(CakeSession::read('User.username')) { ?>
         <li><a href='/admin'>Admin</a></li>
       <?php } ?>
@@ -26,7 +26,7 @@
     <a href="/login" class="action login">Login</a>
     <div id="nav-login">
     <?php
-      echo $this->Form->create('User', array('action' => 'login'));
+      echo $this->Form->create('User', array('action' => 'login', 'class' => 'noredirect ref ref-head'));
       echo $this->Form->input('username');
       echo $this->Form->input('password');
       echo $this->Form->submit('Login', array('class' => 'btn btn-primary'));

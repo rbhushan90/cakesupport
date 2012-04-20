@@ -5,7 +5,7 @@ class UsersController extends AppController {
   public $uses = array('User', 'ReportedUser');
 
   public function login() {
-    if ($this->request->is('post')) {
+    if ($this->request->data) {
       $user = $this->User->findByUsername($this->request->data['User']['username']);
       if(!$user) {
         $this->Session->setFlash('There is no account with that username.');
@@ -19,7 +19,9 @@ class UsersController extends AppController {
         CakeSession::write('User.id', $user['User']['id']);
         CakeSession::write('User.username', $user['User']['username']);
         CakeSession::write('User.permissions', $user['User']['permissions']);
-        $this->redirect('/');
+        if(!$this->request->data['noredirect']) {
+          $this->redirect('/');
+        }
       } else {
         $this->Session->setFlash("Incorrect login attempt");
       }
