@@ -10,10 +10,19 @@ class CommentsController extends AppController {
     }
   }
 
+  function errorRedirect($url = '/', $code = '404 Not Found') {
+    if($this->request->is('ajax')) {
+      $this->header('HTTP/1.1 ' . $code);
+    } else {
+      $this->redirect($url);
+    }
+  }
+
   public function post() {
     if(!$this->Session->read('User.id')) {
       $this->setFlash('You must be registered to post a comment');
-      $this->redirect('/login');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
     $this->request->data['Comment']['user_id'] = $this->Session->read('User.id');
     $this->request->data['Comment']['body'] = htmlspecialchars($this->request->data['Comment']['body']); 
@@ -34,11 +43,12 @@ class CommentsController extends AppController {
         $this->Session->setFlash('Could not delete comment. Please try again later.');
       } else {
         $this->Session->setFlash('Comment deleted.');
+        $this->redirect(array('controller' => 'posts', 'action' => 'view', $com['Comment']['post_id']));
       }
     } else {
       $this->Session->setFlash('You cannot delete somebody else\'s comment.');
     }
-    $this->redirect(array('controller' => 'posts', 'action' => 'view', $com['Comment']['post_id']));
+    $this->errorRedirect(array('controller' => 'posts', 'action' => 'view', $com['Comment']['post_id']), '275 Unnecessary');
   }
 
   public function report($id = null) {
@@ -50,10 +60,11 @@ class CommentsController extends AppController {
       $rc['ReportedComment']['comment_id'] = $com['Comment']['id'];
       $rc['ReportedComment']['user_id'] = $this->Session->read('User.id');
       $this->ReportedComment->save($rc);
-      $this->redirect(array('controller' => 'posts', 'action' => 'view', $com['Comment']['post_id']));
+      $this->errorRedirect(array('controller' => 'posts', 'action' => 'view', $com['Comment']['post_id']), '275 Unnecessary');
     } else {
       $this->Session->setFlash("You need to be logged in to do that.");
-      $this->redirect(array('controller' => 'users', 'action' => 'login'));
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
   }
 }

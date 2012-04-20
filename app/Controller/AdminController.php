@@ -10,10 +10,19 @@ class AdminController extends AppController {
     }
   }
 
+  function errorRedirect($url = '/', $code = '404 Not Found') {
+    if($this->request->is('ajax')) {
+      $this->header('HTTP/1.1 ' . $code);
+    } else {
+      $this->redirect($url);
+    }
+  }
+
   public function answers() {
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
       $this->Session->setFlash('You do not have the permissions to view the admin panel.');
-      $this->redirect('/');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
     $this->set('answers', $this->ReportedAnswer->find('all'));
   }
@@ -21,7 +30,8 @@ class AdminController extends AppController {
   public function questions() {
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
       $this->Session->setFlash('You do not have the permissions to view the admin panel.');
-      $this->redirect('/');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
     $this->set('questions', $this->ReportedQuestion->find('all'));
   }
@@ -29,7 +39,8 @@ class AdminController extends AppController {
   public function comments() {
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
       $this->Session->setFlash('You do not have the permissions to view the admin panel.');
-      $this->redirect('/');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
     $this->set('comments', $this->ReportedComment->find('all'));
   }
@@ -37,7 +48,8 @@ class AdminController extends AppController {
   public function users() {
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
       $this->Session->setFlash('You do not have the permissions to view the admin panel.');
-      $this->redirect('/');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
     $this->set('users', $this->ReportedUser->find('all'));
   }
@@ -45,7 +57,8 @@ class AdminController extends AppController {
   public function unreport($type, $id) {
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
       $this->Session->setFlash('You do not have the permissions to delete reports.');
-      $this->redirect('/');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
     
     if(in_array($type, array('ReportedAnswer', 'ReportedQuestion','ReportedComment','ReportedUser'), true)){
@@ -60,6 +73,11 @@ class AdminController extends AppController {
   }
 
   public function allusers() {
+    if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
+      $this->Session->setFlash('You do not have the permissions to view the admin panel.');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
+    }
     $options = array('order' => 'User.id desc');
     if($this->request->data) {
       $searchstr = $this->request->data['User']['search'];

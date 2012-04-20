@@ -11,11 +11,20 @@ class PostsController extends AppController {
     }
   }
 
+  function errorRedirect($url = '/', $code = '404 Not Found') {
+    if($this->request->is('ajax')) {
+      $this->header('HTTP/1.1 ' . $code);
+    } else {
+      $this->redirect($url);
+    }
+  }
+
   public function add() {
     $this->User;
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
       $this->Session->setFlash('You do not have the permissions to post to the blog');
-      $this->redirect('/blog');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
     $this->set('tags', $this->Post->Tag->find('list'));
     $this->set('categories', $this->Post->Category->find('list'));
@@ -35,7 +44,8 @@ class PostsController extends AppController {
   public function delete($id = null) {
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
       $this->Session->setFlash('You do not have permission to delete blog posts');
-      $this->redirect('/blog');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     } else {
       $this->Post->delete($id);
       $this->redirect('/blog');
@@ -45,7 +55,8 @@ class PostsController extends AppController {
   public function edit($id = null) {
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {
       $this->Session->setFlash('You do not have permission to edit blog posts');
-      $this->redirect('/blog');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
     $this->Post->id = $id;
     $post = $this->Post->read();

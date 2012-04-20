@@ -10,6 +10,14 @@ class QuestionsController extends AppController {
     }
   }
 
+  function errorRedirect($url = '/', $code = '404 Not Found') {
+    if($this->request->is('ajax')) {
+      $this->header('HTTP/1.1 ' . $code);
+    } else {
+      $this->redirect($url);
+    }
+  }
+
   public function filterTags() {
     $selTag = CakeSession::read('tag');
     if($selTag && $selTag != 0) {
@@ -59,7 +67,8 @@ class QuestionsController extends AppController {
     $this->request->data['Answer']['question_id'] = $id;
     if($q == null) {
       $this->Session->setFlash('This question does not exist or has been deleted');
-      $this->redirect('/questions');
+      $this->errorRedirect('/questions');
+      return;
     }
 
     for ($i=count($q['QuestionAnswer'])-1; $i >= 0; $i--) {
@@ -84,10 +93,12 @@ class QuestionsController extends AppController {
       $rc['ReportedQuestion']['question_id'] = $q['Question']['id'];
       $rc['ReportedQuestion']['user_id'] = $this->Session->read('User.id');
       $this->ReportedQuestion->save($rc);
-      $this->redirect(array('controller' => 'questions', 'action' => 'view', $q['Question']['id']));
+      $this->errorRedirect(array('controller' => 'questions', 'action' => 'view', $q['Question']['id']), '275 Unnecessary');
+      return;
     } else {
       $this->Session->setFlash("You need to be logged in to do that.");
-      $this->redirect(array('controller' => 'users', 'action' => 'login'));
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
   }
 
@@ -96,11 +107,8 @@ class QuestionsController extends AppController {
     $q = $this->Question->read();
     if($q == null) {
       $this->Session->setFlash('This question does not exist or has been deleted');
-      if($this->is('ajax')) {
-        $this->header('404 Not Found');
-      } else {
-        $this->redirect('/questions');
-      }
+      $this->errorRedirect('/questions');
+      return;
     }
 
     $this->set('tags', $this->Question->Tag->find('list'));
@@ -118,7 +126,8 @@ class QuestionsController extends AppController {
         }
       } else {
         $this->Session->setFlash('This post does not belong to you');
-        $this->redirect(array('action' => 'view', $id));
+        $this->errorRedirect('/login', '401 Unauthorized');
+        return;
       }
     }
   }
@@ -133,22 +142,26 @@ class QuestionsController extends AppController {
           $this->redirect('/questions');
         } else {
           $this->Session->setFlash('There was a problem deleting this post');
-          $this->redirect(array('action' => 'view', $id));
+          $this->errorRedirect(array('action' => 'view', $id), '500 Server Error');
+          return;
         }
       } else {
         $this->Session->setFlash('This post does not belong to you');
-        $this->redirect(array('action' => 'view', $id));
+        $this->errorRedirect('/login', '401 Unauthorized');
+        return;
       }
     } else {
       $this->Session->setFlash('No such question exists');
-      $this->redirect('/questions');
+      $this->errorRedirect('/questions');
+      return;
     }
   }
 
   public function add() {
     if(!(CakeSession::read('User.username'))) {
       $this->Session->setFlash("You must be logged in to post a question");
-      $this->redirect('/login');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     } else {
       $this->set('tags', $this->Question->Tag->find('list'));
       if($this->request->is('post')) {
@@ -158,7 +171,6 @@ class QuestionsController extends AppController {
           $this->redirect(array('controller'=>'questions', 'action'=>'index'));
         } else {
           $this->Session->setFlash('Could not add your question');
-          $this->redirect(array('controller'=>'questions', 'action'=>'index'));
         }
       }
     }
@@ -174,7 +186,8 @@ class QuestionsController extends AppController {
   public function addFaq($id) {
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.FAQ')) ) {
       $this->Session->setFlash("You must be an admin to add to the FAQ");
-      $this->redirect('/login');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     } else {
       $this->Question->id = $id;
       $question = $this->Question->read();
@@ -196,6 +209,5 @@ class QuestionsController extends AppController {
       $this->redirect('/questions/faq');
     }
   }
-
 }
 ?>

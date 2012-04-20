@@ -14,7 +14,7 @@ class CategoriesController extends AppController {
       $this->Session->setFlash('This category does not exist');
     }
 
-    if(!$this->is('ajax')) {
+    if(!$this->request->is('ajax')) {
       $this->redirect(array('controller' => 'posts'));
     }
   }

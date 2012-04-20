@@ -10,10 +10,19 @@ class AnswersController extends AppController {
     }
   }
 
+  function errorRedirect($url = '/', $code = '404 Not Found') {
+    if($this->request->is('ajax')) {
+      $this->header('HTTP/1.1 ' . $code);
+    } else {
+      $this->redirect($url);
+    }
+  }
+
   public function post() {
     if(!$this->Session->read('User.id')) {
       $this->setFlash('You must be registered to post an answer');
-      $this->redirect('/login');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
     $this->request->data['Answer']['user_id'] = $this->Session->read('User.id');
     $this->request->data['Answer']['body'] = htmlspecialchars($this->request->data['Answer']['body']); 
@@ -22,8 +31,8 @@ class AnswersController extends AppController {
       $this->redirect(array('controller' => 'questions', 'action' => 'view', $this->data['Answer']['question_id']));
     } else {
       $this->Session->setFlash('Could not save answer');
-      $this->redirect(array('controller' => 'questions', 'action' => 'view', 
-          $this->request->data['Answer']['question_id'])); 
+      $this->errorredirect(array('controller' => 'questions', 'action' => 'view', $this->data['Answer']['question_id']), '500 Server Error');
+      return;
     }
   }
 
@@ -32,10 +41,11 @@ class AnswersController extends AppController {
     $ans = $this->Answer->read();
     if($ans['user_id'] == $this->Session->read('user.id') || $this->Session->read('User.permissions') & Configre::read('permissions.QAMod')) {
       if(!$this->Answer->delete($id)) {
-        $this->Session->setFlash('Could not delete answer');
+        $this->errorredirect(array('controller' => 'questions', 'action' => 'view', $this->data['Answer']['question_id']), '500 Server Error');
       }
     } else {
-      $this->Session->setFlash('You cannot delete somebody else\'s answer.');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
     $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
   }
@@ -49,10 +59,11 @@ class AnswersController extends AppController {
       $rc['ReportedAnswer']['answer_id'] = $ans['Answer']['id'];
       $rc['ReportedAnswer']['user_id'] = $this->Session->read('User.id');
       $this->ReportedAnswer->save($rc);
-      $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
+      $this->errorredirect(array('controller' => 'questions', 'action' => 'view', $this->data['Answer']['question_id']), '275 Unnecessary');
     } else {
       $this->Session->setFlash("You need to be logged in to do that.");
-      $this->redirect(array('controller' => 'users', 'action' => 'login'));
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
   }
 
@@ -61,12 +72,13 @@ class AnswersController extends AppController {
     $ans = $this->Answer->read();
     if($ans == null) {
       $this->Session->setFlash("This answer does not exist.");
-      $this->redirect('/questions');
+      $this->errorRedirect('/questions');
     }
 
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.acceptAnswers'))) {
       $this->Session->setFlash("You do not have the appropriate permissions");
-      $this->redirect(array('controller' => 'questions', 'action' => 'view', $ans['Answer']['question_id']));
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
 
     $ans['Answer']['accepted'] = true;

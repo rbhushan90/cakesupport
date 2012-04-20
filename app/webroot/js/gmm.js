@@ -27,8 +27,7 @@ $(document).ready(function() {
           $(this).attr('target', '_blank');
         } else {
           e.preventDefault();
-          history.pushState({loc: encodeURIComponent($(this).attr('href'))}, '', $(this).attr('href'));
-          loadPage($(this).attr('href'));
+          loadPage($(this).attr('href'), true);
           $("#user-dropdown").removeClass('dropdown');
         }
       } 
@@ -88,9 +87,16 @@ function loadHeader() {
   });
 }
 
-function loadPage(url) {
+function loadPage(url, push) {
+  if(!push) {
+    var push = false;
+  }
   $.get(url, function(data) {
     $('#content-main').html(data);
+    if(push) {
+      history.pushState({loc: encodeURIComponent(url)}, '', url);
+    }
+  }).error(function(data, stat) {
   });
   loadError();
 }
