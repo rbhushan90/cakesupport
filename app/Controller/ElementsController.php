@@ -2,6 +2,11 @@
 class ElementsController extends AppController {
   public $name = 'Elements';
 
+  public function beforeFilter() {
+    if($this->request->is('ajax')) {
+      $this->layout = 'content';
+    }
+  }
 
   public function navigation() {
   }
@@ -12,5 +17,7 @@ class ElementsController extends AppController {
   public function tags() {
   }
 
+  public function error() {
+  }
 }
 ?>

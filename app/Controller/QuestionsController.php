@@ -4,6 +4,12 @@ class QuestionsController extends AppController {
   public $helpers = array('Html', 'Form');
   public $uses = array('Question', 'User', 'Answer', 'ReportedQuestion', 'Tag');
 
+  public function beforeFilter() {
+    if($this->request->is('ajax')) {
+      $this->layout = 'content';
+    }
+  }
+
   public function filterTags() {
     $selTag = CakeSession::read('tag');
     if($selTag && $selTag != 0) {
@@ -90,7 +96,11 @@ class QuestionsController extends AppController {
     $q = $this->Question->read();
     if($q == null) {
       $this->Session->setFlash('This question does not exist or has been deleted');
-      $this->redirect('/questions');
+      if($this->is('ajax')) {
+        $this->header('404 Not Found');
+      } else {
+        $this->redirect('/questions');
+      }
     }
 
     $this->set('tags', $this->Question->Tag->find('list'));

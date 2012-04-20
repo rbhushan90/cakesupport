@@ -4,6 +4,12 @@ class UsersController extends AppController {
   public $helpers = array('Form', 'Html');
   public $uses = array('User', 'ReportedUser');
 
+  public function beforeFilter() {
+    if($this->request->is('ajax')) {
+      $this->layout = 'content';
+    }
+  }
+
   public function login() {
     if ($this->request->data) {
       $user = $this->User->findByUsername($this->request->data['User']['username']);
@@ -12,7 +18,8 @@ class UsersController extends AppController {
       }
       if(!($user['User']['permissions'] & Configure::read('permissions.login'))) {
         $this->Session->setFlash('This account has been banned. Please contact support.');
-        $this->redirect('/');
+        if(!$this->request->data['noredirect']) {
+        }
       }
       $hash = hash("sha256", $this->request->data['User']['password']);
       if($user && $user['User']['password'] == $hash) {
@@ -20,7 +27,6 @@ class UsersController extends AppController {
         CakeSession::write('User.username', $user['User']['username']);
         CakeSession::write('User.permissions', $user['User']['permissions']);
         if(!$this->request->data['noredirect']) {
-          $this->redirect('/');
         }
       } else {
         $this->Session->setFlash("Incorrect login attempt");

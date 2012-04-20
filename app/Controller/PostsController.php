@@ -5,6 +5,12 @@ class PostsController extends AppController {
   public $helpers = array('Html', 'Form');
   public $uses = array('Post', 'User', 'Tag', 'Category');
 
+  public function beforeFilter() {
+    if($this->request->is('ajax')) {
+      $this->layout = 'content';
+    }
+  }
+
   public function add() {
     $this->User;
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.postBlog'))) {

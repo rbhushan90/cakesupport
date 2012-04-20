@@ -4,6 +4,12 @@ class CommentsController extends AppController {
   public $helpers = array('Html', 'Form', 'Session');
   public $uses = array('Comment', 'Post', 'User', 'ReportedComment');
 
+  public function beforeFilter() {
+    if($this->request->is('ajax')) {
+      $this->layout = 'content';
+    }
+  }
+
   public function post() {
     if(!$this->Session->read('User.id')) {
       $this->setFlash('You must be registered to post a comment');

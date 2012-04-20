@@ -1,6 +1,6 @@
 <?php
 /**
- *
+*
  * PHP 5
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
@@ -18,7 +18,6 @@
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<?php if(!$this->request->is('ajax')) { ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<?php echo $this->Html->charset(); ?>
@@ -50,8 +49,10 @@
     </div>
   </div>
 
-  <div id='content-main' class="content-container content-width">
+  <div id='err' class='content-container content-width'>
     <?php echo $this->Session->flash(); ?> 
+  </div>
+  <div id='content-main' class="content-container content-width">
     <?php echo $this->fetch('content'); ?>
   </div>
 
@@ -60,12 +61,3 @@
   </div>
 </body>                                                                          
 </html>  
-<?php
-  } else if(!strcasecmp($_SERVER['REQUEST_URI'], '/header')) {
-    $this->header('HTTP/1.1 200 OK');
-    echo $this->element('navigation');
-  } else {
-    echo $this->Session->flash();
-    echo $this->fetch('content');
-  }
-?>

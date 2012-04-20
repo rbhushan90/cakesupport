@@ -4,6 +4,12 @@ class AdminController extends AppController {
   public $helpers = array('Html', 'Form');
   public $uses = array('User', 'ReportedAnswer', 'ReportedQuestion','ReportedComment','ReportedUser');
 
+  public function beforeFilter() {
+    if($this->request->is('ajax')) {
+      $this->layout = 'content';
+    }
+  }
+
   public function answers() {
     if(!($this->Session->read('User.permissions') & Configure::read('permissions.admin'))) {
       $this->Session->setFlash('You do not have the permissions to view the admin panel.');
