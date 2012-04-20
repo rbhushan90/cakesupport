@@ -52,6 +52,10 @@ $(document).ready(function() {
         });
       }
 
+      if($(this).is('.home')) {
+        loadPage('/');
+        history.pushState({loc: encodeURIComponent('/')}, '', '/');
+      }
 
       if($(this).is('.ref-head')) {
         $('#menu').load('/elements/navigation');

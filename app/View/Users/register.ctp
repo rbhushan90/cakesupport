@@ -3,7 +3,7 @@
 <div class="top-content"></div>
 <div class="forms main-content">
 <?php
-  echo $this->Form->create('User', array('action' => 'register'));
+  echo $this->Form->create('User', array('action' => 'register', 'class' => 'noredirect home ref-head'));
 
   echo $this->Form->input('username');
   echo $this->Form->input('password');
