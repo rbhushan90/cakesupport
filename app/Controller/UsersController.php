@@ -10,6 +10,14 @@ class UsersController extends AppController {
     }
   }
 
+  function errorRedirect($url = '/', $code = '404 Not Found') {
+    if($this->request->is('ajax')) {
+      $this->header('HTTP/1.1 ' . $code);
+    } else {
+      $this->redirect($url);
+    }
+  }
+
   public function login() {
     if ($this->request->data) {
       $user = $this->User->findByUsername($this->request->data['User']['username']);
@@ -39,10 +47,13 @@ class UsersController extends AppController {
 
     if(!$user) {
       $this->Session->setFlash('There is no account with that username.');
+      $this->errorRedirect('/');
+      return;
     }
     if(!(CakeSession::read('User.permissions') & Configure::read('permissions.admin'))) {
       $this->Session->setFlash('You do not have administrator privileges.');
-      $this->redirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']));
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
     $permission = 0;
     foreach($this->request->data['User']['Permissions:'] as $perm) {
@@ -79,15 +90,17 @@ class UsersController extends AppController {
     $user = $this->User->read();
     if(!$user) {
       $this->Session->setFlash('There is no account with that username.');
-      $this->redirect('/');
+      $this->errorRedirect('/');
+      return;
     }
     if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
       $user['User']['permissions'] = 0;
       $this->User->save($user);
-      $this->redirect('/admin');
+      $this->errorRedirect('/admin/allusers', '275 Unnecessary');
     } else {
       $this->Session->setFlash('You do not have permission to (de)activate user accounts.');
-      $this->redirect('/');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
     }
   }
 
@@ -101,7 +114,7 @@ class UsersController extends AppController {
     if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
       $user['User']['permissions'] |= 1;
       $this->User->save($user);
-      $this->redirect('/admin');
+      $this->errorRedirect('/admin/allusers', '275 Unnecessary');
     } else {
       $this->Session->setFlash('You do not have permission to (de)activate user accounts.');
       $this->redirect('/');
