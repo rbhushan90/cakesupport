@@ -78,14 +78,15 @@ class AdminController extends AppController {
       $this->errorRedirect('/login', '401 Unauthorized');
       return;
     }
-    $options = array('order' => 'User.id desc');
+    $options = array('order' => 'User.id desc', 'conditions' => array('User.permissions <> 0'));
     if($this->request->data) {
+      if($this->request->data['User']['inactive'] == '1') {
+        $options['conditions'] = array();
+      }
       $searchstr = $this->request->data['User']['search'];
-      $options['conditions'] = array(
-        'or' => array(
+      $options['conditions']['or'] = array(
             "User.email LIKE" => "%$searchstr%",
             "User.username LIKE" => "%$searchstr%"
-        )
       );
     }
     $this->set('users', $this->User->find('all', $options));
