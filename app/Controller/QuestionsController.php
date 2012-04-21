@@ -93,7 +93,7 @@ class QuestionsController extends AppController {
       $rc['ReportedQuestion']['question_id'] = $q['Question']['id'];
       $rc['ReportedQuestion']['user_id'] = $this->Session->read('User.id');
       $this->ReportedQuestion->save($rc);
-      $this->errorRedirect(array('controller' => 'questions', 'action' => 'view', $q['Question']['id']), '275 Unnecessary');
+      $this->errorRedirect(array('controller' => 'questions', 'action' => 'view', $q['Question']['id']), '375 Unnecessary');
       return;
     } else {
       $this->Session->setFlash("You need to be logged in to do that.");
