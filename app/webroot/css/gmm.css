@@ -587,7 +587,7 @@ a:hover {
  *
  */
 .user.user-info,
-.user.user-permissions {
+.user.user-password {
   width: 395px;
 }
 
@@ -599,11 +599,12 @@ a:hover {
   padding-left: 10px;
 }
 
-.user.user-permissions {
+.user.user-password {
   float: right;
 }
 
-.user.user-permissions form {
+.user.user-permissions form,
+.user.user-password form {
   padding-left: 10px;
   margin-bottom: 0px;
 }

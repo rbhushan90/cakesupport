@@ -12,36 +12,56 @@
   $self = false;
   if(CakeSession::read('User.id') == $user['User']['id']) { 
     $self = true;
+  }
+  if($self || $mod) {
 ?>
-        <p><strong>Name:</strong> <?php echo $user['User']['first_name'] . ' ' . $user['User']['last_name']; ?></p>
-        <p><strong>Email:</strong> <?php echo $user['User']['email']; ?></p>
-    <?php } ?>
-    <p><strong>Questions asked:</strong>
-    <?php
-      if($mod || $self) {
-        echo $this->Html->link($user['User']['question_count'], array('controller'=>'users', 'action'=>'viewquestions', $user['User']['id']));
-      } else {
-        echo $user['User']['question_count'];
-      }
-    ?>
-    </p>
-    <p><strong>Questions answered:</strong>
-    <?php
-      if($mod || $self) {
-        echo $this->Html->link($user['User']['answer_count'], array('controller'=>'users', 'action'=>'viewanswers', $user['User']['id']));
-      } else {
-        echo $user['User']['answer_count'];
-      }
-    ?>
-    <p><strong>Comments posted:</strong>
-    <?php
-      if($mod || $self) {
-        echo $this->Html->link($user['User']['comment_count'], array('controller'=>'users', 'action'=>'viewcomments', $user['User']['id']));
-      } else {
-        echo $user['User']['comment_count'];
-      }
-    ?>
-    </p>
+  <p><strong>Name:</strong> <?php echo $user['User']['first_name'] . ' ' . $user['User']['last_name']; ?></p>
+  <p><strong>Email:</strong> <?php echo $user['User']['email']; ?></p>
+<?php
+  }
+?>
+<p><strong>Questions asked:</strong>
+<?php
+  if($mod || $self) {
+    echo $this->Html->link($user['User']['question_count'], array('controller'=>'users', 'action'=>'viewquestions', $user['User']['id']));
+  } else {
+    echo $user['User']['question_count'];
+  }
+?>
+</p>
+<p><strong>Questions answered:</strong>
+<?php
+  if($mod || $self) {
+    echo $this->Html->link($user['User']['answer_count'], array('controller'=>'users', 'action'=>'viewanswers', $user['User']['id']));
+  } else {
+    echo $user['User']['answer_count'];
+  }
+?>
+<p><strong>Comments posted:</strong>
+<?php
+  if($mod || $self) {
+    echo $this->Html->link($user['User']['comment_count'], array('controller'=>'users', 'action'=>'viewcomments', $user['User']['id']));
+  } else {
+    echo $user['User']['comment_count'];
+  }
+?>
+</p>
+  </div>
+<?php
+  if($self) {
+    echo "<div class='user user-password'>";
+    echo "<h3>Change Password</h3>";
+    echo $this->Form->create('User', array('action' => 'password', 'class' => 'changepass'));
+    echo $this->Form->input('id', array('type' => 'hidden'));
+    echo $this->Form->input('password', array('label' => 'New Password'));
+    echo $this->Form->input('confirm', array('type' => 'password', 'label' => 'Confirm new password'));
+    echo $this->Form->submit('Change Password', array('class' => 'btn btn-primary'));
+    echo $this->Form->end();
+    echo "</div>";
+  }
+?>
+  <div class="clear">
+    <br />
   </div>
 
 <?php

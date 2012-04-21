@@ -41,6 +41,39 @@ class UsersController extends AppController {
     }
   }
 
+  public function password() {
+    if($this->request->data['User']['id'] != CakeSession::read('User.id')) {
+      $this->Session->setFlash('You cannot change somebody else\'s password');
+      $this->errorRedirect('/login', '401 Unauthorized');
+      return;
+    }
+    if(strlen($this->request->data['User']['password']) < 8) {
+      $this->Session->setFlash('New password is too short');
+      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $this->request->data['User']['id']), '375 Unnecessary');
+      return;
+    }
+    if($this->request->data['User']['confirm'] != $this->request->data['User']['password']) {
+      $this->Session->setFlash('Confirmation password does not match');
+      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $this->request->data['User']['id']), '375 Unnecessary');
+      return;
+    }
+    $this->User->id = $this->request->data['User']['id'];
+    $user = $this->User->read();
+    if(!$user) {
+      $this->Session->setFlash('Unknown user.');
+      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']), '375 Unnecessary');
+      return;
+    }
+    $user['User']['password'] = hash("sha256", $this->request->data['User']['password']);
+    if($this->User->save($user)) {
+      $this->Session->setFlash('Password changed.');
+    } else {
+      $this->Session->setFlash('Could not change password.');
+    }
+
+    $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']), '375 Unnecessary');
+  }
+
   public function permissions() {
     $this->User->id = $this->request->data['User']['id'];
     $user = $this->User->read();
@@ -96,7 +129,7 @@ class UsersController extends AppController {
     if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
       $user['User']['permissions'] = 0;
       $this->User->save($user);
-      $this->errorRedirect('/admin/allusers', '275 Unnecessary');
+      $this->errorRedirect('/admin/allusers', '375 Unnecessary');
     } else {
       $this->Session->setFlash('You do not have permission to (de)activate user accounts.');
       $this->errorRedirect('/login', '401 Unauthorized');
@@ -114,7 +147,7 @@ class UsersController extends AppController {
     if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
       $user['User']['permissions'] |= 1;
       $this->User->save($user);
-      $this->errorRedirect('/admin/allusers', '275 Unnecessary');
+      $this->errorRedirect('/admin/allusers', '375 Unnecessary');
     } else {
       $this->Session->setFlash('You do not have permission to (de)activate user accounts.');
       $this->redirect('/');
@@ -150,7 +183,7 @@ class UsersController extends AppController {
       $this->Session->setFlash('This user does not exist or has been deleted');
       $this->redirect('/');
     }
-
+    $this->request->data['User']['id'] = $id;
     $this->set('user', $user);
   }
 

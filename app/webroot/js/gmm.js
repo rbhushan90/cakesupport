@@ -60,8 +60,8 @@ $(document).ready(function() {
       } else {
         $.post($(this).attr('action'), fields, function(data) {
           $('#content-main').html(data);
-          loadError();
         });
+        loadError();
       }
 
       return false;
@@ -76,6 +76,8 @@ $(document).ready(function() {
       loadPage(window.location);
     }
   });
+
+  showHide();
 
 });
 
@@ -98,11 +100,21 @@ function loadPage(url, push) {
   }
   $.get(url, function(data) {
     $('#content-main').html(data);
+  showHide();
     if(push) {
       history.pushState({loc: encodeURIComponent(url)}, '', url);
     }
+    loadError();
   }).error(function(data, stat) {
+    loadError();
   });
-  loadError();
 }
 
+function showHide() {
+  $('.displayed').show();
+  $('.hidden').hide();
+}
+
+function flip(cls) {
+  $(cls).toggle();
+}

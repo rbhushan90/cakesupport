@@ -40,8 +40,8 @@ class User extends AppModel {
         )
       ),
       'password' => array(
-        'rule' => array('minLength', '1'),
-        'message' => 'Must be at least 1 character long',
+        'rule' => array('minLength', '8'),
+        'message' => 'Must be at least 8 characters long',
       ),
       'email' => array(
         'format' => array(
