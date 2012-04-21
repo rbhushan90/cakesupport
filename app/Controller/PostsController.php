@@ -111,6 +111,7 @@ class PostsController extends AppController {
     $this->set('cats', $this->Category->find('all'));
   }
   public function index() {
+    $this->set('title_for_layout', 'Blog');
     $selCat = CakeSession::read('cat');
     $selTag = CakeSession::read('tag');
     if($selCat && $selCat != 0) {

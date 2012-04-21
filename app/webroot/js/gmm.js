@@ -60,6 +60,9 @@ $(document).ready(function() {
       } else {
         $.post($(this).attr('action'), fields, function(data) {
           $('#content-main').html(data);
+          FB.XFBML.parse()
+          $.ajax({ url: 'http://platform.twitter.com/widgets.js', dataType: 'script', cache:true});
+          gapi.plusone.go();
         });
         loadError();
       }
@@ -104,8 +107,10 @@ function loadPage(url, push) {
     if(push) {
       history.pushState({loc: encodeURIComponent(url)}, '', url);
     }
-    FB.XFBML.parse()
     loadError();
+    FB.XFBML.parse()
+    $.ajax({ url: 'http://platform.twitter.com/widgets.js', dataType: 'script', cache:true});
+    gapi.plusone.go();
   }).error(function(data, stat) {
     loadError();
   });

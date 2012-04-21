@@ -76,10 +76,7 @@ Blog
             ?>
           </p>
           <p>Date: <?php echo $p['Post']['created'] ?>
-          <div class="fb-like" data-href="<?php echo $_SERVER['SERVER_NAME'] . '/posts/view/' . $p['Post']['id'] ?>"
-              data-send="true"
-              data-layout="box_count" data-width="50" data-show-faces="false"
-              data-font="verdana"></div>
+          <?php echo $this->element('social', array('href' => $_SERVER['SERVER_NAME'] . '/posts/view/' . $p['Post']['id'])) ?>
           <p class="clear"></p>
         </div>
       </div>

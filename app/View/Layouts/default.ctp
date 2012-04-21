@@ -22,7 +22,7 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $title_for_layout; ?>
+		<?php echo $title_for_layout; ?> :: Good Measure Meals
 	</title>
 	<?php
 
@@ -41,13 +41,20 @@
 </head>
 <body>
 <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-        fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+  <script>
+    loadScript = function(d, s, id, url) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = url;
+      fjs.parentNode.insertBefore(js, fjs);
+    }
+    loadScript(document, 'script', 'facebook-jssdk', "//connect.facebook.net/en_US/all.js#xfbml=1");
+    loadScript(document,"script","twitter-wjs", "//platform.twitter.com/widgets.js");
+  </script>
+  <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+    {parsetags: 'explicit'}
   </script>
   <div id="header-container">
     <div id="header" class="content-width">

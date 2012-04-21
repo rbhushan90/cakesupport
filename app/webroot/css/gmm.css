@@ -335,6 +335,11 @@ a:hover {
   clear: both;
 }
 
+.post .social {
+  padding: 10px 10px 0px 10px;
+  vertical-align: center;
+}
+
 
 /*
  *

@@ -62,10 +62,7 @@
               }
             ?>
         </p>
-        <div class="fb-like" data-href="<?php echo $_SERVER['SERVER_NAME'] . '/posts/view/' . $post['Post']['id'] ?>"
-            data-send="true"
-            data-layout="box_count" data-width="50" data-show-faces="false"
-            data-font="verdana"></div>
+        <?php echo $this->element('social') ?>
         <p class="clear"></p>
       </div>
       <div class="comments">
