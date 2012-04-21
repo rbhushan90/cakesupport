@@ -4,17 +4,21 @@
 <div class="main-content">
   <div class="user user-info">
     <h3>Info</h3>
-    <?php if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) { ?>
+<?php 
+  $mod = false;
+  if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+    $mod = true;
+  }
+  $self = false;
+  if(CakeSession::read('User.id') == $user['User']['id']) { 
+    $self = true;
+?>
         <p><strong>Name:</strong> <?php echo $user['User']['first_name'] . ' ' . $user['User']['last_name']; ?></p>
         <p><strong>Email:</strong> <?php echo $user['User']['email']; ?></p>
     <?php } ?>
     <p><strong>Questions asked:</strong>
     <?php
-      $show = false;
-      if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $user['User']['id'])) {
-        $show = true;
-      }
-      if($show) {
+      if($mod || $self) {
         echo $this->Html->link($user['User']['question_count'], array('controller'=>'users', 'action'=>'viewquestions', $user['User']['id']));
       } else {
         echo $user['User']['question_count'];
@@ -23,7 +27,7 @@
     </p>
     <p><strong>Questions answered:</strong>
     <?php
-      if($show) {
+      if($mod || $self) {
         echo $this->Html->link($user['User']['answer_count'], array('controller'=>'users', 'action'=>'viewanswers', $user['User']['id']));
       } else {
         echo $user['User']['answer_count'];
@@ -31,7 +35,7 @@
     ?>
     <p><strong>Comments posted:</strong>
     <?php
-      if($show) {
+      if($mod || $self) {
         echo $this->Html->link($user['User']['comment_count'], array('controller'=>'users', 'action'=>'viewcomments', $user['User']['id']));
       } else {
         echo $user['User']['comment_count'];
@@ -41,7 +45,7 @@
   </div>
 
 <?php
-  if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+  if($mod) {
     echo "<div class=\"user user-permissions\">";
     echo "<h3>Permissions</h3>";
     $perm = $user['User']['permissions'];

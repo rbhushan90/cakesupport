@@ -23,6 +23,10 @@
         <th>Actions</th>
       </tr>
       <?php
+        $mod = false;
+        if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+          $mod = true;
+        }
         foreach($users as $user) {
           print "<tr>\n<td>";
           print $user['User']['username'];
@@ -33,10 +37,12 @@
                 array('controller'  => 'users', 'action' => 'view',
                 $user['User']['id']));
           print "</td>\n<td>";
-	        print $this->Html->link('Deactivate User',
-                array('controller'  => 'users', 'action' => 'deactivate',
-                $user['Reportee']['id']));
-          print "<br/>";
+          if($mod)
+            print $this->Html->link('Deactivate User',
+                  array('controller'  => 'users', 'action' => 'deactivate',
+                  $user['Reportee']['id']));
+            print "<br/>";
+          }
 	        print $this->Html->link('Delete Report',
                 array('controller'  => 'admin', 'action' => 'unreport',
                 'ReportedUser', $user['ReportedUser']['id']));

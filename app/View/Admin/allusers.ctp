@@ -24,6 +24,10 @@
         <th>Actions</th>
       </tr>
       <?php
+        $mod = false;
+        if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
+          $mod = true;
+        }
         foreach($users as $user) {
           print "<tr>\n<td>";
 	        print $this->Html->link($user['User']['username'],
@@ -32,14 +36,16 @@
           print "</td>\n<td>";
           print $user['User']['email'];
           print "</td>\n<td>";
-          if($user['User']['permissions'] & 1) {
-            print $this->Html->link('Deactivate',
-                  array('controller'  => 'users', 'action' => 'deactivate',
-                  $user['User']['id']), array('class' => 'btn btn-danger btn-mini action ref'));
-          } else {
-            print $this->Html->link('Activate',
-                  array('controller'  => 'users', 'action' => 'activate',
-                  $user['User']['id']), array('class' => 'btn btn-primary btn-mini action ref'));
+          if($mod) {
+            if($user['User']['permissions'] & 1) {
+              print $this->Html->link('Deactivate',
+                    array('controller'  => 'users', 'action' => 'deactivate',
+                    $user['User']['id']), array('class' => 'btn btn-danger btn-mini action ref'));
+            } else {
+              print $this->Html->link('Activate',
+                    array('controller'  => 'users', 'action' => 'activate',
+                    $user['User']['id']), array('class' => 'btn btn-primary btn-mini action ref'));
+            }
           }
           print "</td>\n</th>";
         }

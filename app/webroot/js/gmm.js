@@ -38,7 +38,11 @@ $(document).ready(function() {
     function(e) {
       var fields = {};
       $(this).find(":input").each(function() {
-        fields[this.name] = $(this).val();
+        if(this.type != 'checkbox') {
+          fields[this.name] = $(this).val();
+        } else if($(this).is(':checked')) {
+          fields[this.name] |= $(this).val();
+        }
       });
 
       $("#user-dropdown").removeClass('dropdown');
@@ -78,6 +82,7 @@ $(document).ready(function() {
 function loadError() {
   $.get('/elements/error', function(data) {
     $('#err').html(data);
+    $("#err").fadeIn(400).delay(4000).slideUp(300);
   });
 }
 

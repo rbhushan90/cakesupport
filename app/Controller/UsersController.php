@@ -32,8 +32,8 @@ class UsersController extends AppController {
         CakeSession::write('User.id', $user['User']['id']);
         CakeSession::write('User.username', $user['User']['username']);
         CakeSession::write('User.permissions', $user['User']['permissions']);
-        if(!$this->request->data['noredirect']) {
-          redirect('/');
+        if(!isset($this->request->data['noredirect'])) {
+          $this->redirect('/');
         }
       } else {
         $this->Session->setFlash("Incorrect login attempt");
@@ -50,7 +50,7 @@ class UsersController extends AppController {
       $this->errorRedirect('/');
       return;
     }
-    if(!(CakeSession::read('User.permissions') & Configure::read('permissions.admin'))) {
+    if(!(CakeSession::read('User.permissions') & Configure::read('permissions.userMod'))) {
       $this->Session->setFlash('You do not have administrator privileges.');
       $this->errorRedirect('/login', '401 Unauthorized');
       return;
@@ -93,7 +93,7 @@ class UsersController extends AppController {
       $this->errorRedirect('/');
       return;
     }
-    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+    if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
       $user['User']['permissions'] = 0;
       $this->User->save($user);
       $this->errorRedirect('/admin/allusers', '275 Unnecessary');
@@ -111,7 +111,7 @@ class UsersController extends AppController {
       $this->Session->setFlash('There is no account with that username.');
       $this->redirect('/');
     }
-    if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
+    if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
       $user['User']['permissions'] |= 1;
       $this->User->save($user);
       $this->errorRedirect('/admin/allusers', '275 Unnecessary');
@@ -155,7 +155,7 @@ class UsersController extends AppController {
   }
 
   public function viewanswers($id = null) {
-    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $id)) {
+    if((CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) || (CakeSession::read('User.id') == $id)) {
       $this->view($id);
     } else {
       $this->Session->setFlash('You do not have permission to view this page.');
@@ -164,7 +164,7 @@ class UsersController extends AppController {
   }
 
   public function viewcomments($id = null) {
-    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $id)) {
+    if((CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) || (CakeSession::read('User.id') == $id)) {
       $this->view($id);
     } else {
       $this->Session->setFlash('You do not have permission to view this page.');
@@ -173,7 +173,7 @@ class UsersController extends AppController {
   }
 
   public function viewquestions($id = null) {
-    if((CakeSession::read('User.permissions') & Configure::read('permissions.admin')) || (CakeSession::read('User.id') == $id)) {
+    if((CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) || (CakeSession::read('User.id') == $id)) {
       $this->view($id);
     } else {
       $this->Session->setFlash('You do not have permission to view this page.');

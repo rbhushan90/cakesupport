@@ -16,7 +16,7 @@
     <ul id="users_submenu">
       <li><a href="/users/view/<?php echo CakeSession::read('User.id') ?>">Your profile</a></li>
       <li><a class="action ref ref-head" href="/logout">Logout</a></li>
-      <?php if(CakeSession::read('User.username')) { ?>
+      <?php if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) { ?>
         <li><a href='/admin'>Admin</a></li>
       <?php } ?>
     </ul>
