@@ -2,7 +2,7 @@
 class UsersController extends AppController {
   public $name = 'Users';
   public $helpers = array('Form', 'Html');
-  public $uses = array('User', 'ReportedUser');
+  public $uses = array('User', 'ReportedUser', 'UserMetadata');
 
   public function beforeFilter() {
     if($this->request->is('ajax')) {
@@ -18,6 +18,16 @@ class UsersController extends AppController {
     }
   }
 
+  function generateRandom($length) {
+    $random= "";
+    $list = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+
+    for($i = 0; $i < $length; $i++)  {    
+       $random .= substr($list,rand(0, strlen($list)-1), 1);  
+    }  
+    return $random;
+  }
+
   public function login() {
     if ($this->request->data) {
       $user = $this->User->findByUsername($this->request->data['User']['username']);
@@ -25,7 +35,7 @@ class UsersController extends AppController {
         $this->Session->setFlash('There is no account with that username.');
       }
       if(!($user['User']['permissions'] & Configure::read('permissions.login'))) {
-        $this->Session->setFlash('This account has been banned. Please contact support.');
+        $this->Session->setFlash('This account has been banned or has not yet been validated.');
       }
       $hash = hash("sha256", $this->request->data['User']['password']);
       if($user && $user['User']['password'] == $hash) {
@@ -104,18 +114,43 @@ class UsersController extends AppController {
   public function register() {
     if ($this->request->is('post')) {
       $temp = $this->request->data['User']['password'];
-      $this->request->data['User']['permissions'] = 1;
+      $this->request->data['User']['permissions'] = 0;
       $this->request->data['User']['password'] = hash("sha256", $this->request->data['User']['password']);
 
       if ($this->User->save($this->request->data)) {
-        $this->request->data['User']['password'] = $temp;
-        $this->login();
+        $this->Session->setFlash('A validation email has been sent to verify your email address');
+        $user = $this->User->read();
+        $md = array();
+        $md['UserMetadata']['user_id'] = $user['User']['id'];
+        $md['UserMetadata']['verification'] = $this->generateRandom(10);
+        $this->UserMetadata->save($md);
         $this->redirect('/');
       } else {
         $this->request->data['User']['password'] = $temp;
       }
 
     }
+  }
+
+  public function verify($uid, $vcode) {
+    $this->User->id = $uid;
+    $user = $this->User->read();
+    if(!$user) {
+      $this->Session->setFlash('The requested user could not be found');
+    } else {
+      $this->UserMetadata->user_id = $uid;
+      $md = $this->UserMetadata->read();
+      if($md['UserMetadata']['verification'] == $vcode && $vcode != '') {
+        $user['User']['permissions'] = 1;
+        $this->User->save($user);
+        $this->Session->setFlash('Email address validated');
+        $md['UserMetadata']['verification'] = '';
+        $this->UserMetadata->save($md);
+        $this->request->data = $user;
+        $this->login();
+      }
+    }
+    $this->redirect('/');
   }
 
   public function deactivate($id = null) {

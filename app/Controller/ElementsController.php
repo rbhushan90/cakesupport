@@ -4,7 +4,7 @@ class ElementsController extends AppController {
 
   public function beforeFilter() {
     if($this->request->is('ajax')) {
-      $this->layout = 'content';
+      $this->layout = 'content-only';
     }
   }
 

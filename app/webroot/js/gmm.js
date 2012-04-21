@@ -102,16 +102,17 @@ function loadPage(url, push) {
     var push = false;
   }
   $.get(url, function(data) {
-    $('#content-main').html(data);
-  showHide();
-    if(push) {
-      history.pushState({loc: encodeURIComponent(url)}, '', url);
-    }
-    loadError();
-    FB.XFBML.parse()
-    $.ajax({ url: 'http://platform.twitter.com/widgets.js', dataType: 'script', cache:true});
-    gapi.plusone.go();
-  }).error(function(data, stat) {
+      $('#content-main').html(data);
+      alert($(jQuery.parseXML(data)).find("title").text());
+      showHide();
+      if(push) {
+        history.pushState({loc: encodeURIComponent(url)}, '', url);
+      }
+      loadError();
+      FB.XFBML.parse()
+      $.ajax({ url: 'http://platform.twitter.com/widgets.js', dataType: 'script', cache:true});
+      gapi.plusone.go();
+    }).error(function(data, stat) {
     loadError();
   });
 }
