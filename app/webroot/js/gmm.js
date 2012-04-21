@@ -104,6 +104,7 @@ function loadPage(url, push) {
     if(push) {
       history.pushState({loc: encodeURIComponent(url)}, '', url);
     }
+    FB.XFBML.parse()
     loadError();
   }).error(function(data, stat) {
     loadError();
