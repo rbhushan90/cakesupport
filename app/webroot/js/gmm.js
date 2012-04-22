@@ -103,7 +103,6 @@ function loadPage(url, push) {
   }
   $.get(url, function(data) {
       $('#content-main').html(data);
-      alert($(jQuery.parseXML(data)).find("title").text());
       showHide();
       if(push) {
         history.pushState({loc: encodeURIComponent(url)}, '', url);

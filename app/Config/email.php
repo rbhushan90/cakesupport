@@ -43,22 +43,25 @@
 class EmailConfig {
 
 	public $default = array(
-		'transport' => 'Debug',
-		'from' => 'you@localhost',
+		'transport' => 'Mail',
+		'from' => array('site@localhost' => 'My Site'),
 		//'charset' => 'utf-8',
 		//'headerCharset' => 'utf-8',
 	);
+	public $local = array(
+		'transport' => 'Mail',
+    'from' => array('registration@goodmeasuremeals.com' => 'GMM Registration'),
+    'log' => true,
+  );
 
-	public $smtp = array(
+	public $gmail = array(
 		'transport' => 'Smtp',
-		'from' => array('site@localhost' => 'My Site'),
-		'host' => 'localhost',
-		'port' => 25,
-		'timeout' => 30,
-		'username' => 'user',
-		'password' => 'secret',
-		'client' => null,
-		'log' => false
+    'from' => array('ashroff6@gmail.com' => 'GMM Registration Gmail'),
+		'host' => 'ssl://smtp.gmail.com',
+		'port' => 465,
+		'username' => 'ashroff6@gmail.com',
+		'password' => 'jet\'ai(L)e62632',
+		'log' => true
 		//'charset' => 'utf-8',
 		//'headerCharset' => 'utf-8',
 	);
