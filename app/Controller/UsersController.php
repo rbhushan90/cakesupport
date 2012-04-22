@@ -18,6 +18,12 @@ class UsersController extends AppController {
     }
   }
 
+  function createEmail() {
+    App::uses('CakeEmail', 'Network/Email');
+    $email = new CakeEmail('local');
+    return $email;
+  }
+
   function generateRandom($length) {
     $random= "";
     $list = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
@@ -124,6 +130,12 @@ class UsersController extends AppController {
         $md['UserMetadata']['user_id'] = $user['User']['id'];
         $md['UserMetadata']['verification'] = $this->generateRandom(10);
         $this->UserMetadata->save($md);
+        $email = $this->createEmail();
+        $email->template('welcome');
+        $email->to('ashroff6@gmail.com');
+        $email->subject('GMM Registration');
+        $email->viewVars(array('fname' => $user['User']['first_name'], 'url' => 'http://' . $_SERVER['SERVER_NAME'] . '/users/verify/' . $user['User']['id'] . '/' . $md['UserMetadata']['verification']));
+        $email->send();
         $this->redirect('/');
       } else {
         $this->request->data['User']['password'] = $temp;
