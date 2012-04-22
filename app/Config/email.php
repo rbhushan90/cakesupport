@@ -60,7 +60,7 @@ class EmailConfig {
 		'host' => 'ssl://smtp.gmail.com',
 		'port' => 465,
 		'username' => 'ashroff6@gmail.com',
-		'password' => 'jet\'ai(L)e62632',
+		'password' => 'secret',
 		'log' => true
 		//'charset' => 'utf-8',
 		//'headerCharset' => 'utf-8',
