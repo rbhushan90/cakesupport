@@ -60,12 +60,12 @@ $(document).ready(function() {
           gapi.plusone.go();
           loadError();
         }).error(function(data, stat, err) {
-          loadHeader();
           if(err.toLowerCase().indexOf('redirect') != -1) {
             loadPage('/', true);
           } else {
             loadError();
           }
+          loadHeader();
         });
       }
 

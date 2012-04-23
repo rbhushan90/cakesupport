@@ -36,6 +36,7 @@ class UsersController extends AppController {
       }
       if(!($user['User']['permissions'] & Configure::read('permissions.login'))) {
         $this->Session->setFlash('This account has been banned or has not yet been validated.');
+        $this->errorRedirect('/', '475 Unnecessary');
       }
       $hash = hash("sha256", $this->request->data['User']['password']);
       if($user && $user['User']['password'] == $hash) {
@@ -146,11 +147,15 @@ class UsersController extends AppController {
 
   public function reset($id = null, $code = null) {
     if($code != null) {
-      $this->UserMetadata->user_id = $id;
-      $md = $this->UserMetadata->read();
-      if($code != $md['UserMetadata']['reset_code']) {
+      $this->User->id = $id;
+      $user = $this->User->read();
+      if(!$user) {
+        $this->Session->setFlash('Could not find the requested user.');
+      } else if($code == $user['UserMetadata']['reset_code']) {
         CakeSession::write('reset_id', $id);
         CakeSession::write('reset_code', $code);
+      } else {
+        $this->Session->setFlash('The reset code does not match. Please follow the link from your email or request another password reset.');
       }
     } else {
       $reset_code = CakeSession::read('reset_code');
@@ -176,6 +181,7 @@ class UsersController extends AppController {
           CakeSession::delete('reset_id');
 
           $this->request->data['User']['username'] = $user['User']['username'];
+          $this->request->data['noredirect'] = '1';
           $this->login();
           $this->Session->setFlash('Your password was successfully changed.');
           $this->errorRedirect('/', '476 Redirect');
