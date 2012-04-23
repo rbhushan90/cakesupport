@@ -175,6 +175,7 @@ class UsersController extends AppController {
           CakeSession::delete('reset_code');
           CakeSession::delete('reset_id');
 
+          $this->request->data['User']['username'] = $user['User']['username'];
           $this->login();
           $this->Session->setFlash('Your password was successfully changed.');
           $this->errorRedirect('/', '476 Redirect');
