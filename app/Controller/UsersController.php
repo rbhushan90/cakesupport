@@ -18,12 +18,6 @@ class UsersController extends AppController {
     }
   }
 
-  function createEmail() {
-    App::uses('CakeEmail', 'Network/Email');
-    $email = new CakeEmail('local');
-    return $email;
-  }
-
   function generateRandom($length) {
     $random= "";
     $list = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
@@ -125,22 +119,105 @@ class UsersController extends AppController {
 
       if ($this->User->save($this->request->data)) {
         $this->Session->setFlash('A validation email has been sent to verify your email address');
+
         $user = $this->User->read();
         $md = array();
         $md['UserMetadata']['user_id'] = $user['User']['id'];
         $md['UserMetadata']['verification'] = $this->generateRandom(10);
         $this->UserMetadata->save($md);
-        $email = $this->createEmail();
+
+        App::uses('CakeEmail', 'Network/Email');
+        $email = new CakeEmail('registration');
         $email->template('welcome');
-        $email->to('ashroff6@gmail.com');
+        $email->to($user['User']['email']);
         $email->subject('GMM Registration');
-        $email->viewVars(array('fname' => $user['User']['first_name'], 'url' => 'http://' . $_SERVER['SERVER_NAME'] . '/users/verify/' . $user['User']['id'] . '/' . $md['UserMetadata']['verification']));
+        $vars = array();
+        $vars['fname'] = $user['User']['first_name'];
+        $vars['url'] = 'http://' . $_SERVER['SERVER_NAME'] . '/users/verify/' . $user['User']['id'] . '/' . $md['UserMetadata']['verification'];
+        $email->viewVars($vars);
         $email->send();
+
         $this->redirect('/');
       } else {
         $this->request->data['User']['password'] = $temp;
       }
+    }
+  }
 
+  public function reset($id = null, $code = null) {
+    if($code != null) {
+      $this->UserMetadata->user_id = $id;
+      $md = $this->UserMetadata->read();
+      if($code != $md['UserMetadata']['reset_code']) {
+        CakeSession::write('reset_id', $id);
+        CakeSession::write('reset_code', $code);
+      }
+    } else {
+      $reset_code = CakeSession::read('reset_code');
+      $reset_id = CakeSession::read('reset_id');
+      if(!$reset_code || !$reset_id) {
+        return;
+      }
+      $this->User->id = $reset_id;
+      $user = $this->User->read();
+
+      if($user['UserMetadata']['reset_code'] != $reset_code) {
+        CakeSession::delete('reset_code');
+        CakeSession::delete('reset_id');
+        $this->Session->setFlash('The reset code does not match. Please follow the link from your email or request another password reset.');
+        $this->redirect('/');
+      }
+      if($this->request->data['User']['password'] == $this->request->data['User']['confirm']) {
+        $user['User']['password'] = hash("sha256", $this->request->data['User']['password']);
+        $user['UserMetadata']['reset_code'] = NULL;
+        if($this->User->save($user)) {
+          CakeSession::delete('reset_code');
+          CakeSession::delete('reset_id');
+
+          $this->login();
+          $this->Session->setFlash('Your password was successfully changed.');
+          $this->redirect('/');
+        } else {
+          $this->Session->setFlash('Could not change your password. Pleasy try again.');
+        }
+      } else {
+        $this->Session->setFlash('Your password does not match the confirmation password');
+      }
+    }
+  }
+
+  public function forgot() {
+    if($this->request->is('post')) {
+      $usermail = $this->request->data['User']['usermail'];
+      $this->User->recursive = 0;
+      if(strrpos($usermail, '@') === false) {
+        $user = $this->User->find('first', array('conditions' => array('User.username' => $usermail)));
+      } else {
+        $user = $this->User->find('first', array('conditions' => array('User.email' => $usermail)));
+      }
+      if(!$user) {
+        $this->Session->setFlash('Could not find the requested user.');
+        $this->errorRedirect('/users/forgot', '375 Unnecessary');
+        return;
+      }
+      $user['UserMetadata']['reset_code'] = $this->generateRandom(10);
+      $this->UserMetadata->save($user);
+
+      App::uses('CakeEmail', 'Network/Email');
+      $email = new CakeEmail('support');
+      $email->template('password');
+      $email->emailFormat('both');
+      $email->to($user['User']['email']);
+      $email->subject('Login Assistance');
+      $vars = array();
+      $vars['fname'] = $user['User']['first_name'];
+      $vars['username'] = $user['User']['username'];
+      $vars['url'] = 'http://' . $_SERVER['SERVER_NAME'] . '/users/reset/' . $user['User']['id'] . '/' . $user['UserMetadata']['reset_code'];
+      $email->viewVars($vars);
+      $email->send();
+
+      $this->Session->setFlash('An email has been sent to your registered address with account details.');
+      $this->redirect('/');
     }
   }
 
@@ -156,7 +233,7 @@ class UsersController extends AppController {
         $user['User']['permissions'] = 1;
         $this->User->save($user);
         $this->Session->setFlash('Email address validated');
-        $md['UserMetadata']['verification'] = '';
+        $md['UserMetadata']['verification'] = NULL;
         $this->UserMetadata->save($md);
         $this->request->data = $user;
         $this->login();

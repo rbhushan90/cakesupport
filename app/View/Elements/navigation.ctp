@@ -29,8 +29,10 @@
       echo $this->Form->create('User', array('action' => 'login', 'class' => 'login'));
       echo $this->Form->input('username');
       echo $this->Form->input('password');
-      echo $this->Form->submit('Login', array('class' => 'btn btn-primary'));
+      echo $this->Form->submit('Login', array('class' => 'btn btn-primary', 'div' => false));
       echo $this->Form->end();
+      echo "<br />";
+      echo $this->Html->link('Forgot Username/Password?', '/users/forgot');
     ?>
     </div>
   </li>

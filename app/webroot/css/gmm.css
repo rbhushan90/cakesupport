@@ -67,7 +67,7 @@ a:hover {
 }
 
 /* Style the menu buttons. */
-#header .menu li a {
+#header .menu li>a {
   color: #000;
   display: block;
   font-weight: bold;
@@ -230,7 +230,8 @@ a:hover {
   font-weight: bold;
   padding-right: 10px;
   padding-top: 5px;
-  width: 75px;
+  width: 175px;
+  text-align: right;
 }
 
 .forms .users-links {

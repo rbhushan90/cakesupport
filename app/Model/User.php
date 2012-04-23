@@ -2,6 +2,12 @@
 class User extends AppModel {
   public $name = 'User';
 
+  public $hasOne = array(
+    'UserMetadata' => array(
+      'className' => 'UserMetadata'
+    )
+  );
+
   public $hasMany = array(
     'UserQuestion' => array(
       'className' => 'Question',
