@@ -59,19 +59,19 @@ class UsersController extends AppController {
     }
     if(strlen($this->request->data['User']['password']) < 8) {
       $this->Session->setFlash('New password is too short');
-      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $this->request->data['User']['id']), '375 Unnecessary');
+      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $this->request->data['User']['id']), '475 Unnecessary');
       return;
     }
     if($this->request->data['User']['confirm'] != $this->request->data['User']['password']) {
       $this->Session->setFlash('Confirmation password does not match');
-      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $this->request->data['User']['id']), '375 Unnecessary');
+      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $this->request->data['User']['id']), '475 Unnecessary');
       return;
     }
     $this->User->id = $this->request->data['User']['id'];
     $user = $this->User->read();
     if(!$user) {
       $this->Session->setFlash('Unknown user.');
-      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']), '375 Unnecessary');
+      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']), '475 Unnecessary');
       return;
     }
     $user['User']['password'] = hash("sha256", $this->request->data['User']['password']);
@@ -81,7 +81,7 @@ class UsersController extends AppController {
       $this->Session->setFlash('Could not change password.');
     }
 
-    $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']), '375 Unnecessary');
+    $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']), '475 Unnecessary');
   }
 
   public function permissions() {
@@ -137,7 +137,7 @@ class UsersController extends AppController {
         $email->viewVars($vars);
         $email->send();
 
-        $this->redirect('/');
+        $this->errorRedirect('/', '476 Redirect');
       } else {
         $this->request->data['User']['password'] = $temp;
       }
@@ -176,7 +176,7 @@ class UsersController extends AppController {
 
           $this->login();
           $this->Session->setFlash('Your password was successfully changed.');
-          $this->redirect('/');
+          $this->errorRedirect('/', '476 Redirect');
         } else {
           $this->Session->setFlash('Could not change your password. Pleasy try again.');
         }
@@ -197,7 +197,7 @@ class UsersController extends AppController {
       }
       if(!$user) {
         $this->Session->setFlash('Could not find the requested user.');
-        $this->errorRedirect('/users/forgot', '375 Unnecessary');
+        $this->errorRedirect('/users/forgot', '475 Unnecessary');
         return;
       }
       $user['UserMetadata']['reset_code'] = $this->generateRandom(10);
@@ -217,7 +217,7 @@ class UsersController extends AppController {
       $email->send();
 
       $this->Session->setFlash('An email has been sent to your registered address with account details.');
-      $this->redirect('/');
+      $this->errorRedirect('/', '476 Redirect');
     }
   }
 
@@ -253,7 +253,7 @@ class UsersController extends AppController {
     if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
       $user['User']['permissions'] = 0;
       $this->User->save($user);
-      $this->errorRedirect('/admin/allusers', '375 Unnecessary');
+      $this->errorRedirect('/admin/allusers', '475 Unnecessary');
     } else {
       $this->Session->setFlash('You do not have permission to (de)activate user accounts.');
       $this->errorRedirect('/login', '401 Unauthorized');
@@ -271,7 +271,7 @@ class UsersController extends AppController {
     if(CakeSession::read('User.permissions') & Configure::read('permissions.userMod')) {
       $user['User']['permissions'] |= 1;
       $this->User->save($user);
-      $this->errorRedirect('/admin/allusers', '375 Unnecessary');
+      $this->errorRedirect('/admin/allusers', '475 Unnecessary');
     } else {
       $this->Session->setFlash('You do not have permission to (de)activate user accounts.');
       $this->redirect('/');

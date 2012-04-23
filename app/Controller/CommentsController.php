@@ -48,7 +48,7 @@ class CommentsController extends AppController {
     } else {
       $this->Session->setFlash('You cannot delete somebody else\'s comment.');
     }
-    $this->errorRedirect(array('controller' => 'posts', 'action' => 'view', $com['Comment']['post_id']), '375 Unnecessary');
+    $this->errorRedirect(array('controller' => 'posts', 'action' => 'view', $com['Comment']['post_id']), '475 Unnecessary');
   }
 
   public function report($id = null) {
@@ -60,7 +60,7 @@ class CommentsController extends AppController {
       $rc['ReportedComment']['comment_id'] = $com['Comment']['id'];
       $rc['ReportedComment']['user_id'] = $this->Session->read('User.id');
       $this->ReportedComment->save($rc);
-      $this->errorRedirect(array('controller' => 'posts', 'action' => 'view', $com['Comment']['post_id']), '375 Unnecessary');
+      $this->errorRedirect(array('controller' => 'posts', 'action' => 'view', $com['Comment']['post_id']), '475 Unnecessary');
     } else {
       $this->Session->setFlash("You need to be logged in to do that.");
       $this->errorRedirect('/login', '401 Unauthorized');

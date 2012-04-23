@@ -59,7 +59,7 @@ class AnswersController extends AppController {
       $rc['ReportedAnswer']['answer_id'] = $ans['Answer']['id'];
       $rc['ReportedAnswer']['user_id'] = $this->Session->read('User.id');
       $this->ReportedAnswer->save($rc);
-      $this->errorredirect(array('controller' => 'questions', 'action' => 'view', $this->data['Answer']['question_id']), '375 Unnecessary');
+      $this->errorredirect(array('controller' => 'questions', 'action' => 'view', $this->data['Answer']['question_id']), '475 Unnecessary');
     } else {
       $this->Session->setFlash("You need to be logged in to do that.");
       $this->errorRedirect('/login', '401 Unauthorized');

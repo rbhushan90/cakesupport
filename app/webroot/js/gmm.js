@@ -52,19 +52,21 @@ $(document).ready(function() {
           loadHeader();
           loadPage(window.location);
         });
-      } else if($(this).is('register')) {
-        $.post($(this).attr('action'), fields, function(data) {
-          loadHeader();
-          loadError();
-        });
       } else {
         $.post($(this).attr('action'), fields, function(data) {
           $('#content-main').html(data);
           FB.XFBML.parse()
           $.ajax({ url: 'http://platform.twitter.com/widgets.js', dataType: 'script', cache:true});
           gapi.plusone.go();
+          loadError();
+        }).error(function(data, stat, err) {
+          loadHeader();
+          if(err.toLowerCase().indexOf('redirect') != -1) {
+            loadPage('/', true);
+          } else {
+            loadError();
+          }
         });
-        loadError();
       }
 
       return false;
@@ -112,8 +114,9 @@ function loadPage(url, push) {
       $.ajax({ url: 'http://platform.twitter.com/widgets.js', dataType: 'script', cache:true});
       gapi.plusone.go();
     }).error(function(data, stat) {
-    loadError();
-  });
+      loadError();
+    }
+  );
 }
 
 function showHide() {
