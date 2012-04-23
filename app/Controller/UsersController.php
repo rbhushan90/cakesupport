@@ -171,6 +171,7 @@ class UsersController extends AppController {
         $user['User']['password'] = hash("sha256", $this->request->data['User']['password']);
         $user['UserMetadata']['reset_code'] = NULL;
         if($this->User->save($user)) {
+          $this->UserMetadata->save($user);
           CakeSession::delete('reset_code');
           CakeSession::delete('reset_id');
 
