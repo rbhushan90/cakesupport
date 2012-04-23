@@ -206,7 +206,6 @@ class UsersController extends AppController {
       App::uses('CakeEmail', 'Network/Email');
       $email = new CakeEmail('support');
       $email->template('password');
-      $email->emailFormat('both');
       $email->to($user['User']['email']);
       $email->subject('Login Assistance');
       $vars = array();

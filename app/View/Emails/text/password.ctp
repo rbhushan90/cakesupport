@@ -6,8 +6,8 @@ you may ignore the rest of this email.
 
 Your username is: <?php echo $username ?>
 
-If you want to reset your password, you should copy and paste the link below
-into your browser's address bar.
+If you want to reset your password, you should click on the link below or copy
+and paste it into your browser's address bar.
 
 Password reset link: <?php echo $url ?>
 
