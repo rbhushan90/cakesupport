@@ -89,20 +89,21 @@
 ?>
 
   <div class="clear">
-    <div class="user actions">
-      <?php
-        if(CakeSession::read('User.permissions') & Configure::read('permissions.admin')) {
-          if($user['User']['permissions'] & 1) {
-            echo $this->Html->link('Deactivate account', array('controller'=>'users', 'action'=>'deactivate', $user['User']['id']), array('class' => 'btn btn-danger action ref'));
-          } else {
-            echo $this->Html->link('Activate account', array('controller'=>'users', 'action'=>'activate', $user['User']['id']), array('class' => 'btn btn-primary action ref'));
-          }
-        } else if(CakeSession::read('User.permissions')){
-          echo $this->Html->link('Report this user', array('controller'=>'users', 'action'=>'report', $user['User']['id']), array('class' => 'btn btn-danger'));
-        }
-      ?>
-    </div>
+    <br />
   </div>
+  <?php if($mod) { ?>
+  <div class="user actions">
+  <?php
+      if($user['User']['permissions'] & 1) {
+        echo $this->Html->link('Deactivate account', array('controller'=>'users', 'action'=>'deactivate', $user['User']['id']), array('class' => 'btn btn-danger action ref'));
+      } else {
+        echo $this->Html->link('Activate account', array('controller'=>'users', 'action'=>'activate', $user['User']['id']), array('class' => 'btn btn-primary action ref'));
+      }
+    } else if(CakeSession::read('User.permissions')){
+      echo $this->Html->link('Report this user', array('controller'=>'users', 'action'=>'report', $user['User']['id']), array('class' => 'btn btn-danger'));
+  ?>
+  </div>
+  <?php } ?>
 
 </div>
 <div class="bottom-content"></div>
