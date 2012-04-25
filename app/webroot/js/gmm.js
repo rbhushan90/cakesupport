@@ -51,6 +51,8 @@ $(document).ready(function() {
         $.post($(this).attr('action'), fields, function(data) {
           loadHeader();
           loadPage(window.location);
+        }).error(function() {
+          loadError();
         });
       } else {
         $.post($(this).attr('action'), fields, function(data) {

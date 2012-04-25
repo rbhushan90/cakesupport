@@ -37,6 +37,7 @@ class UsersController extends AppController {
       if(!($user['User']['permissions'] & Configure::read('permissions.login'))) {
         $this->Session->setFlash('This account has been banned or has not yet been validated.');
         $this->errorRedirect('/', '475 Unnecessary');
+        return;
       }
       $hash = hash("sha256", $this->request->data['User']['password']);
       if($user && $user['User']['password'] == $hash) {
