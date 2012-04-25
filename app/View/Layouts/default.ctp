@@ -33,6 +33,7 @@
     echo $this->Html->script('jquery');
     echo $this->Html->script('jquery.animate-colors');
     echo $this->Html->script('gmm');
+    echo $this->Html->script('jquery.history');
                                                                                  
     echo $this->fetch('meta');                                                   
     echo $this->fetch('css');                                                    
