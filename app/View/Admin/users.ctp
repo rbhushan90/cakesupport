@@ -37,7 +37,7 @@
                 array('controller'  => 'users', 'action' => 'view',
                 $user['User']['id']));
           print "</td>\n<td>";
-          if($mod)
+          if($mod) {
             print $this->Html->link('Deactivate User',
                   array('controller'  => 'users', 'action' => 'deactivate',
                   $user['Reportee']['id']));
