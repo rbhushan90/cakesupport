@@ -28,6 +28,20 @@ class UsersController extends AppController {
     return $random;
   }
 
+  function realLogin($user, $hash, $hashed = false) {
+    if(!$hashed) {
+      $hash = hash("sha256", $hash);
+    }
+    if($user && $user['User']['password'] == $hash) {
+      debug('success!');
+      CakeSession::write('User.id', $user['User']['id']);
+      CakeSession::write('User.username', $user['User']['username']);
+      CakeSession::write('User.permissions', $user['User']['permissions']);
+      return true;
+    }
+    return false;
+  }
+
   public function login() {
     if ($this->request->data) {
       $user = $this->User->findByUsername($this->request->data['User']['username']);
@@ -39,16 +53,15 @@ class UsersController extends AppController {
         $this->errorRedirect('/', '475 Unnecessary');
         return;
       }
-      $hash = hash("sha256", $this->request->data['User']['password']);
-      if($user && $user['User']['password'] == $hash) {
-        CakeSession::write('User.id', $user['User']['id']);
-        CakeSession::write('User.username', $user['User']['username']);
-        CakeSession::write('User.permissions', $user['User']['permissions']);
-        if(!isset($this->request->data['noredirect'])) {
+      if($this->realLogin($user, $this->request->data['User']['password'])) {
+        if(!$this->request->is('ajax')) {
           $this->redirect('/');
         }
       } else {
         $this->Session->setFlash("Incorrect login attempt");
+        if($this->request->is('ajax')) {
+          $this->header('HTTP/1.1 475 Unnecessary');
+        }
       }
     }
   }
@@ -235,19 +248,19 @@ class UsersController extends AppController {
     if(!$user) {
       $this->Session->setFlash('The requested user could not be found');
     } else {
-      $this->UserMetadata->user_id = $uid;
-      $md = $this->UserMetadata->read();
-      if($md['UserMetadata']['verification'] == $vcode && $vcode != '') {
+      debug($user);
+      debug($vcode);
+      if($user['UserMetadata']['verification'] == $vcode && $vcode != '') {
         $user['User']['permissions'] = 1;
+        $user['UserMetadata']['verification'] = NULL;
         $this->User->save($user);
-        $this->Session->setFlash('Email address validated');
-        $md['UserMetadata']['verification'] = NULL;
-        $this->UserMetadata->save($md);
+        $this->UserMetadata->save($user);
         $this->request->data = $user;
-        $this->login();
+        $this->realLogin($user, $user['User']['password'], true);
+        $this->Session->setFlash('Email address validated');
       }
     }
-    $this->redirect('/');
+    $this->errorRedirect('/', '476 Redirect');
   }
 
   public function deactivate($id = null) {
@@ -305,7 +318,7 @@ class UsersController extends AppController {
 
   public function logout() {
     CakeSession::delete('User');
-    $this->redirect('/');
+    $this->errorRedirect('/', '475 Unnecessary');
   }
 
   public function view($id = null) {

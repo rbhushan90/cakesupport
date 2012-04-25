@@ -115,8 +115,12 @@ function loadPage(url, push) {
       FB.XFBML.parse()
       $.ajax({ url: 'http://platform.twitter.com/widgets.js', dataType: 'script', cache:true});
       gapi.plusone.go();
-    }).error(function(data, stat) {
-      loadError();
+    }).error(function(data, stat, err) {
+      if(err.toLowerCase().indexOf('redirect') != -1) {
+        loadPage('/', true);
+      } else {
+        loadError();
+      }
     }
   );
 }
