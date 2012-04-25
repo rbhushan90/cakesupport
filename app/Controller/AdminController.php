@@ -69,7 +69,7 @@ class AdminController extends AppController {
       $this->Session->setFlash('Invalid report type specified.');
     }
     
-    $this->redirect('/admin');
+    $this->errorRedirect('/admin', '475 Unnecessary');
   }
 
   public function allusers() {

@@ -38,7 +38,8 @@
           print "<br/>";
 	        print $this->Html->link('Delete Report',
                 array('controller'  => 'admin', 'action' => 'unreport',
-                'ReportedQuestion', $q['ReportedQuestion']['id']));
+                'ReportedQuestion', $q['ReportedQuestion']['id']),
+                array('class' => 'action ref'));
           print "</td>\n</th>";
         }
       ?>

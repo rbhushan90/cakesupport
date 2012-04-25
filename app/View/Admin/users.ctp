@@ -38,14 +38,21 @@
                 $user['User']['id']));
           print "</td>\n<td>";
           if($mod) {
-            print $this->Html->link('Deactivate User',
-                  array('controller'  => 'users', 'action' => 'deactivate',
-                  $user['Reportee']['id']));
+            if($user['User']['permissions'] == 0) {
+              print $this->Html->link('Activate User',
+                    array('controller'  => 'users', 'action' => 'activate',
+                    $user['Reportee']['id'], 'class' => 'action ref'));
+            } else {
+              print $this->Html->link('Deactivate User',
+                    array('controller'  => 'users', 'action' => 'deactivate',
+                    $user['Reportee']['id']), array('class' => 'action ref'));
+            }
             print "<br/>";
           }
 	        print $this->Html->link('Delete Report',
                 array('controller'  => 'admin', 'action' => 'unreport',
-                'ReportedUser', $user['ReportedUser']['id']));
+                'ReportedUser', $user['ReportedUser']['id'],
+                'class' => 'action ref'));
           print "</td>\n</th>";
         }
       ?>
