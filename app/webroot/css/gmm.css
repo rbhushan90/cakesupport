@@ -707,3 +707,7 @@ a:hover {
   padding: 20px;
   text-align: center;
 }
+
+.footer a {
+  color: #444;
+}

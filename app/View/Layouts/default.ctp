@@ -74,7 +74,9 @@
   </div>
 
   <div class="footer content-width">
-    Footer Stuff Goes Here &copy; Since The Big Bang
+    &copy; 2012 Good Measure Meals
+    <br><br>
+    <a href="#">Click here to turn off Javascript if you're having trouble viewing the site</a>
   </div>
 </body>                                                                          
 </html>  
