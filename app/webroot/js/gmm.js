@@ -75,12 +75,22 @@ $(document).ready(function() {
     }
   )
 
+  // Prepare History.js
+  var History = window.History;
+
+//  History.Adapter.bind(window, 'popstate', function(){
+//    var State = History.getState();
+//    History.log(State.title, State.url);
+//  });
+
   $(window).bind("popstate", function (e) {
-    if(e.originalEvent.state != null) {
-      state = e.originalEvent.state;
-      loadPage(decodeURIComponent(state.loc));
+    if(e.originalEvent && e.originalEvent.state != null && e.originalEvent.state != undefined) {
+      state = History.getState();
+      loadPage(decodeURIComponent(state.data.loc));
     } else {
-      loadPage(window.location);
+      var State = History.getState();
+      History.log(State.url, State.title, State.date);
+      loadPage(State.url);
     }
   });
 
@@ -109,7 +119,7 @@ function loadPage(url, push) {
       $('#content-main').html(data);
       showHide();
       if(push) {
-        history.pushState({loc: encodeURIComponent(url)}, '', url);
+        History.pushState({loc: encodeURIComponent(url)}, '', url);
       }
       loadError();
       FB.XFBML.parse()
