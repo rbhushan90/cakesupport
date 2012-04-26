@@ -11,6 +11,15 @@ Blog
     <?php if(count($posts) == 0) { ?>
         <div class="nothing">There are no blog posts with these criteria.</div>
     <?php } ?>
+	<?php echo $this->Paginator->numbers(array(
+
+                        'before' => 'Jump to page ',
+
+                        'first'=>1, 
+
+                        'last'=>1
+
+)); ?>
     <?php foreach ($posts as $p): ?>
       <div class="post index">
         <h3><?php echo $this->Html->link($p['Post']['title'],

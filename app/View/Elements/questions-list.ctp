@@ -1,3 +1,9 @@
+<?php echo $this->Paginator->numbers(array(
+                        'before' => 'Jump to page ',
+                        'first'=>1, 
+                        'last'=>1
+)); ?>
+
 <?php foreach ($questions as $q): ?>
   <div class="question short">
     <h3><?php echo $this->Html->link($q['Question']['title'], array('controller' => 'questions', 'action' => 'view', $q['Question']['id'])); ?></h3>
