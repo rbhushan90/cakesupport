@@ -146,9 +146,11 @@ class PostsController extends AppController {
 
       $options['conditions']['Tag.id'] = $selTag;
     }
-    $options['order'] = array('Post.id desc');
-
-    $posts = $this->Post->find('all', $options);
+    $options['order'] = array('Post.id' => 'desc');
+    $options['limit'] = 2;
+	
+	$this->paginate = $options;
+    $posts = $this->paginate('Post');
     $this->set('posts', $posts);
     $this->set('tags', $this->Tag->find('all'));
     $this->set('cats', $this->Category->find('all'));
