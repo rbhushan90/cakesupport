@@ -74,26 +74,27 @@ $(document).ready(function() {
       return false;
     }
   )
-
+  // Prepare History.js
+  var History = window.History;
 
   showHide();
 
 });
-
 function pop(e) {
-  alert('pop');
-  if(e.originalEvent.state != null) {
-    state = e.originalEvent.state;
-    loadPage(decodeURIComponent(state.loc));
+  if(e.originalEvent && e.originalEvent.state != null && e.originalEvent.state != undefined) {
+    state = History.getState();
+    loadPage(decodeURIComponent(state.data.loc));
   } else {
-    loadPage(window.location);
+    var State = History.getState();
+    History.log(State.url, State.title, State.date);
+    loadPage(State.url);
   }
-}
+});
 
 function historyAdd(url) {
   $(window).unbind("popstate");
   $(window).bind("popstate", pop);
-  history.pushState({loc: encodeURIComponent(url)}, '', url);
+  History.pushState({loc: encodeURIComponent(url)}, '', url);
 }
 
 function loadError() {

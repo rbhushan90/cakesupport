@@ -35,29 +35,34 @@ class QuestionsController extends AppController {
         );
 
       $options['conditions'] = array('Tag.id' => $selTag);
-      return $options;
+      //return $options;
     }
-    $options['order'] = array('Question.id desc');
+    //$options['order'] = array('Question.id desc');
+    $options['order'] = array('Question.id' => 'desc'); //Pagination requires different order format
+    $options['limit'] = 5;
     return $options;
   }
 
   public function index() {
     $options = $this->filterTags();
-    $this->set('questions', $this->Question->find('all',$options));
+    $this->paginate = $options;
+    $this->set('questions', $this->paginate('Question'));
     $this->set('tags', $this->Tag->find('all'));
   }
 
   public function unanswered() {
     $options = $this->filterTags();
     $options['conditions']['Question.answer_count'] = 0;
-    $this->set('questions', $this->Question->find('all', $options));
+    $this->paginate = $options;
+    $this->set('questions', $this->paginate('Question'));
     $this->set('tags', $this->Tag->find('all'));
   }
 
   public function unaccepted() {
     $options = $this->filterTags();
     $options['conditions']['Question.accepted'] = NULL;
-    $this->set('questions', $this->Question->find('all', $options));
+    $this->paginate = $options;
+    $this->set('questions', $this->paginate('Question'));
     $this->set('tags', $this->Tag->find('all'));
   }
 
