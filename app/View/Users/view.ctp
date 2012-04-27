@@ -50,10 +50,11 @@
 <?php
   if($self) {
     echo "<div class='user user-password'>";
-    echo "<h3>Change Password</h3>";
+    echo "<h3>Preferences</h3>";
     echo $this->Form->create('User', array('action' => 'password', 'class' => 'changepass'));
     echo $this->Form->input('id', array('type' => 'hidden'));
-    echo $this->Form->input('password', array('label' => 'New Password'));
+    echo $this->Form->input('current', array('type' => 'password', 'label' => 'Current Password'));
+    echo $this->Form->input('password', array('type' => 'password', 'label' => 'New Password'));
     echo $this->Form->input('confirm', array('type' => 'password', 'label' => 'Confirm new password'));
     echo $this->Form->submit('Change Password', array('class' => 'btn btn-primary'));
     echo $this->Form->end();

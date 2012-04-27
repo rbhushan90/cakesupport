@@ -72,6 +72,21 @@ class UsersController extends AppController {
       $this->errorRedirect('/login', '401 Unauthorized');
       return;
     }
+    $this->User->id = $this->request->data['User']['id'];
+    $user = $this->User->read();
+    if(!$user) {
+      $this->Session->setFlash('Unknown user.');
+      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']), '475 Unnecessary');
+      return;
+    }
+    $hash = hash("sha256", $this->request->data['User']['current']);
+    if($hash != $user['User']['password']) {
+      debug($hash);
+      debug($user['User']['password']);
+      $this->Session->setFlash('Old password is incorrect');
+      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $this->request->data['User']['id']), '475 Unnecessary');
+      return;
+    }
     if(strlen($this->request->data['User']['password']) < 8) {
       $this->Session->setFlash('New password is too short');
       $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $this->request->data['User']['id']), '475 Unnecessary');
@@ -80,13 +95,6 @@ class UsersController extends AppController {
     if($this->request->data['User']['confirm'] != $this->request->data['User']['password']) {
       $this->Session->setFlash('Confirmation password does not match');
       $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $this->request->data['User']['id']), '475 Unnecessary');
-      return;
-    }
-    $this->User->id = $this->request->data['User']['id'];
-    $user = $this->User->read();
-    if(!$user) {
-      $this->Session->setFlash('Unknown user.');
-      $this->errorRedirect(array('controller' => 'users', 'action' => 'view', $user['User']['id']), '475 Unnecessary');
       return;
     }
     $user['User']['password'] = hash("sha256", $this->request->data['User']['password']);
@@ -130,6 +138,10 @@ class UsersController extends AppController {
     if ($this->request->is('post')) {
       $temp = $this->request->data['User']['password'];
       $this->request->data['User']['permissions'] = 0;
+      if(strlen($this->request->data['User']['password']) < 8) {
+        $this->Session->setFlash('Your password is too short');
+        return;
+      }
       $this->request->data['User']['password'] = hash("sha256", $this->request->data['User']['password']);
 
       if ($this->User->save($this->request->data)) {
@@ -177,6 +189,11 @@ class UsersController extends AppController {
       if(!$reset_code || !$reset_id) {
         return;
       }
+
+      if(strlen($this->request->data['User']['password']) < 8) {
+        $this->Session->setFlash('Your password is too short');
+        return;
+      }
       $this->User->id = $reset_id;
       $user = $this->User->read();
 
@@ -186,7 +203,11 @@ class UsersController extends AppController {
         $this->Session->setFlash('The reset code does not match. Please follow the link from your email or request another password reset.');
         $this->redirect('/');
       }
-      if($this->request->data['User']['password'] == $this->request->data['User']['confirm']) {
+      if($this->request->data['User']['password'] != $this->request->data['User']['confirm']) {
+        $this->Session->setFlash('Your password does not match the confirmation password');
+      } else if(strlen($this->request->data['User']['password']) < 8) {
+        $this->Session->setFlash('Your password is too short');
+      } else {
         $user['User']['password'] = hash("sha256", $this->request->data['User']['password']);
         $user['UserMetadata']['reset_code'] = NULL;
         if($this->User->save($user)) {
@@ -202,8 +223,6 @@ class UsersController extends AppController {
         } else {
           $this->Session->setFlash('Could not change your password. Pleasy try again.');
         }
-      } else {
-        $this->Session->setFlash('Your password does not match the confirmation password');
       }
     }
   }
