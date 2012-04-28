@@ -89,7 +89,7 @@ function pop(e) {
     History.log(State.url, State.title, State.date);
     loadPage(State.url);
   }
-});
+};
 
 function historyAdd(url) {
   $(window).unbind("popstate");
