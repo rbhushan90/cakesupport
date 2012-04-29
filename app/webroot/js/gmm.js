@@ -1,4 +1,9 @@
 $(document).ready(function() {
+  // Super hackish way to wrap the paginaton buttons in links because 
+  // CakePHP doesn't do that apparently
+  $('.pagination .disabled').wrapInner('<a href="#" />');
+  $('.pagination .active').wrapInner('<a href="#" />');
+
   $(document).on('click', 'a', 
     function(e) {
       if($(this).is('.action')) {
@@ -31,6 +36,9 @@ $(document).ready(function() {
           $("#user-dropdown").removeClass('dropdown');
         }
       } 
+
+      $('.pagination .disabled').wrapInner('<a href="#" />');
+      $('.pagination .active').wrapInner('<a href="#" />');
     }
   )
 
