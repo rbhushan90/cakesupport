@@ -11,15 +11,6 @@ Blog
     <?php if(count($posts) == 0) { ?>
         <div class="nothing">There are no blog posts with these criteria.</div>
     <?php } ?>
-	<?php echo $this->Paginator->numbers(array(
-
-                        'before' => 'Jump to page ',
-
-                        'first'=>1, 
-
-                        'last'=>1
-
-)); ?>
     <?php foreach ($posts as $p): ?>
       <div class="post index">
         <h3><?php echo $this->Html->link($p['Post']['title'],
@@ -44,7 +35,6 @@ Blog
             echo $this->Html->link($ct,
               array('controller' => 'posts', 'action' => 'view',
               $p['Post']['id']
-            ));
           ?>
         </p>
         <div class="info">
@@ -90,6 +80,15 @@ Blog
         </div>
       </div>
     <?php endforeach; ?>
+    <div class="pagination pagination-centered">
+      <ul>
+        <?php 
+          echo $this->Paginator->prev('<<', array('tag' => 'li'), null, array('class' => 'disabled')); 
+          echo $this->Paginator->numbers(array('separator' => null, 'first'=>1, 'last'=>1, 'tag' => 'li', 'currentClass' => 'active')); 
+          echo $this->Paginator->next('>>', array('tag' => 'li'), null, array('class' => 'disabled')); 
+        ?>
+      </ul>
+    </div>
   </div>
   <div class="sidebar">
     <?php echo $this->element('external'); ?>
