@@ -2,7 +2,6 @@
 class CategoriesController extends AppController {
   public $name = 'Categories';
   public $helpers = array('Form', 'Html');
-  public $uses = array('Category');
 
 
   public function select($id = null) {

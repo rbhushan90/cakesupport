@@ -34,7 +34,7 @@ Blog
             $ct .= " [Add a comment]";
             echo $this->Html->link($ct,
               array('controller' => 'posts', 'action' => 'view',
-              $p['Post']['id']
+              $p['Post']['id']));
           ?>
         </p>
         <div class="info">

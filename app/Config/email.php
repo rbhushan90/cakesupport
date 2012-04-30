@@ -45,12 +45,14 @@ class EmailConfig {
 	public $registration = array(
 		'transport' => 'Mail',
     'from' => array('registration@goodmeasuremeals.com' => 'GMM Registration'),
-    'log' => true,
   );
 	public $support = array(
 		'transport' => 'Mail',
     'from' => array('support@goodmeasuremeals.com' => 'GMM Account Support'),
-    'log' => true,
+  );
+	public $monitor = array(
+		'transport' => 'Mail',
+    'from' => array('monitor@goodmeasuremeals.com' => 'GMM Content Monitor'),
   );
 
   // Can be used with Google Apps

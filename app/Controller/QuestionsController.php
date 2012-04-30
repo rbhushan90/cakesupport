@@ -172,8 +172,22 @@ class QuestionsController extends AppController {
       if($this->request->is('post')) {
         $this->request->data['Question']['user_id'] = $this->Session->read('User.id');
         if($this->Question->save($this->request->data)) {
+          $question = $this->Question->read();
           $this->Session->setFlash('Your question has been added');
-          $this->redirect(array('controller'=>'questions', 'action'=>'index'));
+          App::uses('CakeEmail', 'Network/Email');
+          $email = new CakeEmail('monitor');
+          $email->template('question-created');
+          $email->to('ashroff6@gmail.com');
+          $email->subject('[GMM] Question Created');
+          $vars = array();
+          $vars['fname'] = 'Abhishek';
+          $vars['user'] = $question['User']['username'];
+          $vars['body'] = $question['Question']['body'];
+          $vars['url'] = 'http://' . $_SERVER['SERVER_NAME'] . '/questions/view/' . $question['Question']['id'];
+          $email->viewVars($vars);
+          $email->send();
+          $this->errorRedirect(array('controller'=>'questions', 'action'=>'index'), '477 Questions');
+          return;
         } else {
           $this->Session->setFlash('Could not add your question');
         }
