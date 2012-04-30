@@ -58,9 +58,9 @@
 <div class="pagination pagination-centered">
   <ul>
     <?php 
-      echo $this->Paginator->prev('<<', array('tag' => 'li'), null, array('class' => 'disabled')); 
+      echo $this->Paginator->prev('<<', array('tag' => 'li'), null, array('tag' => 'li', 'class' => 'disabled')); 
       echo $this->Paginator->numbers(array('separator' => null, 'first'=>1, 'last'=>1, 'tag' => 'li', 'currentClass' => 'active')); 
-      echo $this->Paginator->next('>>', array('tag' => 'li'), null, array('class' => 'disabled')); 
+      echo $this->Paginator->next('>>', array('tag' => 'li'), null, array('tag' => 'li', 'class' => 'disabled')); 
     ?>
   </ul>
 </div>

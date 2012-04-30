@@ -1,9 +1,4 @@
 $(document).ready(function() {
-  // Super hackish way to wrap the paginaton buttons in links because 
-  // CakePHP doesn't do that apparently
-  $('.pagination .disabled').wrapInner('<a href="#" />');
-  $('.pagination .active').wrapInner('<a href="#" />');
-
   $(document).on('click', 'a', 
     function(e) {
       if($(this).is('.action')) {
@@ -36,9 +31,6 @@ $(document).ready(function() {
           $("#user-dropdown").removeClass('dropdown');
         }
       } 
-
-      $('.pagination .disabled').wrapInner('<a href="#" />');
-      $('.pagination .active').wrapInner('<a href="#" />');
     }
   )
 
@@ -82,27 +74,25 @@ $(document).ready(function() {
       return false;
     }
   )
-  // Prepare History.js
-  var History = window.History;
+
 
   showHide();
 
 });
+
 function pop(e) {
-  if(e.originalEvent && e.originalEvent.state != null && e.originalEvent.state != undefined) {
-    state = History.getState();
-    loadPage(decodeURIComponent(state.data.loc));
+  if(e.originalEvent.state != null) {
+    state = e.originalEvent.state;
+    loadPage(decodeURIComponent(state.loc));
   } else {
-    var State = History.getState();
-    History.log(State.url, State.title, State.date);
-    loadPage(State.url);
+    loadPage(window.location);
   }
-};
+}
 
 function historyAdd(url) {
   $(window).unbind("popstate");
   $(window).bind("popstate", pop);
-  History.pushState({loc: encodeURIComponent(url)}, '', url);
+  history.pushState({loc: encodeURIComponent(url)}, '', url);
 }
 
 function loadError() {
