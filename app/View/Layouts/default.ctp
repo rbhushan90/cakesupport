@@ -27,13 +27,16 @@
 	<?php
 
     # The two I'm using
-    echo $this->Html->css('bootstrap.min');                                             
-    echo $this->Html->css('gmm');                                             
+    
+    echo $this->Html->css('bootstrap.min');
+    echo $this->Html->css('gmm');
 
-    echo $this->Html->script('jquery');
-    echo $this->Html->script('jquery.animate-colors');
-    echo $this->Html->script('gmm');
-    echo $this->Html->script('jquery.history');
+    if(!isset($_SESSION['nojs']) || $_SESSION['nojs'] == '0') {
+      echo $this->Html->script('jquery');
+      echo $this->Html->script('jquery.animate-colors');
+      echo $this->Html->script('gmm');
+      echo $this->Html->script('jquery.history');
+    }
                                                                                  
     echo $this->fetch('meta');                                                   
     echo $this->fetch('css');                                                    
@@ -42,6 +45,7 @@
 </head>
 <body>
 <div id="fb-root"></div>
+<?php if(!isset($_SESSION['nojs']) || $_SESSION['nojs'] == '0') { ?>
   <script>
     loadScript = function(d, s, id, url) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -57,6 +61,7 @@
   <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
     {parsetags: 'explicit'}
   </script>
+<?php } ?>
   <div id="header-container">
     <div id="header" class="content-width">
       <h1><a href="/"><img src="/img/gmm_logo.png"></a></h1>
@@ -76,7 +81,11 @@
   <div class="footer content-width">
     &copy; 2012 Good Measure Meals
     <br><br>
-    <a href="#">Click here to turn off Javascript if you're having trouble viewing the site</a>
+<?php if(isset($_SESSION['nojs']) && $_SESSION['nojs'] == '1') { ?>
+    <a href="/js.php" class="nojs">Turn javascript back on</a>
+<?php } else { ?>
+    <a href="/nojs.php" class="nojs">Click here to turn off Javascript if you're having trouble viewing the site</a>
+<?php } ?>
   </div>
 </body>                                                                          
 </html>  

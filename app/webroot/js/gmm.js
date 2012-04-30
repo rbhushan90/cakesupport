@@ -1,6 +1,9 @@
 $(document).ready(function() {
   $(document).on('click', 'a', 
     function(e) {
+      if($(this).is('.nojs')) {
+        return;
+      }
       if($(this).is('.action')) {
           e.preventDefault();
 
