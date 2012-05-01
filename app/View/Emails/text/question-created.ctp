@@ -1,6 +1,6 @@
 Hi <?php echo $fname ?>,
 
-A new question was creted by <?php echo $user ?>:
+A new question titled <?php echo $title ?>was created by <?php echo $user ?>:
 
 <?php echo $body ?>
 

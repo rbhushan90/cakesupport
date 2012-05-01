@@ -67,6 +67,8 @@ $(document).ready(function() {
         }).error(function(data, stat, err) {
           if(err.toLowerCase().indexOf('redirect') != -1) {
             loadPage('/', true);
+          } else if(err.toLowerCase().indexOf('questions') != -1) {
+            loadPage('/questions', true);
           } else {
             loadError();
           }

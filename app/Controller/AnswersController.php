@@ -28,6 +28,19 @@ class AnswersController extends AppController {
     $this->request->data['Answer']['body'] = htmlspecialchars($this->request->data['Answer']['body']); 
 
     if($this->Answer->save($this->request->data)) {
+      $answer = $this->Answer->read()
+      App::uses('CakeEmail', 'Network/Email');
+      $email = new CakeEmail('monitor');
+      $email->template('answer-created');
+      $email->to('ashroff6@gmail.com');
+      $email->subject('[GMM] Answer Created');
+      $vars = array();
+      $vars['fname'] = 'Abhishek';
+      $vars['user'] = $answer['User']['username'];
+      $vars['body'] = $answe['Answer']['body'];
+      $vars['url'] = 'http://' . $_SERVER['SERVER_NAME'] . '/questions/view/' . $answer['Answer']['question_id'];
+      $email->viewVars($vars);
+      $email->send();
       $this->redirect(array('controller' => 'questions', 'action' => 'view', $this->data['Answer']['question_id']));
     } else {
       $this->Session->setFlash('Could not save answer');

@@ -182,6 +182,7 @@ class QuestionsController extends AppController {
           $vars = array();
           $vars['fname'] = 'Abhishek';
           $vars['user'] = $question['User']['username'];
+          $vars['title'] = $question['Question']['title'];
           $vars['body'] = $question['Question']['body'];
           $vars['url'] = 'http://' . $_SERVER['SERVER_NAME'] . '/questions/view/' . $question['Question']['id'];
           $email->viewVars($vars);
