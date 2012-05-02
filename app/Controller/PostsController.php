@@ -91,7 +91,11 @@ class PostsController extends AppController {
     $selCat = CakeSession::read('cat');
     if(!$selCat) {
       $selCat = 0;
-      CakeSession::write('cat', $selCat);
+    }
+    CakeSession::write('questionTag', '0');
+    $selTag = CakeSession::read('postTag');
+    if(!$selTag) {
+      $selTag = 0;
     }
 
     if($p == null) {
@@ -109,11 +113,15 @@ class PostsController extends AppController {
     $this->set('post', $p);
     $this->set('tags', $this->Tag->find('all'));
     $this->set('cats', $this->Category->find('all'));
+    $this->set('selCat', $selCat);
+    $this->set('selTag', $selTag);
+    $this->set('tagfn', 'selectPostTag');
   }
   public function index() {
     $this->set('title_for_layout', 'Blog');
     $selCat = CakeSession::read('cat');
-    $selTag = CakeSession::read('tag');
+    $selTag = CakeSession::read('postTag');
+    CakeSession::write('questionTag', '0');
     if($selCat && $selCat != 0) {
       $options['joins'][] = array(
           'table' => 'categories_posts',
@@ -129,6 +137,8 @@ class PostsController extends AppController {
         );
 
       $options['conditions']['Category.id'] = $selCat;
+    } else {
+      $selCat = '0';
     }
     if($selTag && $selTag != 0) {
       $options['joins'][] = array(
@@ -145,15 +155,21 @@ class PostsController extends AppController {
         );
 
       $options['conditions']['Tag.id'] = $selTag;
+    } else {
+      $selTag = '0';
     }
     $options['order'] = array('Post.id' => 'desc');
     $options['limit'] = 2;
 	
-	$this->paginate = $options;
+    $this->paginate = $options;
     $posts = $this->paginate('Post');
     $this->set('posts', $posts);
     $this->set('tags', $this->Tag->find('all'));
     $this->set('cats', $this->Category->find('all'));
+
+    $this->set('selCat', $selCat);
+    $this->set('selTag', $selTag);
+    $this->set('tagfn', 'selectPostTag');
   }
 
 

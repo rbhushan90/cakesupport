@@ -19,7 +19,8 @@ class QuestionsController extends AppController {
   }
 
   public function filterTags() {
-    $selTag = CakeSession::read('tag');
+    $selTag = CakeSession::read('questionTag');
+    CakeSession::write('postTag', '0');
     if($selTag && $selTag != 0) {
       $options['joins'][] = array(
           'table' => 'questions_tags',
@@ -36,10 +37,14 @@ class QuestionsController extends AppController {
 
       $options['conditions'] = array('Tag.id' => $selTag);
       //return $options;
+    } else {
+      $selTag = 0;
     }
     //$options['order'] = array('Question.id desc');
     $options['order'] = array('Question.id' => 'desc'); //Pagination requires different order format
     $options['limit'] = 5;
+    $this->set('selTag', $selTag);
+    $this->set('tagfn', 'selectQuestionTag');
     return $options;
   }
 
