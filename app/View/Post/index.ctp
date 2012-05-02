@@ -91,9 +91,9 @@ Blog
     </div>
   </div>
   <div class="sidebar">
-    <?php echo $this->element('external'); ?>
     <?php echo $this->element('categories'); ?>
     <?php echo $this->element('tags'); ?>
+    <?php echo $this->element('external'); ?>
   </div>
   <div class="clear"></div>
 </div>

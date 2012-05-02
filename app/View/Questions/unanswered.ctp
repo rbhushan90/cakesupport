@@ -21,8 +21,8 @@
   </div>
 
   <div class="sidebar">
-    <?php echo $this->element('external'); ?>
     <?php echo $this->element('tags'); ?>
+    <?php echo $this->element('external'); ?>
   </div>
 
   <div class="clear"></div>
