@@ -8,7 +8,7 @@
       }
       $text .= 'All';
       echo $this->Html->link($text, array('controller' => 'tags', 'action' =>
-        $tagfn, 0), array('escape' => false, 'class' =>'action ref'));
+        'select', $tagfn, 0), array('escape' => false, 'class' =>'action ref'));
     ?>
   </p>
   <?php foreach($tags as $tag): ?>
@@ -20,7 +20,7 @@
       }
       $text .= $tag['Tag']['name'];
       echo $this->Html->link($text, array('controller' => 'tags', 'action' =>
-        $tagfn, $tag['Tag']['id']), array('escape' => false, 'class' =>'action ref'));
+        'select', $tagfn, $tag['Tag']['id']), array('escape' => false, 'class' =>'action ref'));
     ?>
   </p>
   <?php endforeach; ?>

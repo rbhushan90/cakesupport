@@ -18,9 +18,9 @@ class QuestionsController extends AppController {
     }
   }
 
-  public function filterTags() {
-    $selTag = CakeSession::read('questionTag');
-    CakeSession::write('postTag', '0');
+  public function filterTags($name, $tagfn) {
+    $selTag = CakeSession::read($name);
+    CakeSession::write('cat', '0');
     if($selTag && $selTag != 0) {
       $options['joins'][] = array(
           'table' => 'questions_tags',
@@ -44,19 +44,23 @@ class QuestionsController extends AppController {
     $options['order'] = array('Question.id' => 'desc'); //Pagination requires different order format
     $options['limit'] = 5;
     $this->set('selTag', $selTag);
-    $this->set('tagfn', 'selectQuestionTag');
+    $this->set('tagfn', $tagfn);
     return $options;
   }
 
   public function index() {
-    $options = $this->filterTags();
+    $options = $this->filterTags('questionTag', '2');
+    CakeSession::write('postTag', '0');
+    CakeSession::write('faqTag', '0');
     $this->paginate = $options;
     $this->set('questions', $this->paginate('Question'));
     $this->set('tags', $this->Tag->find('all'));
   }
 
   public function unanswered() {
-    $options = $this->filterTags();
+    $options = $this->filterTags('questionTag', '2');
+    CakeSession::write('postTag', '0');
+    CakeSession::write('faqTag', '0');
     $options['conditions']['Question.answer_count'] = 0;
     $this->paginate = $options;
     $this->set('questions', $this->paginate('Question'));
@@ -64,7 +68,9 @@ class QuestionsController extends AppController {
   }
 
   public function unaccepted() {
-    $options = $this->filterTags();
+    $options = $this->filterTags('questionTag', '2');
+    CakeSession::write('postTag', '0');
+    CakeSession::write('faqTag', '0');
     $options['conditions']['Question.accepted'] = NULL;
     $this->paginate = $options;
     $this->set('questions', $this->paginate('Question'));
@@ -202,7 +208,9 @@ class QuestionsController extends AppController {
   }
 
   public function faq() {
-    $options = $this->filterTags();
+    $options = $this->filterTags('faqTag', '3');
+    CakeSession::write('postTag', '0');
+    CakeSession::write('questionTag', '0');
     $options['conditions']['Question.faq'] = '1';
     $this->set('faqs', $this->Question->find('all', $options));
     $this->set('tags', $this->Tag->find('all'));

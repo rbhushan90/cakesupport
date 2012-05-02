@@ -5,28 +5,17 @@ class TagsController extends AppController {
 
 
 
-  public function selectQuestionTag($id = null) {
+  public function select($type = 0, $id = null) {
     $this->Tag->id = $id;
     $tag = $this->Tag->read();
     if($tag || $id == 0 ) {
-      CakeSession::write('questionTag', $id);
-    } else {
-      $this->Session->setFlash('This category does not exist');
-    }
-
-    if(!$this->request->is('ajax')) {
-      if(isset($_SERVER['HTTP_REFERER'])) {
-        $this->redirect($_SERVER['HTTP_REFERER']);
-      } else {
-        $this->redirect('/');
+      if($type == 1) {
+        CakeSession::write('postTag', $id);
+      } else if($type == 2) {
+        CakeSession::write('questionTag', $id);
+      } else if($type == 3) {
+        CakeSession::write('faqTag', $id);
       }
-    }
-  }
-  public function selectPostTag($id = null) {
-    $this->Tag->id = $id;
-    $tag = $this->Tag->read();
-    if($tag || $id == 0 ) {
-      CakeSession::write('postTag', $id);
     } else {
       $this->Session->setFlash('This category does not exist');
     }
