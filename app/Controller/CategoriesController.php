@@ -14,7 +14,11 @@ class CategoriesController extends AppController {
     }
 
     if(!$this->request->is('ajax')) {
-      $this->redirect(array('controller' => 'posts'));
+      if(isset($_SERVER['HTTP_REFERER'])) {
+        $this->redirect($_SERVER['HTTP_REFERER']);
+      } else {
+        $this->redirect('/posts');
+      }
     }
   }
 

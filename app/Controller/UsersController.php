@@ -337,7 +337,11 @@ class UsersController extends AppController {
 
   public function logout() {
     CakeSession::delete('User');
-    $this->errorRedirect('/', '475 Unnecessary');
+    if(isset($_SERVER['HTTP_REFERER'])) {
+      $this->errorRedirect($_SERVER['HTTP_REFERER'], '475 Unnecessary');
+    } else {
+      $this->errorRedirect('/', '475 Unnecessary');
+    }
   }
 
   public function view($id = null) {

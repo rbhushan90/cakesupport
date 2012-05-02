@@ -14,7 +14,11 @@ class TagsController extends AppController {
     }
 
     if(!$this->request->is('ajax')) {
-      $this->redirect(array('controller' => 'questions'));
+      if(isset($_SERVER['HTTP_REFERER'])) {
+        $this->redirect($_SERVER['HTTP_REFERER']);
+      } else {
+        $this->redirect('/');
+      }
     }
   }
 
