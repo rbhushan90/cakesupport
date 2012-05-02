@@ -58,7 +58,7 @@ class QuestionsController extends AppController {
   }
 
   public function unanswered() {
-    $options = $this->filterTags('questionTag', '2');
+    $options = $this->filterTags('questionTag', '3');
     CakeSession::write('postTag', '0');
     CakeSession::write('faqTag', '0');
     $options['conditions']['Question.answer_count'] = 0;
@@ -68,7 +68,7 @@ class QuestionsController extends AppController {
   }
 
   public function unaccepted() {
-    $options = $this->filterTags('questionTag', '2');
+    $options = $this->filterTags('questionTag', '4');
     CakeSession::write('postTag', '0');
     CakeSession::write('faqTag', '0');
     $options['conditions']['Question.accepted'] = NULL;
@@ -208,7 +208,7 @@ class QuestionsController extends AppController {
   }
 
   public function faq() {
-    $options = $this->filterTags('faqTag', '3');
+    $options = $this->filterTags('faqTag', '5');
     CakeSession::write('postTag', '0');
     CakeSession::write('questionTag', '0');
     $options['conditions']['Question.faq'] = '1';
