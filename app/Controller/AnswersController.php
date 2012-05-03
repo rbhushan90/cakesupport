@@ -28,7 +28,7 @@ class AnswersController extends AppController {
     $this->request->data['Answer']['body'] = htmlspecialchars($this->request->data['Answer']['body']); 
 
     if($this->Answer->save($this->request->data)) {
-      $answer = $this->Answer->read()
+      $answer = $this->Answer->read();
       App::uses('CakeEmail', 'Network/Email');
       $email = new CakeEmail('monitor');
       $email->template('answer-created');
